@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,18 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		7694B874126001A1080E9054 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F98511B0BADA4F8D03DFCF7 /* Pods_iosApp.framework */; };
+		845C80AB299788310029D58B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80AA299788310029D58B /* AppView.swift */; };
+		845C80AD2997885B0029D58B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80AC2997885B0029D58B /* ViewModel.swift */; };
+		845C80AF299788650029D58B /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80AE299788650029D58B /* Routing.swift */; };
+		845C80B4299789490029D58B /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80B3299789490029D58B /* AuthorizationRouter.swift */; };
+		845C80B729978EFF0029D58B /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80B629978EFF0029D58B /* AuthorizationView.swift */; };
+		845C80B929978F5B0029D58B /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80B829978F5B0029D58B /* AuthorizationViewModel.swift */; };
+		845C80BC299792350029D58B /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80BB299792350029D58B /* RegistrationView.swift */; };
+		845C80BE2997923F0029D58B /* RegistrationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80BD2997923F0029D58B /* RegistrationRouter.swift */; };
+		845C80C0299792470029D58B /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80BF299792470029D58B /* RegistrationViewModel.swift */; };
+		845C80C3299799980029D58B /* AppNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80C2299799980029D58B /* AppNavigationLink.swift */; };
+		845C80C629979B020029D58B /* PresentationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80C529979B020029D58B /* PresentationFactory.swift */; };
+		845C80C82997A3630029D58B /* AppOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80C72997A3630029D58B /* AppOverviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +33,18 @@
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		845C80AA299788310029D58B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		845C80AC2997885B0029D58B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		845C80AE299788650029D58B /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
+		845C80B3299789490029D58B /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
+		845C80B629978EFF0029D58B /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
+		845C80B829978F5B0029D58B /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
+		845C80BB299792350029D58B /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		845C80BD2997923F0029D58B /* RegistrationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRouter.swift; sourceTree = "<group>"; };
+		845C80BF299792470029D58B /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		845C80C2299799980029D58B /* AppNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationLink.swift; sourceTree = "<group>"; };
+		845C80C529979B020029D58B /* PresentationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationFactory.swift; sourceTree = "<group>"; };
+		845C80C72997A3630029D58B /* AppOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOverviewView.swift; sourceTree = "<group>"; };
 		8F98511B0BADA4F8D03DFCF7 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C503FEF97ACF903262DECD /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B916676F2153182D78CE7CB3 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -52,7 +76,6 @@
 				B2C503FEF97ACF903262DECD /* Pods-iosApp.debug.xcconfig */,
 				B916676F2153182D78CE7CB3 /* Pods-iosApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -77,6 +100,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				845C80B0299788E00029D58B /* Presentation */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
@@ -84,6 +108,73 @@
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
+			sourceTree = "<group>";
+		};
+		845C80A9299788270029D58B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				845C80C12997998E0029D58B /* Helpers */,
+				845C80AA299788310029D58B /* AppView.swift */,
+				845C80AC2997885B0029D58B /* ViewModel.swift */,
+				845C80AE299788650029D58B /* Routing.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		845C80B0299788E00029D58B /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				845C80C429979ACF0029D58B /* Modules */,
+				845C80A9299788270029D58B /* Core */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		845C80B1299788F30029D58B /* AuthrorizationModule */ = {
+			isa = PBXGroup;
+			children = (
+				845C80BA299792270029D58B /* Registration */,
+				845C80B529978EDE0029D58B /* Authorization */,
+			);
+			path = AuthrorizationModule;
+			sourceTree = "<group>";
+		};
+		845C80B529978EDE0029D58B /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				845C80B3299789490029D58B /* AuthorizationRouter.swift */,
+				845C80B629978EFF0029D58B /* AuthorizationView.swift */,
+				845C80B829978F5B0029D58B /* AuthorizationViewModel.swift */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
+		845C80BA299792270029D58B /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				845C80BB299792350029D58B /* RegistrationView.swift */,
+				845C80BD2997923F0029D58B /* RegistrationRouter.swift */,
+				845C80BF299792470029D58B /* RegistrationViewModel.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		845C80C12997998E0029D58B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				845C80C2299799980029D58B /* AppNavigationLink.swift */,
+				845C80C72997A3630029D58B /* AppOverviewView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		845C80C429979ACF0029D58B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				845C80B1299788F30029D58B /* AuthrorizationModule */,
+				845C80C529979B020029D58B /* PresentationFactory.swift */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		9265BFBB3A6DE49C9C3EFE6C /* Frameworks */ = {
@@ -105,6 +196,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				7555FF79242A565900829871 /* Resources */,
 				84154B855269FA6D11968DF7 /* Frameworks */,
+				184A6E9ECA544FEE0FDB6302 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -161,6 +253,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		184A6E9ECA544FEE0FDB6302 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		881BE7C4B22EABCDE295378E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -190,8 +299,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845C80B729978EFF0029D58B /* AuthorizationView.swift in Sources */,
+				845C80C82997A3630029D58B /* AppOverviewView.swift in Sources */,
+				845C80AF299788650029D58B /* Routing.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				845C80C0299792470029D58B /* RegistrationViewModel.swift in Sources */,
+				845C80B929978F5B0029D58B /* AuthorizationViewModel.swift in Sources */,
+				845C80AD2997885B0029D58B /* ViewModel.swift in Sources */,
+				845C80B4299789490029D58B /* AuthorizationRouter.swift in Sources */,
+				845C80AB299788310029D58B /* AppView.swift in Sources */,
+				845C80C3299799980029D58B /* AppNavigationLink.swift in Sources */,
+				845C80C629979B020029D58B /* PresentationFactory.swift in Sources */,
+				845C80BC299792350029D58B /* RegistrationView.swift in Sources */,
+				845C80BE2997923F0029D58B /* RegistrationRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

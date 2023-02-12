@@ -9,11 +9,13 @@ plugins {
 sealed class Versions {
     companion object {
         const val coroutines = "1.6.4"
-        const val ktor = "2.2.2"
+        const val ktor = "2.2.3"
         const val koin = "3.3.2"
         const val serialization = "1.4.1"
         const val sqlDelight = "1.5.5"
         const val logback = "1.4.5"
+        const val multiplatformSettings = "0.7.4"
+        const val kermit = "1.2.2"
     }
 }
 
@@ -38,6 +40,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Coroutines
+
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
 
                 // ktor
@@ -61,6 +64,9 @@ kotlin {
                 // Other
                 implementation("co.touchlab:kermit:1.0.0")
                 implementation("ch.qos.logback:logback-classic:${Versions.logback}")
+
+                implementation("com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}")
+                implementation("com.russhwolf:multiplatform-settings-coroutines:1.0.0")
             }
         }
         val commonTest by getting
@@ -70,10 +76,11 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
 
                 // ktor
-                implementation("io.ktor:ktor-client-android:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
 
                 // SQLDelight
                 implementation("com.squareup.sqldelight:android-driver:${Versions.sqlDelight}")
+                implementation("com.russhwolf:multiplatform-settings-datastore:1.0.0")
             }
         }
         val androidTest by getting
@@ -87,7 +94,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 // ktor
-                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-darwin:${Versions.ktor}")
 
                 // SQLDelight
                 implementation("com.squareup.sqldelight:native-driver:${Versions.sqlDelight}")
@@ -112,6 +119,9 @@ android {
         minSdk = 26
         targetSdk = 32
     }
+}
+dependencies {
+    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha03")
 }
 
 sqldelight {
