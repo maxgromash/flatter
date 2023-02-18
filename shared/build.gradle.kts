@@ -40,7 +40,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Coroutines
-
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
 
                 // ktor
@@ -112,16 +111,17 @@ kotlin {
     }
 }
 
+@Suppress("UnstableApiUsage")
 android {
     namespace = "com.app.flatter"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         minSdk = 26
-        targetSdk = 32
+        targetSdk = 33
     }
 }
 dependencies {
-    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha03")
+    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha04")
 }
 
 sqldelight {

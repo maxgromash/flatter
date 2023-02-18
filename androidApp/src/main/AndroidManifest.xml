@@ -5,10 +5,11 @@
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".MainApplication"
-        >
+        android:label="Flatter"
+        android:name=".main.MainApplication">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

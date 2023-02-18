@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/buildingsFragment"
+        android:icon="@drawable/baseline_home_work_24"
+        android:title="@string/buildings" />
+    <item
+        android:id="@+id/newsFragment"
+        android:icon="@drawable/baseline_newspaper_24"
+        android:title="@string/news" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/round_person_24"
+        android:title="@string/profile" />
+</menu>

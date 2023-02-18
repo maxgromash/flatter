@@ -1,4 +1,4 @@
-package com.app.flatter.android
+package com.app.flatter.android.main
 
 import android.app.Application
 import com.app.flatter.di.commonModule
