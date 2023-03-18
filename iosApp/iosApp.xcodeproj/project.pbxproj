@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
-		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		7694B874126001A1080E9054 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F98511B0BADA4F8D03DFCF7 /* Pods_iosApp.framework */; };
+		843591B129BC9B69008ADA45 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843591B029BC9B69008ADA45 /* RootView.swift */; };
+		843591B429BC9D68008ADA45 /* ImagesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843591B329BC9D68008ADA45 /* ImagesProvider.swift */; };
+		843591B929BDF79C008ADA45 /* AuthorizationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843591B829BDF79C008ADA45 /* AuthorizationTextField.swift */; };
+		843591BB29BDFA8F008ADA45 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843591BA29BDFA8F008ADA45 /* View+Extensions.swift */; };
+		843591C029BE0FC1008ADA45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
+		843591C229BE0FD1008ADA45 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843591C129BE0FD1008ADA45 /* Colors.xcassets */; };
+		843591C429BE1123008ADA45 /* ColorsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843591C329BE1123008ADA45 /* ColorsProvider.swift */; };
 		845C80AB299788310029D58B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80AA299788310029D58B /* AppView.swift */; };
 		845C80AD2997885B0029D58B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80AC2997885B0029D58B /* ViewModel.swift */; };
 		845C80AF299788650029D58B /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80AE299788650029D58B /* Routing.swift */; };
@@ -22,7 +27,7 @@
 		845C80BE2997923F0029D58B /* RegistrationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80BD2997923F0029D58B /* RegistrationRouter.swift */; };
 		845C80C0299792470029D58B /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80BF299792470029D58B /* RegistrationViewModel.swift */; };
 		845C80C3299799980029D58B /* AppNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80C2299799980029D58B /* AppNavigationLink.swift */; };
-		845C80C629979B020029D58B /* PresentationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80C529979B020029D58B /* PresentationFactory.swift */; };
+		845C80C629979B020029D58B /* ProfileModulePresentationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80C529979B020029D58B /* ProfileModulePresentationFactory.swift */; };
 		845C80C82997A3630029D58B /* AppOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C80C72997A3630029D58B /* AppOverviewView.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +38,12 @@
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		843591B029BC9B69008ADA45 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		843591B329BC9D68008ADA45 /* ImagesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesProvider.swift; sourceTree = "<group>"; };
+		843591B829BDF79C008ADA45 /* AuthorizationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTextField.swift; sourceTree = "<group>"; };
+		843591BA29BDFA8F008ADA45 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		843591C129BE0FD1008ADA45 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		843591C329BE1123008ADA45 /* ColorsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsProvider.swift; sourceTree = "<group>"; };
 		845C80AA299788310029D58B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		845C80AC2997885B0029D58B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		845C80AE299788650029D58B /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
@@ -43,7 +54,7 @@
 		845C80BD2997923F0029D58B /* RegistrationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRouter.swift; sourceTree = "<group>"; };
 		845C80BF299792470029D58B /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		845C80C2299799980029D58B /* AppNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationLink.swift; sourceTree = "<group>"; };
-		845C80C529979B020029D58B /* PresentationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationFactory.swift; sourceTree = "<group>"; };
+		845C80C529979B020029D58B /* ProfileModulePresentationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModulePresentationFactory.swift; sourceTree = "<group>"; };
 		845C80C72997A3630029D58B /* AppOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOverviewView.swift; sourceTree = "<group>"; };
 		8F98511B0BADA4F8D03DFCF7 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2C503FEF97ACF903262DECD /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,14 +111,49 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				843591BE29BE0F6D008ADA45 /* Resources */,
 				845C80B0299788E00029D58B /* Presentation */,
-				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
-				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
+			sourceTree = "<group>";
+		};
+		843591AF29BC9B5A008ADA45 /* RootModule */ = {
+			isa = PBXGroup;
+			children = (
+				843591B029BC9B69008ADA45 /* RootView.swift */,
+			);
+			path = RootModule;
+			sourceTree = "<group>";
+		};
+		843591B229BC9D5A008ADA45 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				843591B329BC9D68008ADA45 /* ImagesProvider.swift */,
+				843591BA29BDFA8F008ADA45 /* View+Extensions.swift */,
+				843591C329BE1123008ADA45 /* ColorsProvider.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		843591B729BDF77D008ADA45 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				843591B829BDF79C008ADA45 /* AuthorizationTextField.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		843591BE29BE0F6D008ADA45 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7555FF8C242A565B00829871 /* Info.plist */,
+				058557BA273AAA24004C7B11 /* Assets.xcassets */,
+				843591C129BE0FD1008ADA45 /* Colors.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		845C80A9299788270029D58B /* Core */ = {
@@ -124,19 +170,21 @@
 		845C80B0299788E00029D58B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				843591B229BC9D5A008ADA45 /* Helpers */,
 				845C80C429979ACF0029D58B /* Modules */,
 				845C80A9299788270029D58B /* Core */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		845C80B1299788F30029D58B /* AuthrorizationModule */ = {
+		845C80B1299788F30029D58B /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
+				843591B729BDF77D008ADA45 /* Helpers */,
 				845C80BA299792270029D58B /* Registration */,
 				845C80B529978EDE0029D58B /* Authorization */,
 			);
-			path = AuthrorizationModule;
+			path = ProfileModule;
 			sourceTree = "<group>";
 		};
 		845C80B529978EDE0029D58B /* Authorization */ = {
@@ -171,8 +219,9 @@
 		845C80C429979ACF0029D58B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				845C80B1299788F30029D58B /* AuthrorizationModule */,
-				845C80C529979B020029D58B /* PresentationFactory.swift */,
+				843591AF29BC9B5A008ADA45 /* RootModule */,
+				845C80B1299788F30029D58B /* ProfileModule */,
+				845C80C529979B020029D58B /* ProfileModulePresentationFactory.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -245,8 +294,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
-				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+				843591C229BE0FD1008ADA45 /* Colors.xcassets in Resources */,
+				843591C029BE0FC1008ADA45 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +348,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843591B429BC9D68008ADA45 /* ImagesProvider.swift in Sources */,
+				843591C429BE1123008ADA45 /* ColorsProvider.swift in Sources */,
 				845C80B729978EFF0029D58B /* AuthorizationView.swift in Sources */,
 				845C80C82997A3630029D58B /* AppOverviewView.swift in Sources */,
 				845C80AF299788650029D58B /* Routing.swift in Sources */,
@@ -308,11 +359,14 @@
 				845C80B929978F5B0029D58B /* AuthorizationViewModel.swift in Sources */,
 				845C80AD2997885B0029D58B /* ViewModel.swift in Sources */,
 				845C80B4299789490029D58B /* AuthorizationRouter.swift in Sources */,
+				843591BB29BDFA8F008ADA45 /* View+Extensions.swift in Sources */,
 				845C80AB299788310029D58B /* AppView.swift in Sources */,
+				843591B929BDF79C008ADA45 /* AuthorizationTextField.swift in Sources */,
 				845C80C3299799980029D58B /* AppNavigationLink.swift in Sources */,
-				845C80C629979B020029D58B /* PresentationFactory.swift in Sources */,
+				845C80C629979B020029D58B /* ProfileModulePresentationFactory.swift in Sources */,
 				845C80BC299792350029D58B /* RegistrationView.swift in Sources */,
 				845C80BE2997923F0029D58B /* RegistrationRouter.swift in Sources */,
+				843591B129BC9B69008ADA45 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -425,7 +479,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -443,7 +497,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = iosApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,7 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = iosApp/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

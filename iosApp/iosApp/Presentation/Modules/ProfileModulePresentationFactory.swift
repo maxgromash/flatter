@@ -1,12 +1,15 @@
 import Foundation
 import SwiftUI
 
-final class PresentationFactory {
+final class ProfileModulePresentationFactory {
     @ViewBuilder func makeAuthView() -> some View {
         let viewModel = AuthorizationViewModelImpl()
         let router = AuthorizationRouter(presentationFactory: self)
 
-        AuthorizationView(viewModel: viewModel, router: router)
+        VStack {
+            AuthorizationView(viewModel: viewModel, router: router)
+            AppNavigationLink(viewModel: viewModel, router: router)
+        }
     }
 
     @ViewBuilder func makeRegistrationView() -> some View {

@@ -2,11 +2,9 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    let presentationFactory: PresentationFactory
+    let presentationFactory: ProfileModulePresentationFactory
 
 	var body: some View {
-        NavigationView {
-            presentationFactory.makeAuthView()
-        }
+        RootView(presentationFactory: presentationFactory)
 	}
 }

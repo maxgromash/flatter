@@ -18,24 +18,13 @@ struct AppOverviewView<Router: Routing, VM: ViewModel, Content: View>: AppView w
     }
 
     var body: some View {
-        content
-            .fullScreenCover(
-                isPresented: .init(
-                    get: { viewModel.overviewRoute != nil },
-                    set: {
-                        if $0 == false {
-                            viewModel.overviewRoute = nil
-                        }
-                    }
-                ),
-                content: {
-                    if let route = viewModel.overviewRoute {
-                        router.view(for: route)
-                    }
-                    else {
-                        EmptyView()
-                    }
-                }
-            )
+        if let route = viewModel.overviewRoute {
+            content.overlay {
+                router.view(for: route)
+            }
+        }
+        else {
+            content
+        }
     }
 }

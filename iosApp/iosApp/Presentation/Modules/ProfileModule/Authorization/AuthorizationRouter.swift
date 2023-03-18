@@ -7,7 +7,7 @@ enum AuthorizationRoute: RouteType {
 }
 
 struct AuthorizationRouter: Routing {
-    let presentationFactory: PresentationFactory
+    let presentationFactory: ProfileModulePresentationFactory
 
     @ViewBuilder func view(for route: AuthorizationRoute) -> some View {
         switch route {
