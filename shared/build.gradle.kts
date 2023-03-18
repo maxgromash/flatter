@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("com.squareup.sqldelight")
+    id("com.squareup.wire")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.8.0"
 }
@@ -9,13 +9,12 @@ plugins {
 sealed class Versions {
     companion object {
         const val coroutines = "1.6.4"
-        const val ktor = "2.2.3"
         const val koin = "3.3.2"
         const val serialization = "1.4.1"
-        const val sqlDelight = "1.5.5"
         const val logback = "1.4.5"
         const val multiplatformSettings = "0.7.4"
         const val kermit = "1.2.2"
+        const val wire = "4.2.0"
     }
 }
 
@@ -42,20 +41,8 @@ kotlin {
                 // Coroutines
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
 
-                // ktor
-                implementation("io.ktor:ktor-client-core:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
-                // https://ktor.io/docs/serialization-client.html
-                implementation("io.ktor:ktor-client-content-negotiation:${Versions.ktor}")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}")
-
-
                 // serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:${Versions.serialization}")
-
-                // SQLDelight
-                implementation("com.squareup.sqldelight:runtime:${Versions.sqlDelight}")
-                implementation("com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}")
 
                 // koin
                 implementation("io.insert-koin:koin-core:${Versions.koin}")
@@ -66,6 +53,11 @@ kotlin {
 
                 implementation("com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}")
                 implementation("com.russhwolf:multiplatform-settings-coroutines:1.0.0")
+
+                // Wire
+                implementation("com.squareup.wire:wire-grpc-client:${Versions.wire}")
+                implementation("com.squareup.wire:wire-runtime:${Versions.wire}")
+
             }
         }
         val commonTest by getting
@@ -73,13 +65,6 @@ kotlin {
             dependencies {
                 // Coroutines
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
-
-                // ktor
-                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
-
-                // SQLDelight
-                implementation("com.squareup.sqldelight:android-driver:${Versions.sqlDelight}")
-                implementation("com.russhwolf:multiplatform-settings-datastore:1.0.0")
             }
         }
         val androidTest by getting
@@ -92,11 +77,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                // ktor
-                implementation("io.ktor:ktor-client-darwin:${Versions.ktor}")
 
-                // SQLDelight
-                implementation("com.squareup.sqldelight:native-driver:${Versions.sqlDelight}")
             }
         }
         val iosX64Test by getting
@@ -120,13 +101,17 @@ android {
         targetSdk = 33
     }
 }
+
 dependencies {
-    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha04")
+    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha05")
 }
 
-sqldelight {
-    database("AppDatabase") {
-        packageName = "tables"
-        sourceFolders = listOf("sqldelight")
+wire {
+    sourcePath {
+        srcDir("./src/proto")
+    }
+    kotlin {
+        rpcRole = "client"
+        rpcCallStyle = "suspending"
     }
 }
