@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol RouteType: Hashable, CaseIterable {}
+protocol RouteType: Hashable {}
 
 protocol Routing {
     associatedtype Route: RouteType

@@ -2,24 +2,56 @@ import Foundation
 import SwiftUI
 
 struct RootView: View {
+    init() {
+        self.presentationFactory = .init()
+        setupAppearance()
+    }
+
     let presentationFactory: ProfileModulePresentationFactory
 
-    init(presentationFactory: ProfileModulePresentationFactory) {
-        self.presentationFactory = presentationFactory
+    private func setupAppearance() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = UIColor(ColorsProvider.primaryContainer)
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
 
-        UITabBar.appearance().backgroundColor = UIColor(ColorsProvider.primaryContainer)
+        let appearance = UINavigationBarAppearance()
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.backgroundColor = .init(ColorsProvider.primary)
+        UINavigationBar.appearance().standardAppearance = appearance
     }
 
     var body: some View {
         TabView {
-            Text("Проекты")
-                .tabItem {
-                    TabItemView(
-                        text: "Проекты",
-                        icon: ImagesProvider.buildingTabIcon
-                    )
+            NavigationView {
+                let viewModel = ProjectsListViewModelImpl()
+                let router = ProjectsListRouter()
+                VStack {
+                    ProjectsListView(viewModel: viewModel, router: router)
+                    AppNavigationLink(viewModel: viewModel, router: router)
                 }
-            Text("Новости")
+            }
+            .tint(.white)
+            .tabItem {
+                TabItemView(
+                    text: "Проекты",
+                    icon: ImagesProvider.buildingTabIcon
+                )
+            }
+            NavigationView {
+                let viewModel = NewsListViewModelImpl()
+                let router = NewsListRouter()
+                VStack {
+                    NewsListView(
+                        viewModel: viewModel,
+                        router: router
+                    )
+                    AppNavigationLink(viewModel: viewModel, router: router)
+                }
+            }
+            .tint(.white)
+            .navigationViewStyle(.stack)
                 .tabItem {
                     TabItemView(
                         text: "Новости",
@@ -29,6 +61,7 @@ struct RootView: View {
             NavigationView {
                 presentationFactory.makeAuthView()
             }
+            .tint(.white)
             .tabItem {
                 TabItemView(
                     text: "Профиль",
@@ -36,6 +69,7 @@ struct RootView: View {
                 )
             }
         }
+        .tint(ColorsProvider.primary)
     }
 }
 
