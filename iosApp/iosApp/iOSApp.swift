@@ -4,7 +4,8 @@ import SwiftUI
 struct iOSApp: App {
 	var body: some Scene {
 		WindowGroup {
-            ContentView(presentationFactory: .init())
+            ContentView()
+                .preferredColorScheme(.light)
 		}
 	}
 }

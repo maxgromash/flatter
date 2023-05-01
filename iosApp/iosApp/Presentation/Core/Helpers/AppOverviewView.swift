@@ -18,24 +18,54 @@ struct AppOverviewView<Router: Routing, VM: ViewModel, Content: View>: AppView w
     }
 
     var body: some View {
+        if let route = viewModel.overviewRoute {
+            content.overlay {
+                router.view(for: route)
+            }
+        }
+        else {
+            content
+        }
+    }
+}
+
+struct AppAlertView<Router: Routing, VM: ViewModel, Content: View>: AppView where Router.Route == VM.Route {
+    @ObservedObject var viewModel: VM
+    let router: Router
+
+    let content: Content
+
+    let title: String
+    let message: String
+
+    init(
+        viewModel: VM,
+        router: Router,
+        title: String,
+        message: String,
+        @ViewBuilder content: () -> Content
+    ) {
+        self.viewModel = viewModel
+        self.router = router
+        self.title = title
+        self.message = message
+        self.content = content()
+    }
+
+    var body: some View {
         content
-            .fullScreenCover(
+            .alert(
+                title,
                 isPresented: .init(
-                    get: { viewModel.overviewRoute != nil },
+                    get: { viewModel.showAlert },
                     set: {
-                        if $0 == false {
-                            viewModel.overviewRoute = nil
+                        if false == $0 {
+                            viewModel.showAlert = false
                         }
                     }
                 ),
-                content: {
-                    if let route = viewModel.overviewRoute {
-                        router.view(for: route)
-                    }
-                    else {
-                        EmptyView()
-                    }
-                }
+                actions: { viewModel.navigationRoute.flatMap(router.view(for:)) },
+                message: { Text(message) }
             )
     }
 }

@@ -1,16 +1,31 @@
 PODS:
+  - HaishinKit (1.4.5):
+    - Logboard (~> 2.3.1)
+  - Logboard (2.3.1)
+  - MobileVLCKit (3.5.1)
   - shared (1.0)
 
 DEPENDENCIES:
+  - HaishinKit (~> 1.4.5)
+  - MobileVLCKit (~> 3.5.1)
   - shared (from `../shared`)
+
+SPEC REPOS:
+  trunk:
+    - HaishinKit
+    - Logboard
+    - MobileVLCKit
 
 EXTERNAL SOURCES:
   shared:
     :path: "../shared"
 
 SPEC CHECKSUMS:
+  HaishinKit: 73be9a86a23bafbc4b747133dad6f87a8154fc2a
+  Logboard: 3d98bb85de6a36b255ab637e8178eb5671c5c3a6
+  MobileVLCKit: 144d5f565512d1147d63b0fa1379231b3fd66535
   shared: 2d3b24a8fe27b7d9e65b8d075a9672fbc6a1aa10
 
-PODFILE CHECKSUM: f282da88f39e69507b0a255187c8a6b644477756
+PODFILE CHECKSUM: 3aafa8d5e04ba892a8f8e6600806f102ddc659e2
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0
