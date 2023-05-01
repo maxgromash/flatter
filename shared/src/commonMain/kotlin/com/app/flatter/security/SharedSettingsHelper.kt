@@ -11,14 +11,11 @@ class SharedSettingsHelper(
             return encryptedSettings.getStringOrNull(TOKEN_NAME)
         }
         set(value) {
-            encryptedSettings.set(TOKEN_NAME, value)
+            encryptedSettings[TOKEN_NAME] = value
         }
 
     companion object {
-        const val DATABASE_NAME = "UNENCRYPTED_SETTINGS"
         const val ENCRYPTED_DATABASE_NAME = "ENCRYPTED_SETTINGS"
-        const val encryptedSettingsName = "encryptedSettings"
-        const val unencryptedSettingsName = "unencryptedSettings"
-        const val TOKEN_NAME = "TOKEN"
+        const val TOKEN_NAME = "FLATTER_TOKEN"
     }
 }

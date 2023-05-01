@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.flats.FlatDetailsFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_round_arrow_back_24_white"
+            app:subtitleTextColor="@color/md_theme_light_background" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Квартира"
+            android:textColor="@color/cardview_light_background"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listRV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/listRV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:spi_dotColor="@color/md_theme_light_primary"
+            app:spi_dotSelectedColor="@color/md_theme_light_primary" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/aboutCardCL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_rounded_20_white"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/listRV">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/aboutTitleMTV"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="О квартире"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/starAPIV"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_star_border_24"
+                android:tint="@color/md_theme_light_primary"
+                app:layout_constraintBottom_toBottomOf="@+id/aboutTitleMTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/aboutTitleMTV" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/roomMTV"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/md_theme_light_primary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/aboutTitleMTV"
+                app:layout_constraintTop_toBottomOf="@+id/aboutTitleMTV"
+                tools:text="134" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/roomTitle"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N квартиры"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/roomMTV"
+                app:layout_constraintStart_toStartOf="@+id/roomMTV"
+                app:layout_constraintTop_toBottomOf="@+id/roomMTV" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/floorMTV"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:textColor="@color/md_theme_light_primary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/roomMTV"
+                app:layout_constraintStart_toEndOf="@id/roomMTV"
+                app:layout_constraintTop_toTopOf="@+id/roomMTV"
+                tools:text="13" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/floorTitle"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Этаж"
+                android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="@+id/floorMTV"
+                app:layout_constraintStart_toStartOf="@+id/floorMTV"
+                app:layout_constraintTop_toBottomOf="@+id/floorMTV" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/squareMTV"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="85dp"
+                android:textColor="@color/md_theme_light_primary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/roomMTV"
+                app:layout_constraintStart_toEndOf="@id/floorMTV"
+                app:layout_constraintTop_toTopOf="@+id/roomMTV"
+                tools:text="21.8" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/squareTitle"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Площадь"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/squareMTV"
+                app:layout_constraintStart_toStartOf="@+id/squareMTV"
+                app:layout_constraintTop_toBottomOf="@+id/squareMTV" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/md_theme_light_outline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/floorTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/priceTitle"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Стоимость"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/price"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/md_theme_light_primary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/priceTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/priceTitle"
+                tools:text="3 878 232 ₽" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/roomsTitle"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Комнат"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rooms"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/md_theme_light_primary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/roomsTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/roomsTitle"
+                tools:text="2" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/finishingTitle"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Отделка"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/roomsTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/finishing"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/md_theme_light_primary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/finishingTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/finishingTitle"
+                tools:text="Чистовая" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/surrenderTitle"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Сдача"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/finishing" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/surrender"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/md_theme_light_primary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/surrenderTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/surrenderTitle"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="4 кв. 2024" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.app.flatter.android.ui.flats.flatDetails.view.MortgageCalcView
+            android:id="@+id/mortgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aboutCardCL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookFlat"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_rounded_20_white"
+            android:gravity="center"
+            android:text="Забронировать квартиру"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/mortgage"
+            app:layout_constraintStart_toStartOf="@id/mortgage"
+            app:layout_constraintTop_toBottomOf="@id/mortgage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

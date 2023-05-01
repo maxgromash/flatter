@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_tab_projects"
+    app:startDestination="@id/buildingsFragment">
+
+    <fragment
+        android:id="@+id/buildingsFragment"
+        android:name="com.app.flatter.android.ui.flats.projects.BuildingsFragment"
+        android:label="RootFragment"
+        tools:layout="@layout/fragment_buildings">
+        <action
+            android:id="@+id/action_buildingsFragment_to_projectInfoFragment"
+            app:destination="@id/projectInfoFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectInfoFragment"
+        android:name="com.app.flatter.android.ui.flats.projectDetails.ProjectInfoFragment"
+        android:label="fragment_project_info"
+        app:argType="com.app.flatter.android.data.BuildingVO"
+        tools:layout="@layout/fragment_project_info">
+        <action
+            android:id="@+id/action_projectInfoFragment_to_flatsSearchResult"
+            app:destination="@id/flatsSearchResult"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/flatsSearchResult"
+        android:name="com.app.flatter.android.ui.flats.flatSearchResult.FlatsSearchResult"
+        android:label="fragment_flats_search_result"
+        app:argType="integer"
+        tools:layout="@layout/fragment_flats_search_result">
+
+        <action
+            android:id="@+id/action_flatsSearchResult_to_flatDetailsFragment"
+            app:destination="@id/flatDetailsFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/flatDetailsFragment"
+        android:name="com.app.flatter.android.ui.flats.flatDetails.FlatDetailsFragment"
+        android:label="FlatDetailsFragment"
+        tools:layout="@layout/fragment_flat_details" />
+
+
+</navigation>

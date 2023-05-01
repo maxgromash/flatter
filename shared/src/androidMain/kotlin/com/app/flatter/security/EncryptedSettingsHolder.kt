@@ -8,15 +8,19 @@ import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-actual class EncryptedSettingsHolder: KoinComponent {
-    val context: Context by inject()
-    actual val encryptedSettings: Settings = SharedPreferencesSettings(EncryptedSharedPreferences.create(
-        context,
-        SharedSettingsHelper.ENCRYPTED_DATABASE_NAME,
-        MasterKey.Builder(context)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            .build(),
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    ), false)
+actual class EncryptedSettingsHolder : KoinComponent {
+    private val context: Context by inject()
+
+    actual val encryptedSettings: Settings = SharedPreferencesSettings(
+        EncryptedSharedPreferences.create(
+            context,
+            SharedSettingsHelper.ENCRYPTED_DATABASE_NAME,
+            MasterKey.Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build(),
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        ), false
+    )
+
 }

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/main_bg"
+    tools:context=".ui.flats.flatSearchResult.FlatsSearchResult">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_round_arrow_back_24_white"
+        app:subtitleTextColor="@color/md_theme_light_background" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Выбор квартиры"
+        android:textColor="@color/md_theme_light_background"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/filtersTitle"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Фильтры"
+        android:textColor="@color/md_theme_light_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/squareFilterTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_rounded_20_white"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"
+        android:text="Площадь"
+        app:layout_constraintStart_toStartOf="@+id/filtersTitle"
+        app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/roomsFilterTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_rounded_20_white"
+        android:paddingHorizontal="10dp"
+        android:layout_marginStart="12dp"
+        android:paddingVertical="4dp"
+        android:text="Комнаты"
+        app:layout_constraintStart_toEndOf="@id/squareFilterTitle"
+        app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/floorFilterTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_rounded_20_white"
+        android:paddingHorizontal="10dp"
+        android:layout_marginStart="12dp"
+        android:paddingVertical="4dp"
+        android:text="Этаж"
+        app:layout_constraintStart_toEndOf="@id/roomsFilterTitle"
+        app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/priceFilterTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_rounded_20_white"
+        android:paddingHorizontal="10dp"
+        android:layout_marginStart="12dp"
+        android:paddingVertical="4dp"
+        android:text="Цена"
+        app:layout_constraintStart_toEndOf="@id/floorFilterTitle"
+        app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
+
+    <com.app.flatter.android.ui.flats.flatSearchResult.view.RangeFilterView
+        android:id="@+id/squareFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/squareFilterTitle" />
+
+    <com.app.flatter.android.ui.flats.flatSearchResult.view.RangeFilterView
+        android:id="@+id/floorFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/squareFilterTitle" />
+
+    <com.app.flatter.android.ui.flats.flatSearchResult.view.RangeFilterView
+        android:id="@+id/priceFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/squareFilterTitle" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="squareFilter, floorFilter, priceFilter"
+        app:barrierDirection="bottom" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultRV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="16dp"
+        android:requiresFadingEdge="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_search_result" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

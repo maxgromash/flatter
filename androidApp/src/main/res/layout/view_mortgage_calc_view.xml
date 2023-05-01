@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:padding="16dp"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Рассчет ипотеки"
+        android:textColor="@color/md_theme_light_primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/termTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Срок ипотеки"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/termValue"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="210 месяцев"
+        app:layout_constraintBottom_toBottomOf="@+id/termTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/termTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/termMin"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/termMax"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="360"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termValue" />
+
+    <SeekBar
+        android:id="@+id/termSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/termMin"
+        app:layout_constraintEnd_toStartOf="@+id/termMax"
+        app:layout_constraintStart_toEndOf="@+id/termMin"
+        app:layout_constraintTop_toTopOf="@+id/termMin" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/contributionTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Первоначальный взнос"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termMin" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/contributionValue"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1500000 ₽"
+        app:layout_constraintBottom_toBottomOf="@+id/contributionTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/contributionTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/contributionMin"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="2000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contributionTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/contributionMax"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contributionValue"
+        tools:text="29342000" />
+
+    <SeekBar
+        android:id="@+id/contributionSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/contributionMin"
+        app:layout_constraintEnd_toStartOf="@+id/contributionMax"
+        app:layout_constraintStart_toEndOf="@+id/contributionMin"
+        app:layout_constraintTop_toTopOf="@+id/contributionMin" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/rateTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ставка"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contributionMin" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/rateValue"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3.0 %"
+        app:layout_constraintBottom_toBottomOf="@+id/rateTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rateTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/rateMin"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/rateMax"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateValue" />
+
+    <SeekBar
+        android:id="@+id/rateSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rateMin"
+        app:layout_constraintEnd_toStartOf="@+id/rateMax"
+        app:layout_constraintStart_toEndOf="@+id/rateMin"
+        app:layout_constraintTop_toTopOf="@+id/rateMin" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/totalTitle"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ежемесячный платеж"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateMin" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/totalValue"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/md_theme_light_primary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/totalTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/totalTitle"
+        tools:text="100456.23 ₽" />
+
+</merge>

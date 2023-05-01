@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/buildingsFragment">
+    app:startDestination="@+id/nav_tab_projects">
 
-    <fragment
-        android:id="@+id/buildingsFragment"
-        android:name="com.app.flatter.android.ui.BuildingsFragment"
-        android:label="RootFragment"
-        tools:layout="@layout/fragment_buildings" />
-
-    <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.app.flatter.android.ui.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
-
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.app.flatter.android.ui.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+    <include app:graph="@navigation/nav_tab_projects" />
+    <include app:graph="@navigation/nav_tab_news" />
+    <include app:graph="@navigation/nav_tab_profile" />
 
 </navigation>

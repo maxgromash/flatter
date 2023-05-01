@@ -11,13 +11,12 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import com.app.flatter.dispatchers.*
 
-// How to use https://github.com/zazzazeHSE/CookerMobile/tree/dev/shared/src/commonMain/kotlin/on/the/stove/presentation
 abstract class BaseStore<State, Action, Effect> : KoinComponent {
 
     protected abstract val stateFlow: MutableStateFlow<State>
     protected abstract val sideEffectsFlow: MutableSharedFlow<Effect>
 
-    protected val scope: CoroutineScope = CoroutineScope(uiDispatcher + SupervisorJob())
+    private val scope: CoroutineScope = CoroutineScope(uiDispatcher + SupervisorJob())
 
     protected suspend fun updateState(reduceState: (state: State) -> State) {
         Logger.d("[STORE]: ${this::class.simpleName} update state")
@@ -27,7 +26,6 @@ abstract class BaseStore<State, Action, Effect> : KoinComponent {
     protected abstract suspend fun reduce(action: Action, initialState: State)
 
     fun reduce(action: Action) {
-        // TODO: need disable on prod build because used reflection
         Logger.d("[STORE]: ${this::class.simpleName} reduce action ${action!!::class.qualifiedName}")
         scope.launch(ioDispatcher) {
             reduce(action, stateFlow.value)

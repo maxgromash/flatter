@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootCL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_effect"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="16dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/flatLayoutACIV"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/rounded20ImageView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/priceMTV"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="?android:attr/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/flatLayoutACIV"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="24 540 000 ₽" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView2"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_square"
+        app:layout_constraintStart_toStartOf="@+id/priceMTV"
+        app:layout_constraintTop_toBottomOf="@+id/priceMTV" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/squareTitleMTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
+        app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+        app:layout_constraintTop_toTopOf="@+id/appCompatImageView2"
+        tools:text="64.5 м2" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/floorMTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
+        app:layout_constraintStart_toEndOf="@+id/squareTitleMTV"
+        app:layout_constraintTop_toTopOf="@+id/appCompatImageView2"
+        tools:text="4 этаж" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/goText"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Подробнее"
+        app:layout_constraintBottom_toBottomOf="@+id/flatLayoutACIV"
+        app:layout_constraintStart_toStartOf="@+id/appCompatImageView2" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/goIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_round_chevron_right_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/starACIV"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:paddingStart="4dp"
+        android:paddingBottom="4dp"
+        android:src="@drawable/ic_baseline_star_border_24"
+        android:tint="@color/md_theme_light_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
