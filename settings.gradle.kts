@@ -3,7 +3,9 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
+        maven("https://maven.google.com/")
         maven("https://jitpack.io")
+        maven("https://kotlin.bintray.com/kotlinx")
     }
 }
 

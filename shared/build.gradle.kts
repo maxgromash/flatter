@@ -14,7 +14,7 @@ sealed class Versions {
         const val logback = "1.4.5"
         const val multiplatformSettings = "0.7.4"
         const val kermit = "1.2.2"
-        const val wire = "4.2.0"
+        const val wire = "4.5.5"
     }
 }
 
