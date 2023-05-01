@@ -4,6 +4,7 @@ protocol ProjectInfoViewModel: ViewModel where Route == ProjectInfoRoute {
     var project: ProjectModel { get }
 
     func onUserDidTapSelectFlatButton()
+    func onUserDidTapLiveStreamButton()
 }
 
 final class ProjectInfoViewModelImpl: ProjectInfoViewModel {
@@ -17,5 +18,9 @@ final class ProjectInfoViewModelImpl: ProjectInfoViewModel {
 
     func onUserDidTapSelectFlatButton() {
         navigationRoute = .flatsList
+    }
+
+    func onUserDidTapLiveStreamButton() {
+        navigationRoute = .projectLiveStream
     }
 }

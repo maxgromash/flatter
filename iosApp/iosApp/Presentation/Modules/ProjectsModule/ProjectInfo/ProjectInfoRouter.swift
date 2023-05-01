@@ -3,6 +3,7 @@ import SwiftUI
 
 enum ProjectInfoRoute: RouteType {
     case flatsList
+    case projectLiveStream
     case projectOnMap
 }
 
@@ -21,6 +22,9 @@ final class ProjectInfoRouter: Routing {
                     )
                     AppNavigationLink(viewModel: viewModel, router: router)
                 }
+            case .projectLiveStream:
+                let viewModel = ProjectLiveStreamViewModel()
+                ProjectLiveStreamView(viewModel: viewModel)
             case .projectOnMap:
                 EmptyView()
         }

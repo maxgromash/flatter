@@ -72,6 +72,8 @@ struct ProjectInfoView<
                 }
                 flattersNavigationLink
                 Divider()
+                liveStreamNavigationLink
+                Divider()
                 projectDescription
                 Divider()
                 projectLocationView
@@ -107,6 +109,22 @@ struct ProjectInfoView<
             label: {
                 HStack {
                     Text("Смотреть квартиры")
+                        .font(.title2)
+                        .foregroundColor(.black)
+                    Spacer()
+                    ImagesProvider.rightArrow
+                        .tint(.black)
+                }
+            }
+        )
+    }
+
+    @ViewBuilder private var liveStreamNavigationLink: some View {
+        Button(
+            action: viewModel.onUserDidTapLiveStreamButton,
+            label: {
+                HStack {
+                    Text("Трансляция с объекта")
                         .font(.title2)
                         .foregroundColor(.black)
                     Spacer()
@@ -170,5 +188,7 @@ struct ProjectInfoView_Previews: PreviewProvider {
         var navigationRoute: ProjectInfoRoute? = nil
 
         func onUserDidTapSelectFlatButton() {}
+
+        func onUserDidTapLiveStreamButton() {}
     }
 }
