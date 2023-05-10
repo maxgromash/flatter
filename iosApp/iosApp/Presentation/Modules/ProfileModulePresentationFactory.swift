@@ -1,8 +1,10 @@
 import Foundation
 import SwiftUI
+import shared
 
 final class ProfileModulePresentationFactory {
-    private let authorizationViewModel = AuthorizationViewModelImpl()
+    private let authStore = AuthStore(client: AuthClientImpl())
+    private lazy var authorizationViewModel = AuthorizationViewModelImpl(store: authStore)
 
     @ViewBuilder func makeAuthView() -> some View {
         let router = AuthorizationRouter(presentationFactory: self)
@@ -19,7 +21,7 @@ final class ProfileModulePresentationFactory {
     }
 
     @ViewBuilder func makeRegistrationView() -> some View {
-        let viewModel = RegistrationViewModelImpl()
+        let viewModel = RegistrationViewModelImpl(store: authStore)
         let router = RegistrationRouter(presentationFactory: self)
 
         AppOverviewView(viewModel: viewModel, router: router) {

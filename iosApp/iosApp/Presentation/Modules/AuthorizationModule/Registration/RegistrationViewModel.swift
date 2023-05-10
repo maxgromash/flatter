@@ -1,4 +1,5 @@
 import Foundation
+import shared
 
 protocol RegistrationViewModel: ViewModel where Route == RegistrationRoute {
     var nameInput: String { get set }
@@ -16,7 +17,7 @@ protocol RegistrationViewModel: ViewModel where Route == RegistrationRoute {
     func userDidTapRegistrationButton()
 }
 
-final class RegistrationViewModelImpl: RegistrationViewModel {
+final class RegistrationViewModelImpl: AuthStoreViewModel, RegistrationViewModel {
     @Published var navigationRoute: RegistrationRoute? = nil
     @Published var overviewRoute: RegistrationRoute? = nil
 
@@ -45,10 +46,14 @@ final class RegistrationViewModelImpl: RegistrationViewModel {
     }
 
     func userDidTapRegistrationButton() {
-        overviewRoute = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-            self?.overviewRoute = nil
-            self?.navigationRoute = .profile
-        }
+        reduce(
+            action: AuthActionSingUp(
+                phone: phoneNumberInput,
+                email: emailInput,
+                name: nameInput,
+                password: passwordInput,
+                passwordConfirm: passwordAgainInput
+            )
+        )
     }
 }

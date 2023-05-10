@@ -21,6 +21,14 @@
 		8408ECAB29CEFBAE00D6B02D /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8408ECAA29CEFBAE00D6B02D /* ProfileRouter.swift */; };
 		8408ECAD29CEFBB800D6B02D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8408ECAC29CEFBB800D6B02D /* ProfileView.swift */; };
 		8408ECB429CF1F9900D6B02D /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8408ECB329CF1F9900D6B02D /* ProjectModel.swift */; };
+		841389E12A0A98820047E2A8 /* GRPCChannelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389E02A0A98820047E2A8 /* GRPCChannelProvider.swift */; };
+		841389E42A0A99750047E2A8 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389E32A0A99750047E2A8 /* AuthClient.swift */; };
+		841389E62A0A99850047E2A8 /* BaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389E52A0A99850047E2A8 /* BaseClient.swift */; };
+		841389E92A0A9A920047E2A8 /* auth.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389E72A0A9A920047E2A8 /* auth.grpc.swift */; };
+		841389EA2A0A9A920047E2A8 /* auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389E82A0A9A920047E2A8 /* auth.pb.swift */; };
+		841389EC2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389EB2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift */; };
+		841389EE2A0AAB870047E2A8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389ED2A0AAB870047E2A8 /* BaseViewModel.swift */; };
+		841389F12A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389F02A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift */; };
 		84335E9B29CA318D001537BD /* ProjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84335E9A29CA318D001537BD /* ProjectsListView.swift */; };
 		84335E9D29CA319A001537BD /* ProjectsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84335E9C29CA319A001537BD /* ProjectsListViewModel.swift */; };
 		84335E9F29CA31A4001537BD /* ProjectsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84335E9E29CA31A4001537BD /* ProjectsListRouter.swift */; };
@@ -104,6 +112,14 @@
 		8408ECAA29CEFBAE00D6B02D /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		8408ECAC29CEFBB800D6B02D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8408ECB329CF1F9900D6B02D /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
+		841389E02A0A98820047E2A8 /* GRPCChannelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRPCChannelProvider.swift; sourceTree = "<group>"; };
+		841389E32A0A99750047E2A8 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
+		841389E52A0A99850047E2A8 /* BaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseClient.swift; sourceTree = "<group>"; };
+		841389E72A0A9A920047E2A8 /* auth.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = auth.grpc.swift; sourceTree = "<group>"; };
+		841389E82A0A9A920047E2A8 /* auth.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = auth.pb.swift; sourceTree = "<group>"; };
+		841389EB2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftProtobuf.Message+Wire.swift"; sourceTree = "<group>"; };
+		841389ED2A0AAB870047E2A8 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		841389F02A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseViewModel+Typealiases.swift"; sourceTree = "<group>"; };
 		84335E9A29CA318D001537BD /* ProjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListView.swift; sourceTree = "<group>"; };
 		84335E9C29CA319A001537BD /* ProjectsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListViewModel.swift; sourceTree = "<group>"; };
 		84335E9E29CA31A4001537BD /* ProjectsListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListRouter.swift; sourceTree = "<group>"; };
@@ -221,6 +237,8 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				841389DE2A0A98660047E2A8 /* BusinessLogic */,
+				841389DD2A0A97590047E2A8 /* generated */,
 				843591BE29BE0F6D008ADA45 /* Resources */,
 				845C80B0299788E00029D58B /* Presentation */,
 				7555FF82242A565900829871 /* ContentView.swift */,
@@ -297,6 +315,51 @@
 				8440D12329D4CA930099A18B /* DocumentModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		841389DD2A0A97590047E2A8 /* generated */ = {
+			isa = PBXGroup;
+			children = (
+				841389E72A0A9A920047E2A8 /* auth.grpc.swift */,
+				841389E82A0A9A920047E2A8 /* auth.pb.swift */,
+			);
+			path = generated;
+			sourceTree = "<group>";
+		};
+		841389DE2A0A98660047E2A8 /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+				841389DF2A0A986C0047E2A8 /* Networking */,
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
+		841389DF2A0A986C0047E2A8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				841389E22A0A99630047E2A8 /* Clients */,
+				841389E02A0A98820047E2A8 /* GRPCChannelProvider.swift */,
+				841389EB2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		841389E22A0A99630047E2A8 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				841389E32A0A99750047E2A8 /* AuthClient.swift */,
+				841389E52A0A99850047E2A8 /* BaseClient.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		841389EF2A0AADE50047E2A8 /* BaseViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				841389ED2A0AAB870047E2A8 /* BaseViewModel.swift */,
+				841389F02A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift */,
+			);
+			path = BaseViewModel;
 			sourceTree = "<group>";
 		};
 		84335E9929CA317C001537BD /* ProjectsModule */ = {
@@ -464,6 +527,7 @@
 		845C80C429979ACF0029D58B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				841389EF2A0AADE50047E2A8 /* BaseViewModel */,
 				84D375A729D066FF000BA17A /* Views */,
 				8408ECA629CEFB8F00D6B02D /* ProfileModule */,
 				8403FA1B29CB835500A5D63A /* FlatModule */,
@@ -751,6 +815,7 @@
 				845C80C82997A3630029D58B /* AppOverviewView.swift in Sources */,
 				845C80AF299788650029D58B /* Routing.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				841389E92A0A9A920047E2A8 /* auth.grpc.swift in Sources */,
 				8403FA2729CB9B1A00A5D63A /* FlatsListCard.swift in Sources */,
 				8403F61029E5D9640063221B /* MTHKView+SwiftUI.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
@@ -760,16 +825,20 @@
 				84B0F59829C5CAF200DC4E8D /* BackgroundContainer.swift in Sources */,
 				84B0F5A729C717E100DC4E8D /* NewsListViewModel.swift in Sources */,
 				84D3767E29D380E6000BA17A /* ProfileChangesView.swift in Sources */,
+				841389EE2A0AAB870047E2A8 /* BaseViewModel.swift in Sources */,
+				841389EA2A0A9A920047E2A8 /* auth.pb.swift in Sources */,
 				84D3767A29D37F40000BA17A /* PasswordChangesViewModel.swift in Sources */,
 				8440D12029D4C42C0099A18B /* DocumentsListViewModel.swift in Sources */,
 				845C80C0299792470029D58B /* RegistrationViewModel.swift in Sources */,
 				8451B35D29CCDF5C006E9BBB /* FlatInfoView.swift in Sources */,
 				84B0F59A29C5D52B00DC4E8D /* AuthorizatoinMainActionButton.swift in Sources */,
 				845C80B929978F5B0029D58B /* AuthorizationViewModel.swift in Sources */,
+				841389E62A0A99850047E2A8 /* BaseClient.swift in Sources */,
 				845C80AD2997885B0029D58B /* ViewModel.swift in Sources */,
 				8408ECB429CF1F9900D6B02D /* ProjectModel.swift in Sources */,
 				8463C2F929CA447E00B58B3F /* TransportDestinationView.swift in Sources */,
 				84D375A629D0453B000BA17A /* NewsModel.swift in Sources */,
+				841389EC2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift in Sources */,
 				8408ECAD29CEFBB800D6B02D /* ProfileView.swift in Sources */,
 				8403F61229E5DB510063221B /* ProjectLiveStreamView.swift in Sources */,
 				84D3767529D37A3E000BA17A /* PhoneNumberFormater.swift in Sources */,
@@ -792,10 +861,13 @@
 				845C80C3299799980029D58B /* AppNavigationLink.swift in Sources */,
 				845C80C629979B020029D58B /* ProfileModulePresentationFactory.swift in Sources */,
 				8451B35F29CCDF67006E9BBB /* FlatInfoViewModel.swift in Sources */,
+				841389E12A0A98820047E2A8 /* GRPCChannelProvider.swift in Sources */,
 				84B0F59F29C5FB9700DC4E8D /* ForgotPasswordViewModel.swift in Sources */,
+				841389F12A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift in Sources */,
 				84D3766E29D3776A000BA17A /* PersonalInfoChangesViewModel.swift in Sources */,
 				84335EA829CA3D1C001537BD /* ProjectInfoViewModel.swift in Sources */,
 				84335EA329CA33EE001537BD /* ProjectsListCard.swift in Sources */,
+				841389E42A0A99750047E2A8 /* AuthClient.swift in Sources */,
 				845C80BC299792350029D58B /* RegistrationView.swift in Sources */,
 				845C80BE2997923F0029D58B /* RegistrationRouter.swift in Sources */,
 				84335E9F29CA31A4001537BD /* ProjectsListRouter.swift in Sources */,

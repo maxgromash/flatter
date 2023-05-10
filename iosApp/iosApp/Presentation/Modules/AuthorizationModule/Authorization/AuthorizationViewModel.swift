@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import shared
 
 protocol AuthorizationViewModel: ViewModel where Route == AuthorizationRoute {
     var emailInput: String { get set }
@@ -13,13 +14,19 @@ protocol AuthorizationViewModel: ViewModel where Route == AuthorizationRoute {
     func userDidTapRestorePassword()
 }
 
-final class AuthorizationViewModelImpl: AuthorizationViewModel {
+final class AuthorizationViewModelImpl: AuthStoreViewModel, AuthorizationViewModel {
     @Published var navigationRoute: AuthorizationRoute? = nil
 
     @Published var overviewRoute: AuthorizationRoute? = nil
 
     @Published var emailInput: String = ""
     @Published var passwordInput: String = ""
+
+    override init(store: AuthStore) {
+        super.init(store: store)
+
+        reduce(action: AuthActionCheckToken())
+    }
 
     var emailValid: Bool {
         EmailValidator.validate(email: emailInput)
@@ -29,13 +36,8 @@ final class AuthorizationViewModelImpl: AuthorizationViewModel {
         PasswordValidator.validate(password: passwordInput)
     }
 
-
     func userDidTapAuthorizationButton() {
-        overviewRoute = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-            self?.overviewRoute = nil
-            self?.navigationRoute = .profile
-        }
+        reduce(action: AuthActionSignIn(email: emailInput, password: passwordInput))
     }
 
     func userDidTapRegistration() {
@@ -51,5 +53,27 @@ final class AuthorizationViewModelImpl: AuthorizationViewModel {
         overviewRoute = nil
         emailInput = ""
         passwordInput = ""
+    }
+
+    override func didChangeState(_ state: AuthState?) {
+        guard let state else { return }
+
+        switch state {
+            case is AuthStateSuccess:
+                navigationRoute = .profile
+            default: return
+        }
+    }
+
+    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+        guard let effect else {
+            overviewRoute = nil
+            return
+        }
+        switch effect {
+            case is AuthSideEffectShowProgress:
+                overviewRoute = .loading
+            default: overviewRoute = nil
+        }
     }
 }

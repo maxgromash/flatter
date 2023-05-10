@@ -20,7 +20,7 @@ abstract class BaseStore<State, Action, Effect> : KoinComponent {
 
     protected suspend fun updateState(reduceState: (state: State) -> State) {
         Logger.d("[STORE]: ${this::class.simpleName} update state")
-        stateFlow.emit(reduceState(stateFlow.value))
+        scope.launch(uiDispatcher) { stateFlow.emit(reduceState(stateFlow.value)) }
     }
 
     protected abstract suspend fun reduce(action: Action, initialState: State)

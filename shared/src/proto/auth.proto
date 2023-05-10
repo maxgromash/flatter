@@ -23,7 +23,16 @@ message SignInResponse {
   string token = 1;
 }
 
+message RestorePasswordRequest {
+  string email = 1;
+}
+
+message RestorePasswordResponse {
+  string status = 1;
+}
+
 service AuthService {
   rpc SignUp (SignUpRequest) returns (SignUpResponse) {}
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
+  rpc RestorePassword (RestorePasswordRequest) returns (RestorePasswordResponse) {}
 }

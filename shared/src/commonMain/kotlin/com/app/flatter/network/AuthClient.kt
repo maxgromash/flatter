@@ -5,9 +5,10 @@ import models.SignInResponse
 import models.SignUpRequest
 import models.SignUpResponse
 
-expect class AuthClient {
-
+interface AuthClient {
     suspend fun signIn(data: SignInRequest): SignInResponse
 
     suspend fun signUp(data: SignUpRequest): SignUpResponse
+
+    suspend fun restorePassword
 }

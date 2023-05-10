@@ -6,7 +6,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 actual val ioDispatcher: CoroutineContext
-    get() = Dispatchers.Main
+    get() = Dispatchers.Default
 
 actual val uiDispatcher: CoroutineContext
-    get() = Dispatchers.Default
+    get() = Dispatchers.Main

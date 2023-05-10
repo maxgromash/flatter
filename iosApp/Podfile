@@ -4,4 +4,6 @@ target 'iosApp' do
   pod 'shared', :path => '../shared'
   pod 'MobileVLCKit', '~> 3.5.1'
   pod 'HaishinKit', '~> 1.4.5'
+  pod 'gRPC-Swift'
+  pod 'gRPC-Swift-Plugins'
 end
