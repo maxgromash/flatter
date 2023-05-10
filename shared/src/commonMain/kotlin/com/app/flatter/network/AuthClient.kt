@@ -1,14 +1,15 @@
 package com.app.flatter.network
 
-import models.SignInRequest
-import models.SignInResponse
-import models.SignUpRequest
-import models.SignUpResponse
+import models.*
 
 interface AuthClient {
     suspend fun signIn(data: SignInRequest): SignInResponse
 
     suspend fun signUp(data: SignUpRequest): SignUpResponse
 
-    suspend fun restorePassword
+    suspend fun restorePassword(data: RestorePasswordRequest): RestorePasswordResponse
+
+    suspend fun changePassword(data: ChangePasswordRequest): ChangePasswordResponse
+
+    suspend fun changePhone(data: ChangePhoneRequest): ChangePhoneResponse
 }

@@ -1,11 +1,7 @@
 package com.app.flatter.network
 
 import com.squareup.wire.GrpcClient
-import models.GrpcAuthServiceClient
-import models.SignInRequest
-import models.SignInResponse
-import models.SignUpRequest
-import models.SignUpResponse
+import models.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -21,5 +17,9 @@ class AuthClientImpl : KoinComponent, AuthClient {
 
     override suspend fun signUp(data: SignUpRequest): SignUpResponse {
         return authClient.SignUp().execute(data)
+    }
+
+    override suspend fun restorePassword(data: RestorePasswordRequest): RestorePasswordResponse {
+        return authClient.RestorePassword().execute(data)
     }
 }

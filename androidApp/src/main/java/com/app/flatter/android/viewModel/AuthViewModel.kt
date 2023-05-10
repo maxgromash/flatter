@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.flatter.android.util.SingleLiveEvent
+import com.app.flatter.network.AuthClientImpl
 import com.app.flatter.presentation.auth.AuthAction
 import com.app.flatter.presentation.auth.AuthSideEffect
 import com.app.flatter.presentation.auth.AuthStore
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
-    private val store = AuthStore()
+    private val store = AuthStore(client = AuthClientImpl())
     private val signInStateViewModel = MutableLiveData<AuthState>()
     private val progressViewModel = SingleLiveEvent<Boolean>()
     private val showMessageViewModel = SingleLiveEvent<String>()

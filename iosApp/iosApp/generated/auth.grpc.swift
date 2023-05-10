@@ -45,6 +45,16 @@ internal protocol Models_AuthServiceClientProtocol: GRPCClient {
     _ request: Models_RestorePasswordRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Models_RestorePasswordRequest, Models_RestorePasswordResponse>
+
+  func changePassword(
+    _ request: Models_ChangePasswordRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Models_ChangePasswordRequest, Models_ChangePasswordResponse>
+
+  func changePhone(
+    _ request: Models_ChangePhoneRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Models_ChangePhoneRequest, Models_ChangePhoneResponse>
 }
 
 extension Models_AuthServiceClientProtocol {
@@ -103,6 +113,42 @@ extension Models_AuthServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeRestorePasswordInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to ChangePassword
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ChangePassword.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func changePassword(
+    _ request: Models_ChangePasswordRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Models_ChangePasswordRequest, Models_ChangePasswordResponse> {
+    return self.makeUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.changePassword.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeChangePasswordInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to ChangePhone
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ChangePhone.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func changePhone(
+    _ request: Models_ChangePhoneRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Models_ChangePhoneRequest, Models_ChangePhoneResponse> {
+    return self.makeUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.changePhone.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeChangePhoneInterceptors() ?? []
     )
   }
 }
@@ -186,6 +232,16 @@ internal protocol Models_AuthServiceAsyncClientProtocol: GRPCClient {
     _ request: Models_RestorePasswordRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Models_RestorePasswordRequest, Models_RestorePasswordResponse>
+
+  func makeChangePasswordCall(
+    _ request: Models_ChangePasswordRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Models_ChangePasswordRequest, Models_ChangePasswordResponse>
+
+  func makeChangePhoneCall(
+    _ request: Models_ChangePhoneRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Models_ChangePhoneRequest, Models_ChangePhoneResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -233,6 +289,30 @@ extension Models_AuthServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeRestorePasswordInterceptors() ?? []
     )
   }
+
+  internal func makeChangePasswordCall(
+    _ request: Models_ChangePasswordRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Models_ChangePasswordRequest, Models_ChangePasswordResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.changePassword.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeChangePasswordInterceptors() ?? []
+    )
+  }
+
+  internal func makeChangePhoneCall(
+    _ request: Models_ChangePhoneRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Models_ChangePhoneRequest, Models_ChangePhoneResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.changePhone.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeChangePhoneInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -272,6 +352,30 @@ extension Models_AuthServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeRestorePasswordInterceptors() ?? []
     )
   }
+
+  internal func changePassword(
+    _ request: Models_ChangePasswordRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Models_ChangePasswordResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.changePassword.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeChangePasswordInterceptors() ?? []
+    )
+  }
+
+  internal func changePhone(
+    _ request: Models_ChangePhoneRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Models_ChangePhoneResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.changePhone.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeChangePhoneInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -303,6 +407,12 @@ internal protocol Models_AuthServiceClientInterceptorFactoryProtocol: GRPCSendab
 
   /// - Returns: Interceptors to use when invoking 'restorePassword'.
   func makeRestorePasswordInterceptors() -> [ClientInterceptor<Models_RestorePasswordRequest, Models_RestorePasswordResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'changePassword'.
+  func makeChangePasswordInterceptors() -> [ClientInterceptor<Models_ChangePasswordRequest, Models_ChangePasswordResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'changePhone'.
+  func makeChangePhoneInterceptors() -> [ClientInterceptor<Models_ChangePhoneRequest, Models_ChangePhoneResponse>]
 }
 
 internal enum Models_AuthServiceClientMetadata {
@@ -313,6 +423,8 @@ internal enum Models_AuthServiceClientMetadata {
       Models_AuthServiceClientMetadata.Methods.signUp,
       Models_AuthServiceClientMetadata.Methods.signIn,
       Models_AuthServiceClientMetadata.Methods.restorePassword,
+      Models_AuthServiceClientMetadata.Methods.changePassword,
+      Models_AuthServiceClientMetadata.Methods.changePhone,
     ]
   )
 
@@ -332,6 +444,18 @@ internal enum Models_AuthServiceClientMetadata {
     internal static let restorePassword = GRPCMethodDescriptor(
       name: "RestorePassword",
       path: "/models.AuthService/RestorePassword",
+      type: GRPCCallType.unary
+    )
+
+    internal static let changePassword = GRPCMethodDescriptor(
+      name: "ChangePassword",
+      path: "/models.AuthService/ChangePassword",
+      type: GRPCCallType.unary
+    )
+
+    internal static let changePhone = GRPCMethodDescriptor(
+      name: "ChangePhone",
+      path: "/models.AuthService/ChangePhone",
       type: GRPCCallType.unary
     )
   }

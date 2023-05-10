@@ -60,20 +60,24 @@ final class AuthorizationViewModelImpl: AuthStoreViewModel, AuthorizationViewMod
 
         switch state {
             case is AuthStateSuccess:
+                overviewRoute = nil
                 navigationRoute = .profile
+            case is AuthStateNone:
+                overviewRoute = nil
+                navigationRoute = nil
             default: return
         }
     }
 
     override func didRecieveEffect(_ effect: AuthSideEffect?) {
-        guard let effect else {
-            overviewRoute = nil
-            return
-        }
-        switch effect {
-            case is AuthSideEffectShowProgress:
-                overviewRoute = .loading
-            default: overviewRoute = nil
-        }
+//        guard let effect else {
+//            overviewRoute = nil
+//            return
+//        }
+//        switch effect {
+//            case is AuthSideEffectShowProgress:
+//                overviewRoute = .loading
+//            default: overviewRoute = nil
+//        }
     }
 }

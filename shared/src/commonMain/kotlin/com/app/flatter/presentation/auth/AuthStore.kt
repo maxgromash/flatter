@@ -8,8 +8,7 @@ import com.app.flatter.network.AuthClient
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.*
-import models.SignInRequest
-import models.SignUpRequest
+import models.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -29,6 +28,8 @@ class AuthStore(private val client: AuthClient) : BaseStore<AuthState, AuthActio
                     tokenStore.token = null
                     updateState { AuthState.None }
                 }
+                is AuthAction.ChangePhone -> processChangePhone(action)
+                is AuthAction.ChangePassword -> processChangePassword(action)
 
                 is AuthAction.CheckToken -> {
                     if (tokenStore.token != null) {
@@ -38,25 +39,26 @@ class AuthStore(private val client: AuthClient) : BaseStore<AuthState, AuthActio
                         updateState { AuthState.None }
                     }
                 }
+                is AuthAction.RestorePassword -> processRestorePasswordAction(action)
             }
         }
     }
 
     private suspend fun processSignInAction(action: AuthAction.SignIn) {
         try {
-            sideEffectsFlow.emit(AuthSideEffect.ShowProgress)
+            sendEffect { AuthSideEffect.ShowProgress }
             val result =
                 client.signIn(SignInRequest(email = action.email, password = action.password))
             tokenStore.token = result.token
             updateState { AuthState.Success }
         } catch (ex: Throwable) {
-            sideEffectsFlow.emit(AuthSideEffect.ShowMessage("Ошибка! Проверьте подключение к сети."))
+            sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте подключение к сети.") }
         }
     }
 
     private suspend fun processSingUpAction(action: AuthAction.SingUp) {
         try {
-            sideEffectsFlow.emit(AuthSideEffect.ShowProgress)
+            sendEffect { AuthSideEffect.ShowProgress }
             client.signUp(
                 SignUpRequest(
                     name = action.name,
@@ -66,9 +68,62 @@ class AuthStore(private val client: AuthClient) : BaseStore<AuthState, AuthActio
                     passwordConfirm = action.passwordConfirm
                 )
             )
-            sideEffectsFlow.emit(AuthSideEffect.ShowMessage("Активируйте аккаунт по ссылке в письме"))
+            sendEffect { AuthSideEffect.ShowMessage("Активируйте аккаунт по ссылке в письме") }
         } catch (ex: Throwable) {
-            sideEffectsFlow.emit(AuthSideEffect.ShowMessage("Ошибка! Проверьте введённые данные и подключение к сети."))
+            sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте введённые данные и подключение к сети.") }
+        }
+    }
+
+    private suspend fun processChangePhone(action: AuthAction.ChangePhone) {
+        tokenStore.token?.let { token ->
+            sendEffect { AuthSideEffect.ShowProgress }
+            runCatching {
+                client.changePhone(
+                    ChangePhoneRequest(token = token, phone = action.phone)
+                )
+            }
+                .onSuccess {
+                    sendEffect { AuthSideEffect.ShowMessage("Пароль успешно обновлен") }
+                }
+                .onFailure {
+                    sendEffect { AuthSideEffect.ShowMessage("Ошибка! Не удалось обновить пароль") }
+                }
+        } ?: run {
+            updateState { AuthState.None }
+        }
+    }
+
+    private suspend fun processChangePassword(action: AuthAction.ChangePassword) {
+        tokenStore.token?.let {token ->
+            runCatching {
+                client.changePassword(
+                    ChangePasswordRequest(
+                        token = token,
+                        password = action.password,
+                        passwordConfirm = action.passwordConfirm
+                    )
+                )
+            }
+                .onSuccess {
+                    sendEffect { AuthSideEffect.ShowMessage("Номер телефона успешно обновлен") }
+                }
+                .onFailure {
+                    sendEffect { AuthSideEffect.ShowMessage("Ошибка! Не удалось обновить номер телефона") }
+                }
+        } ?: run {
+            updateState { AuthState.None }
+        }
+    }
+
+    private suspend fun processRestorePasswordAction(action: AuthAction.RestorePassword) {
+        try {
+            sendEffect { AuthSideEffect.ShowProgress }
+            client.restorePassword(
+                RestorePasswordRequest(email = action.email)
+            )
+            sendEffect { AuthSideEffect.ShowMessage("Письмо с восстановлением пароля отправлено на почту") }
+        } catch (ex: Throwable) {
+            sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте введённые данные и подключение к сети.") }
         }
     }
 }

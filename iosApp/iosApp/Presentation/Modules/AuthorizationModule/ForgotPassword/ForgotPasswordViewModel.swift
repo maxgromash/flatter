@@ -1,4 +1,5 @@
 import Foundation
+import shared
 
 protocol ForgotPasswordViewModel: ViewModel where Route == ForgotPasswordRoute {
     var emailInput: String { get set }
@@ -7,7 +8,7 @@ protocol ForgotPasswordViewModel: ViewModel where Route == ForgotPasswordRoute {
     func userDidTapSendButton()
 }
 
-final class ForgotPasswordViewModelImpl: ForgotPasswordViewModel {
+final class ForgotPasswordViewModelImpl: AuthStoreViewModel, ForgotPasswordViewModel {
     @Published var navigationRoute: ForgotPasswordRoute? = nil
     @Published var showAlert: Bool = false
 
@@ -18,7 +19,16 @@ final class ForgotPasswordViewModelImpl: ForgotPasswordViewModel {
     }
 
     func userDidTapSendButton() {
-        showAlert = true
+        reduce(action: AuthActionRestorePassword(email: emailInput))
+    }
+
+    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+        guard let effect else { return }
+        switch effect {
+            case is AuthSideEffectShowProgress:
+                overviewRoute = .loading
+            default: overviewRoute = nil
+        }
     }
 }
 

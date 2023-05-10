@@ -19,8 +19,15 @@ abstract class BaseStore<State, Action, Effect> : KoinComponent {
     private val scope: CoroutineScope = CoroutineScope(uiDispatcher + SupervisorJob())
 
     protected suspend fun updateState(reduceState: (state: State) -> State) {
-        Logger.d("[STORE]: ${this::class.simpleName} update state")
-        scope.launch(uiDispatcher) { stateFlow.emit(reduceState(stateFlow.value)) }
+        val state = reduceState(stateFlow.value)
+        Logger.d("[STORE]: ${this::class.simpleName} update state ${state!!::class.simpleName}")
+        scope.launch(uiDispatcher) { stateFlow.emit(state) }
+    }
+
+    protected suspend fun sendEffect(sendEffect: () -> Effect) {
+        val effect = sendEffect()
+        Logger.d("[STORE]: ${this::class.simpleName} send effect ${effect!!::class.simpleName}")
+        scope.launch(uiDispatcher) { sideEffectsFlow.emit(effect) }
     }
 
     protected abstract suspend fun reduce(action: Action, initialState: State)

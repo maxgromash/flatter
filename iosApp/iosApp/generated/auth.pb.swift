@@ -102,6 +102,60 @@ struct Models_RestorePasswordResponse {
   init() {}
 }
 
+struct Models_ChangePasswordRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var token: String = String()
+
+  var password: String = String()
+
+  var passwordConfirm: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Models_ChangePasswordResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var status: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Models_ChangePhoneRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var token: String = String()
+
+  var phone: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Models_ChangePhoneResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var status: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Models_SignUpRequest: @unchecked Sendable {}
 extension Models_SignInRequest: @unchecked Sendable {}
@@ -109,6 +163,10 @@ extension Models_SignUpResponse: @unchecked Sendable {}
 extension Models_SignInResponse: @unchecked Sendable {}
 extension Models_RestorePasswordRequest: @unchecked Sendable {}
 extension Models_RestorePasswordResponse: @unchecked Sendable {}
+extension Models_ChangePasswordRequest: @unchecked Sendable {}
+extension Models_ChangePasswordResponse: @unchecked Sendable {}
+extension Models_ChangePhoneRequest: @unchecked Sendable {}
+extension Models_ChangePhoneResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -331,6 +389,152 @@ extension Models_RestorePasswordResponse: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   static func ==(lhs: Models_RestorePasswordResponse, rhs: Models_RestorePasswordResponse) -> Bool {
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Models_ChangePasswordRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ChangePasswordRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "token"),
+    2: .same(proto: "password"),
+    3: .same(proto: "passwordConfirm"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.token) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.password) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.passwordConfirm) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.token.isEmpty {
+      try visitor.visitSingularStringField(value: self.token, fieldNumber: 1)
+    }
+    if !self.password.isEmpty {
+      try visitor.visitSingularStringField(value: self.password, fieldNumber: 2)
+    }
+    if !self.passwordConfirm.isEmpty {
+      try visitor.visitSingularStringField(value: self.passwordConfirm, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Models_ChangePasswordRequest, rhs: Models_ChangePasswordRequest) -> Bool {
+    if lhs.token != rhs.token {return false}
+    if lhs.password != rhs.password {return false}
+    if lhs.passwordConfirm != rhs.passwordConfirm {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Models_ChangePasswordResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ChangePasswordResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "status"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.status) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.status.isEmpty {
+      try visitor.visitSingularStringField(value: self.status, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Models_ChangePasswordResponse, rhs: Models_ChangePasswordResponse) -> Bool {
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Models_ChangePhoneRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ChangePhoneRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "token"),
+    2: .same(proto: "phone"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.token) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.phone) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.token.isEmpty {
+      try visitor.visitSingularStringField(value: self.token, fieldNumber: 1)
+    }
+    if !self.phone.isEmpty {
+      try visitor.visitSingularStringField(value: self.phone, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Models_ChangePhoneRequest, rhs: Models_ChangePhoneRequest) -> Bool {
+    if lhs.token != rhs.token {return false}
+    if lhs.phone != rhs.phone {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Models_ChangePhoneResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ChangePhoneResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "status"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.status) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.status.isEmpty {
+      try visitor.visitSingularStringField(value: self.status, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Models_ChangePhoneResponse, rhs: Models_ChangePhoneResponse) -> Bool {
     if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

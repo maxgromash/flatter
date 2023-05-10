@@ -1,10 +1,14 @@
 import Foundation
 import SwiftUI
 
-enum ForgotPasswordRoute: RouteType {}
+enum ForgotPasswordRoute: RouteType {
+    case loading
+}
 
 final class ForgetPasswordRouter: Routing {
     @ViewBuilder func view(for route: ForgotPasswordRoute) -> some View {
-        EmptyView()
+        switch route {
+            case .loading: LoaderView()
+        }
     }
 }

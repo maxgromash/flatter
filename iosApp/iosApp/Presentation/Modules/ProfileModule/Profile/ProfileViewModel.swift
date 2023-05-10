@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import shared
 
 protocol ProfileViewModel: ViewModel where Route == ProfileRoute {
     func userDidTapLogOutButton()
@@ -9,17 +10,11 @@ protocol ProfileViewModel: ViewModel where Route == ProfileRoute {
     func userDidTapCallButton()
 }
 
-final class ProfileViewModelImpl: ProfileViewModel {
+final class ProfileViewModelImpl: AuthStoreViewModel, ProfileViewModel {
     @Published var navigationRoute: ProfileRoute? = nil
-
-    let logOut: () -> Void
-
-    init(logOut: @escaping () -> Void) {
-        self.logOut = logOut
-    }
-
+    
     func userDidTapLogOutButton() {
-        logOut()
+        reduce(action: AuthActionLogOut())
     }
 
     func userDidTapFavouritesList() {

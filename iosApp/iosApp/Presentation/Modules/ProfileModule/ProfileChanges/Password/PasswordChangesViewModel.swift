@@ -1,4 +1,5 @@
 import Foundation
+import shared
 
 protocol PasswordChangesViewModel: ViewModel where Route == ProfileChangesRoute {
     var passwordInput: String { get set }
@@ -12,7 +13,7 @@ protocol PasswordChangesViewModel: ViewModel where Route == ProfileChangesRoute 
     func userDidTapSaveButton()
 }
 
-final class PasswordChangesViewModelImpl: PasswordChangesViewModel {
+final class PasswordChangesViewModelImpl: AuthStoreViewModel, PasswordChangesViewModel {
     @Published var navigationRoute: ProfileChangesRoute? = nil
     @Published var overviewRoute: ProfileChangesRoute? = nil
     @Published var showAlert: Bool = false
@@ -32,10 +33,21 @@ final class PasswordChangesViewModelImpl: PasswordChangesViewModel {
     }
 
     func userDidTapSaveButton() {
-        overviewRoute = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
-            self?.overviewRoute = nil
-            self?.showAlert = true
+        reduce(
+            action: AuthActionChangePassword(
+                password: passwordInput,
+                passwordConfirm: passwordAgainInput
+            )
+        )
+    }
+
+    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+        guard let effect else { return }
+
+        switch effect {
+            case is AuthSideEffectShowProgress:
+                overviewRoute = .loading
+            default: overviewRoute = nil
         }
     }
 }

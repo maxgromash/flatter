@@ -1,4 +1,5 @@
 import Foundation
+import shared
 
 protocol PersonalInfoChangesViewModel: ViewModel where Route == ProfileChangesRoute {
     var phoneNumberInput: String { get set }
@@ -8,7 +9,7 @@ protocol PersonalInfoChangesViewModel: ViewModel where Route == ProfileChangesRo
     func userDidTapSaveButton()
 }
 
-final class PersonalInfoChangesViewModelImpl: PersonalInfoChangesViewModel {
+final class PersonalInfoChangesViewModelImpl: AuthStoreViewModel, PersonalInfoChangesViewModel {
     @Published var navigationRoute: ProfileChangesRoute? = nil
     @Published var overviewRoute: ProfileChangesRoute? = nil
     @Published var showAlert: Bool = false
@@ -25,10 +26,16 @@ final class PersonalInfoChangesViewModelImpl: PersonalInfoChangesViewModel {
     @Published private var phoneNumber: String = ""
 
     func userDidTapSaveButton() {
-        overviewRoute = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-            self?.overviewRoute = nil
-            self?.showAlert = true
+        reduce(action: AuthActionChangePhone(phone: phoneNumber))
+    }
+
+    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+        guard let effect else { return }
+
+        switch effect {
+            case is AuthSideEffectShowProgress:
+                overviewRoute = .loading
+            default: overviewRoute = nil
         }
     }
 }
