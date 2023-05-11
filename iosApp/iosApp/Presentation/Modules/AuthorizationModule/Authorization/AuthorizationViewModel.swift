@@ -16,8 +16,8 @@ protocol AuthorizationViewModel: ViewModel where Route == AuthorizationRoute {
 
 final class AuthorizationViewModelImpl: AuthStoreViewModel, AuthorizationViewModel {
     @Published var navigationRoute: AuthorizationRoute? = nil
-
     @Published var overviewRoute: AuthorizationRoute? = nil
+    @Published var alertText: String? = nil
 
     @Published var emailInput: String = ""
     @Published var passwordInput: String = ""
@@ -70,14 +70,17 @@ final class AuthorizationViewModelImpl: AuthStoreViewModel, AuthorizationViewMod
     }
 
     override func didRecieveEffect(_ effect: AuthSideEffect?) {
-//        guard let effect else {
-//            overviewRoute = nil
-//            return
-//        }
-//        switch effect {
-//            case is AuthSideEffectShowProgress:
-//                overviewRoute = .loading
-//            default: overviewRoute = nil
-//        }
+        guard let effect, navigationRoute == nil else {
+            return
+        }
+        switch effect {
+            case is AuthSideEffectShowProgress:
+                overviewRoute = .loading
+            case is AuthSideEffectShowMessage:
+                overviewRoute = nil
+                guard let showMessage = effect as? AuthSideEffectShowMessage else { return }
+                alertText = showMessage.message
+            default: overviewRoute = nil
+        }
     }
 }

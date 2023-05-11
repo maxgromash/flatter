@@ -83,10 +83,10 @@ class AuthStore(private val client: AuthClient) : BaseStore<AuthState, AuthActio
                 )
             }
                 .onSuccess {
-                    sendEffect { AuthSideEffect.ShowMessage("Пароль успешно обновлен") }
+                    sendEffect { AuthSideEffect.ShowMessage("Номер телефона успешно обновлен") }
                 }
                 .onFailure {
-                    sendEffect { AuthSideEffect.ShowMessage("Ошибка! Не удалось обновить пароль") }
+                    sendEffect { AuthSideEffect.ShowMessage("Ошибка! Не удалось обновить номер телефона") }
                 }
         } ?: run {
             updateState { AuthState.None }
@@ -95,6 +95,7 @@ class AuthStore(private val client: AuthClient) : BaseStore<AuthState, AuthActio
 
     private suspend fun processChangePassword(action: AuthAction.ChangePassword) {
         tokenStore.token?.let {token ->
+            sendEffect { AuthSideEffect.ShowProgress }
             runCatching {
                 client.changePassword(
                     ChangePasswordRequest(
@@ -105,10 +106,10 @@ class AuthStore(private val client: AuthClient) : BaseStore<AuthState, AuthActio
                 )
             }
                 .onSuccess {
-                    sendEffect { AuthSideEffect.ShowMessage("Номер телефона успешно обновлен") }
+                    sendEffect { AuthSideEffect.ShowMessage("Пароль успешно обновлен") }
                 }
                 .onFailure {
-                    sendEffect { AuthSideEffect.ShowMessage("Ошибка! Не удалось обновить номер телефона") }
+                    sendEffect { AuthSideEffect.ShowMessage("Ошибка! Не удалось обновить пароль") }
                 }
         } ?: run {
             updateState { AuthState.None }

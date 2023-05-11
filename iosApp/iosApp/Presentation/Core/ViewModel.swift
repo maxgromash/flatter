@@ -6,7 +6,7 @@ protocol ViewModel: ObservableObject {
 
     var navigationRoute: Route? { get set }
     var overviewRoute: Route? { get set }
-    var showAlert: Bool { get set }
+    var alertText: String? { get set }
 }
 
 extension ViewModel {
@@ -15,8 +15,9 @@ extension ViewModel {
         set { }
     }
 
-    var showAlert: Bool {
-        get { false }
-        set {}
+    var alertText: String? {
+        get { nil }
+        set { }
     }
+
 }

@@ -27,7 +27,7 @@ struct PasswordChangesView<
             .required(validator: { _ in viewModel.passswordAgainValid })
             AuthorizatoinMainActionButton(
                 text: "Сохранить",
-                action: viewModel.userDidTapSaveButton,
+                action: viewModel.userDidTapSavePasswordButton,
                 disabled: false == viewModel.saveButtonEnabled
             )
         }
@@ -60,7 +60,7 @@ struct PasswordChangesView_Previews: PreviewProvider {
 
         var saveButtonEnabled: Bool = false
 
-        func userDidTapSaveButton() {}
+        func userDidTapSavePasswordButton() {}
 
         var navigationRoute: ProfileChangesRoute? = nil
     }

@@ -20,6 +20,7 @@ struct RegistrationView<
                 Spacer()
             }
             .padding(.horizontal, 16)
+            .alert(viewModel: viewModel)
         }
     }
 

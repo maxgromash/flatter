@@ -10,7 +10,8 @@ protocol ForgotPasswordViewModel: ViewModel where Route == ForgotPasswordRoute {
 
 final class ForgotPasswordViewModelImpl: AuthStoreViewModel, ForgotPasswordViewModel {
     @Published var navigationRoute: ForgotPasswordRoute? = nil
-    @Published var showAlert: Bool = false
+    @Published var overviewRoute: ForgotPasswordRoute? = nil
+    @Published var alertText: String? = nil
 
     @Published var emailInput: String = ""
 
@@ -27,6 +28,10 @@ final class ForgotPasswordViewModelImpl: AuthStoreViewModel, ForgotPasswordViewM
         switch effect {
             case is AuthSideEffectShowProgress:
                 overviewRoute = .loading
+            case is AuthSideEffectShowMessage:
+                overviewRoute = nil
+                guard let showMessage = effect as? AuthSideEffectShowMessage else { return }
+                alertText = showMessage.message
             default: overviewRoute = nil
         }
     }

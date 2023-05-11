@@ -15,6 +15,7 @@ struct ForgotPasswordView<
                 emailForm
             }
             .padding(.horizontal, 16)
+            .alert(viewModel: viewModel)
         }
     }
 

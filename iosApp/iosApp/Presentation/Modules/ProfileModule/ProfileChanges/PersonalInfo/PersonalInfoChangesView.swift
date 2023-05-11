@@ -19,7 +19,7 @@ struct PersonalInfoChangesView<
             )
             AuthorizatoinMainActionButton(
                 text: "Сохранить",
-                action: viewModel.userDidTapSaveButton,
+                action: viewModel.userDidTapSavePhoneButton,
                 disabled: false == viewModel.confirmButtonEnabled
             )
         }
@@ -48,6 +48,6 @@ struct PersonalInfoChangesView_Previews: PreviewProvider {
 
         var navigationRoute: ProfileChangesRoute? = nil
 
-        func userDidTapSaveButton() {}
+        func userDidTapSavePhoneButton() {}
     }
 }

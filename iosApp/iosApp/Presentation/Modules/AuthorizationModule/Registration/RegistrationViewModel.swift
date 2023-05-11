@@ -20,6 +20,7 @@ protocol RegistrationViewModel: ViewModel where Route == RegistrationRoute {
 final class RegistrationViewModelImpl: AuthStoreViewModel, RegistrationViewModel {
     @Published var navigationRoute: RegistrationRoute? = nil
     @Published var overviewRoute: RegistrationRoute? = nil
+    @Published var alertText: String? = nil
 
     @Published var nameInput: String = ""
     @Published var emailInput: String = ""
@@ -55,5 +56,19 @@ final class RegistrationViewModelImpl: AuthStoreViewModel, RegistrationViewModel
                 passwordConfirm: passwordAgainInput
             )
         )
+    }
+
+    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+        guard let effect else { return }
+
+        switch effect {
+            case is AuthSideEffectShowProgress:
+                overviewRoute = .loading
+            case is AuthSideEffectShowMessage:
+                overviewRoute = nil
+                guard let showMessage = effect as? AuthSideEffectShowMessage else { return }
+                alertText = showMessage.message
+            default: return
+        }
     }
 }

@@ -24,6 +24,7 @@ struct AuthorizationView<
                 }
             }
             .padding(.horizontal, 15)
+            .alert(viewModel: viewModel)
         }
         .navigationTitle("Авторизация")
         .navigationBarHidden(true)

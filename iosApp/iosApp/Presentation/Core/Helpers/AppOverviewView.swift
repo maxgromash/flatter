@@ -18,7 +18,7 @@ struct AppOverviewView<Router: Routing, VM: ViewModel, Content: View>: AppView w
     }
 
     var body: some View {
-        if let route = viewModel.overviewRoute {
+        if let route = viewModel.overviewRoute, viewModel.navigationRoute == nil {
             content.overlay {
                 router.view(for: route)
             }
@@ -29,43 +29,21 @@ struct AppOverviewView<Router: Routing, VM: ViewModel, Content: View>: AppView w
     }
 }
 
-struct AppAlertView<Router: Routing, VM: ViewModel, Content: View>: AppView where Router.Route == VM.Route {
-    @ObservedObject var viewModel: VM
-    let router: Router
-
-    let content: Content
-
-    let title: String
-    let message: String
-
-    init(
-        viewModel: VM,
-        router: Router,
-        title: String,
-        message: String,
-        @ViewBuilder content: () -> Content
-    ) {
-        self.viewModel = viewModel
-        self.router = router
-        self.title = title
-        self.message = message
-        self.content = content()
-    }
-
-    var body: some View {
-        content
-            .alert(
-                title,
-                isPresented: .init(
-                    get: { viewModel.showAlert },
-                    set: {
-                        if false == $0 {
-                            viewModel.showAlert = false
-                        }
+extension View {
+    func alert<VM: ViewModel>(viewModel: VM) -> some View {
+        self.alert(
+            Text(viewModel.alertText ?? ""),
+            isPresented: .init(
+                get: { viewModel.alertText != nil },
+                set: {
+                    if false == $0 {
+                        viewModel.alertText = nil
                     }
-                ),
-                actions: { viewModel.navigationRoute.flatMap(router.view(for:)) },
-                message: { Text(message) }
-            )
+                }
+            ),
+            actions: {
+                Text("Ok")
+            }
+        )
     }
 }
