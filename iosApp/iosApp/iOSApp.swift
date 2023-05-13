@@ -5,6 +5,8 @@ import shared
 struct iOSApp: App {
     init() {
         NetworkClientsProvider.shared.authClient = AuthClientImpl()
+        NetworkClientsProvider.shared.newsClient = NewsClientImpl()
+        NetworkClientsProvider.shared.projectsClient = ProjectsClientImpl()
         KoinFactoryKt.doInitKoin()
     }
 

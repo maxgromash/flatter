@@ -21,7 +21,7 @@ class BaseViewModel<
     private lazy var effectCollector: Observer = {
         let collector = Observer { [weak self] effect in
             if let value = effect as? Effect? {
-                self?.didRecieveEffect(value)
+                self?.didReceiveEffect(value)
             }
         }
         return collector
@@ -35,7 +35,7 @@ class BaseViewModel<
 
     func didChangeState(_ state: State?) {  }
 
-    func didRecieveEffect(_ effect: Effect?) {  }
+    func didReceiveEffect(_ effect: Effect?) {  }
 
     func reduce(action: Action) {
         store.reduce(action: action)

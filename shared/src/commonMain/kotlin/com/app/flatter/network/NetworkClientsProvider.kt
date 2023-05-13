@@ -7,4 +7,5 @@ import kotlin.reflect.KClass
 object NetworkClientsProvider {
     lateinit var authClient: AuthClient
     lateinit var newsClient: NewsClient
+    lateinit var projectsClient: ProjectsClient
 }

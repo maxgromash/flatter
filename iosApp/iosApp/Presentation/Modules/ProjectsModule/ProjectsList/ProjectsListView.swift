@@ -4,19 +4,17 @@ struct ProjectsListView<
     VM: ProjectsListViewModel,
     Router: Routing
 >: AppView where VM.Route == Router.Route {
-    let viewModel: VM
+    @ObservedObject var viewModel: VM
     let router: Router
-
-    private let projects: [ProjectModel] = .mock
 
     var body: some View {
         BackgroundContainer {
             ScrollView {
-                ForEach(projects, id: \.id) { project in
+                ForEach(viewModel.projects, id: \.id) { project in
                     ProjectsListCard(
                         project: project
                     )
-                    .padding(.bottom, project.id == projects.last?.id ? 0 : 10)
+                    .padding(.bottom, project.id == viewModel.projects.last?.id ? 0 : 10)
                     .onTapGesture {
                         viewModel.onUserDidTapProjectCard(project: project)
                     }
@@ -43,6 +41,7 @@ struct ProjectsView_Previews: PreviewProvider {
 
     private final class ViewModelMock: ProjectsListViewModel {
         var navigationRoute: ProjectsListRoute? = nil
+        var projects: [ProjectModel] = .mock
 
         func onUserDidTapProjectCard(project: ProjectModel) {}
     }

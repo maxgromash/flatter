@@ -175,7 +175,9 @@ struct ProjectInfoView_Previews: PreviewProvider {
 
     private final class ViewModelMock: ProjectInfoViewModel {
         let project: ProjectModel = .init(
+            id: "1",
             title: "Демонстрационный",
+            description: .loremIpsum,
             image: ImagesProvider.firstDubrovskiy,
             address: .init(
                 address: "г. Москва, ул. Демонстрационная",

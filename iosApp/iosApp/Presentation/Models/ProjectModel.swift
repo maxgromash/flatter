@@ -14,9 +14,9 @@ struct ProjectModel {
         let time: Int
     }
 
-    let id = UUID()
+    let id: String
     let title: String
-    let description: String = .loremIpsum
+    let description: String
     let image: UIImage
     let address: Address
     let minFlatPrice: Float
@@ -39,7 +39,9 @@ extension Array where Element == ProjectModel {
     static var mock: [ProjectModel] {
         [
             ProjectModel(
+                id: "1",
                 title: "Первый Дубровский",
+                description: .loremIpsum,
                 image: ImagesProvider.firstDubrovskiy,
                 address: .init(
                     address: "Москва, ул. 1-й Дубровский проезд, 78/14с12",
@@ -57,7 +59,9 @@ extension Array where Element == ProjectModel {
                 ]
             ),
             ProjectModel(
+                id: "2",
                 title: "Символ",
+                description: .loremIpsum,
                 image: ImagesProvider.symbolProject,
                 address: .init(
                     address: "Москва, ул. Золоторожский Вал, 11с2",
