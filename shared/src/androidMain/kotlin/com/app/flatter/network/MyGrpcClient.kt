@@ -11,6 +11,6 @@ internal class MyGrpcClient : KoinComponent {
 
     val grpcClient = GrpcClient.Builder()
         .client(grpcOkhttpClient)
-        .baseUrl("http://45.8.250.161:8000")
+        .baseUrl("http://81.163.30.24:9001")
         .build()
 }

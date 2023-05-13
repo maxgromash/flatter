@@ -6,6 +6,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.app.flatter.android.R
 import com.app.flatter.android.databinding.ActivityMainBinding
+import com.app.flatter.network.AuthClientImpl
+import com.app.flatter.network.NetworkClientsProvider
 
 internal class MainActivity : AppCompatActivity() {
 
@@ -18,5 +20,8 @@ internal class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerFCV) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavigationBNV, navController)
+        NetworkClientsProvider.authClient = AuthClientImpl()
+        //NetworkClientsProvider.newsClient = NewsClientImpl()
+        //NetworkClientsProvider.projectsClient = ProjectsClientImpl()
     }
 }

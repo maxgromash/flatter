@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.app.flatter.android.R
 import com.app.flatter.android.databinding.FragmentLoginBinding
+import com.app.flatter.android.util.hideKeyboard
 import com.app.flatter.android.viewModel.AuthViewModel
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -35,6 +36,7 @@ class LoginFragment : Fragment(), KoinComponent {
 
         binding.signInMB.setOnClickListener {
             viewModel.signIn(binding.loginTIET.text.toString(), binding.passwordTIET.text.toString())
+            hideKeyboard()
         }
 
         observeState()
@@ -86,5 +88,4 @@ class LoginFragment : Fragment(), KoinComponent {
             null
         }
     }
-
 }

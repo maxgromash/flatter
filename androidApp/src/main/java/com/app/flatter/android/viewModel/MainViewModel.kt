@@ -8,14 +8,10 @@ import com.app.flatter.android.data.FlatPreviewVO
 import com.app.flatter.android.data.MetroStep
 import com.app.flatter.android.data.ProfileVO
 import com.app.flatter.android.data.ProjectVO
-import com.app.flatter.network.AuthClientImpl
-import com.app.flatter.presentation.auth.AuthAction
-import com.app.flatter.presentation.auth.AuthStore
 
 class MainViewModel : ViewModel() {
 
     val profile = ProfileVO("Максим", "+7 (922) 704 58 75")
-    private var authStore = AuthStore(client = AuthClientImpl())
     private val mutableFlatsList: MutableList<FlatPreviewVO> = ohMyMockFlats()
     private val mutableStarredList: MutableList<FlatPreviewVO> = mutableListOf()
 

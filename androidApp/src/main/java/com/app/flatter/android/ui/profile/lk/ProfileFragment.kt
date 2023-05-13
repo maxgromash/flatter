@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.app.flatter.android.R
 import com.app.flatter.android.data.ProfileActionVO
@@ -21,8 +20,6 @@ import com.app.flatter.android.databinding.FragmentProfileBinding
 import com.app.flatter.android.util.toPx
 import com.app.flatter.android.viewModel.AuthViewModel
 import com.google.android.material.textview.MaterialTextView
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
@@ -59,10 +56,7 @@ class ProfileFragment : Fragment() {
         }
 
     private fun createLogOutTextView() = MaterialTextView(requireContext()).apply {
-        layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
+        layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             gravity = Gravity.CENTER_HORIZONTAL
             topMargin = 16.toPx()
         }
@@ -87,16 +81,18 @@ class ProfileFragment : Fragment() {
         ) {
             findNavController().navigate(R.id.action_profileFragment_to_starFlatsFragment)
         },
-        ProfileActionVO(
+        /*ProfileActionVO(
             R.drawable.ic_baseline_insert_drive_file_24,
             "Мои документы",
             true
-        ),
+        ),*/
         ProfileActionVO(
             R.drawable.ic_baseline_mode_edit_outline_24,
             "Изменить данные",
             true
-        ),
+        ) {
+            findNavController().navigate(R.id.action_profileFragment_to_changePersonalDataFragment)
+        },
         ProfileActionVO(
             R.drawable.ic_outline_phone_24,
             "Связаться с менеджером",

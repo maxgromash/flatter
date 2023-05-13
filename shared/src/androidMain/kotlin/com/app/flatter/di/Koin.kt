@@ -2,7 +2,6 @@ package com.app.flatter.di
 
 import com.app.flatter.network.HttpClient
 import com.app.flatter.network.MyGrpcClient
-import com.app.flatter.network.AuthClient
 import com.squareup.wire.GrpcClient
 import okhttp3.OkHttpClient
 import org.koin.core.module.Module

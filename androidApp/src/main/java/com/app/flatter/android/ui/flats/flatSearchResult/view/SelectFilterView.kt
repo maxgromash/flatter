@@ -10,10 +10,7 @@ import com.app.flatter.android.databinding.ViewSelectFilterBinding
 import com.app.flatter.android.util.toPx
 import com.google.android.material.textview.MaterialTextView
 
-class SelectFilterView(
-    context: Context,
-    attrs: AttributeSet? = null
-) : FrameLayout(context, attrs) {
+class SelectFilterView(context: Context, attrs: AttributeSet? = null) : FrameLayout(context, attrs) {
 
     private val binding = ViewSelectFilterBinding.inflate(LayoutInflater.from(context), this)
     private val set = mutableSetOf<Int>()

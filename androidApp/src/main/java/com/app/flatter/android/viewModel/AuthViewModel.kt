@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.flatter.android.util.SingleLiveEvent
-import com.app.flatter.network.AuthClientImpl
 import com.app.flatter.presentation.auth.AuthAction
 import com.app.flatter.presentation.auth.AuthSideEffect
 import com.app.flatter.presentation.auth.AuthStore
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
-    private val store = AuthStore(client = AuthClientImpl())
+    private val store = AuthStore()
     private val signInStateViewModel = MutableLiveData<AuthState>()
     private val progressViewModel = SingleLiveEvent<Boolean>()
     private val showMessageViewModel = SingleLiveEvent<String>()
@@ -49,7 +48,7 @@ class AuthViewModel : ViewModel() {
         store.reduce(AuthAction.SignIn(login.trim(), password.trim()))
     }
 
-    fun checkToken() {
+    private fun checkToken() {
         store.reduce(AuthAction.CheckToken)
     }
 
@@ -69,6 +68,18 @@ class AuthViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun changePhone(phone: String) {
+        store.reduce(AuthAction.ChangePhone(phone.trim()))
+    }
+
+    fun changePassword(pass: String, passConfirm: String) {
+        store.reduce(AuthAction.ChangePassword(pass.trim(), passConfirm.trim()))
+    }
+
+    fun restorePassword(email: String) {
+        store.reduce(AuthAction.RestorePassword(email.trim()))
     }
 
     private fun observeState() {

@@ -22,5 +22,4 @@ actual class EncryptedSettingsHolder : KoinComponent {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         ), false
     )
-
 }

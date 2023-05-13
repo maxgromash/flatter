@@ -1,6 +1,5 @@
 package com.app.flatter.presentation.auth
 
-import com.app.flatter.dispatchers.ioDispatcher
 import com.app.flatter.presentation.BaseStore
 import com.app.flatter.security.EncryptedSettingsHolder
 import com.app.flatter.security.SharedSettingsHelper
@@ -18,7 +17,6 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
     override val sideEffectsFlow: MutableSharedFlow<AuthSideEffect> = MutableSharedFlow()
 
     private val client: AuthClient by inject()
-
     private val tokenStore = SharedSettingsHelper(EncryptedSettingsHolder().encryptedSettings)
 
     override suspend fun reduce(action: AuthAction, initialState: AuthState) {
@@ -26,35 +24,34 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
             when (action) {
                 is AuthAction.SignIn -> processSignInAction(action)
                 is AuthAction.SingUp -> processSingUpAction(action)
-                is AuthAction.LogOut -> {
-                    tokenStore.token = null
-                    updateState { AuthState.None }
-                }
+                is AuthAction.LogOut -> processLogOutAction()
                 is AuthAction.ChangePhone -> processChangePhone(action)
                 is AuthAction.ChangePassword -> processChangePassword(action)
-
-                is AuthAction.CheckToken -> {
-                    if (tokenStore.token != null) {
-                        updateState { AuthState.Success }
-                    }
-                    else {
-                        updateState { AuthState.None }
-                    }
-                }
+                is AuthAction.CheckToken -> processCheckTokenAction()
                 is AuthAction.RestorePassword -> processRestorePasswordAction(action)
             }
         }
     }
 
+    private suspend fun processCheckTokenAction() {
+        updateState {
+            if (tokenStore.token != null) AuthState.Success else AuthState.None
+        }
+    }
+
+    private suspend fun processLogOutAction() {
+        tokenStore.token = null
+        updateState { AuthState.None }
+    }
+
     private suspend fun processSignInAction(action: AuthAction.SignIn) {
         try {
             sendEffect { AuthSideEffect.ShowProgress }
-            val result =
-                client.signIn(SignInRequest(email = action.email, password = action.password))
+            val result = client.signIn(SignInRequest(email = action.email, password = action.password))
             tokenStore.token = result.token
             updateState { AuthState.Success }
         } catch (ex: Throwable) {
-            sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте подключение к сети.") }
+            sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте введённые данные и подключение к сети.") }
         }
     }
 
@@ -96,7 +93,7 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
     }
 
     private suspend fun processChangePassword(action: AuthAction.ChangePassword) {
-        tokenStore.token?.let {token ->
+        tokenStore.token?.let { token ->
             sendEffect { AuthSideEffect.ShowProgress }
             runCatching {
                 client.changePassword(
@@ -121,9 +118,7 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
     private suspend fun processRestorePasswordAction(action: AuthAction.RestorePassword) {
         try {
             sendEffect { AuthSideEffect.ShowProgress }
-            client.restorePassword(
-                RestorePasswordRequest(email = action.email)
-            )
+            client.restorePassword(RestorePasswordRequest(email = action.email))
             sendEffect { AuthSideEffect.ShowMessage("Письмо с восстановлением пароля отправлено на почту") }
         } catch (ex: Throwable) {
             sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте введённые данные и подключение к сети.") }

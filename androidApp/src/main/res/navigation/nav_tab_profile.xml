@@ -70,6 +70,13 @@
             app:popExitAnim="@anim/slide_right"
             app:popUpTo="@+id/nav_tab_profile"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePersonalDataFragment"
+            app:destination="@id/changePersonalDataFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right" />
     </fragment>
 
     <fragment
@@ -91,5 +98,11 @@
         android:name="com.app.flatter.android.ui.flats.flatDetails.FlatDetailsFragment"
         android:label="FlatDetailsFragment"
         tools:layout="@layout/fragment_flat_details" />
+
+    <fragment
+        android:id="@+id/changePersonalDataFragment"
+        android:name="com.app.flatter.android.ui.profile.ChangePersonalDataFragment"
+        android:label="fragment_change_personal_data"
+        tools:layout="@layout/fragment_change_personal_data" />
 
 </navigation>
