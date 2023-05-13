@@ -8,13 +8,7 @@ class BaseClient {
         GRPCChannelProvider.shared.channel
     }
 
-    private let name: String
-
     private lazy var logger: Logger = makeLogger()
-
-    init(name: String) {
-        self.name = name
-    }
 
     var callOptions: CallOptions {
         CallOptions(
@@ -25,7 +19,7 @@ class BaseClient {
 
     private func makeLogger() -> Logger {
         var logger = Logger(
-            label: name,
+            label: "\(type(of: self))",
             factory: StreamLogHandler.standardOutput(label:)
         )
         logger.logLevel = .debug

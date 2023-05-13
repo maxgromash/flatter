@@ -4,8 +4,7 @@ import Combine
 import shared
 
 final class ProfileModulePresentationFactory {
-    private let authClient = AuthClientImpl()
-    private let authStore = AuthStore(client: AuthClientImpl())
+    private let authStore = AuthStore()
     private lazy var authorizationViewModel = AuthorizationViewModelImpl(store: authStore)
 
     @ViewBuilder func makeAuthView() -> some View {

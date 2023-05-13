@@ -58,6 +58,8 @@ kotlin {
                 implementation("com.squareup.wire:wire-grpc-client:${Versions.wire}")
                 implementation("com.squareup.wire:wire-runtime:${Versions.wire}")
 
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+
             }
         }
         val commonTest by getting

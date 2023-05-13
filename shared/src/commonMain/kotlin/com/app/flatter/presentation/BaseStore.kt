@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import com.app.flatter.dispatchers.*
+import com.app.flatter.presentation.auth.AuthSideEffect
 
 abstract class BaseStore<State, Action, Effect> : KoinComponent {
 

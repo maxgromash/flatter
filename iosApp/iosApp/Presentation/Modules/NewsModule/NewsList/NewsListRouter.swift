@@ -3,6 +3,7 @@ import SwiftUI
 
 enum NewsListRoute: RouteType {
     case news(_ news: NewsModel)
+    case loading
 }
 
 final class NewsListRouter: Routing {
@@ -15,6 +16,8 @@ final class NewsListRouter: Routing {
                     date: model.publishDate,
                     image: model.image
                 )
+            case .loading:
+                LoaderView()
         }
     }
 }

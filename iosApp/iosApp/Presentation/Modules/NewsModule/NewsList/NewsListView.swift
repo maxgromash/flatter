@@ -27,6 +27,7 @@ struct NewsListView<
             }
         }
         .navigationTitle("Новости")
+        .alert(viewModel: viewModel)
     }
 }
 
@@ -44,7 +45,7 @@ struct NewsListView_Previews: PreviewProvider {
     private final class NewsListViewModelMock: NewsListViewModel {
         var navigationRoute: NewsListRoute? = nil
 
-        let news: [NewsModel] = .mock
+        let news: [NewsModel] = []
 
         func userDidSelectNews(news: NewsModel) {}
     }

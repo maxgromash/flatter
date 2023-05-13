@@ -6,10 +6,6 @@ final class AuthClientImpl: BaseClient {
         channel: channel,
         defaultCallOptions: callOptions
     )
-
-    init() {
-        super.init(name: "AuthClient")
-    }
 }
 
 extension AuthClientImpl: AuthClient {

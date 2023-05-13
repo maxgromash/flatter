@@ -12,10 +12,12 @@ import models.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class AuthStore(private val client: AuthClient) : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinComponent {
+class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinComponent {
 
     override val stateFlow: MutableStateFlow<AuthState> = MutableStateFlow(AuthState.None)
     override val sideEffectsFlow: MutableSharedFlow<AuthSideEffect> = MutableSharedFlow()
+
+    private val client: AuthClient by inject()
 
     private val tokenStore = SharedSettingsHelper(EncryptedSettingsHolder().encryptedSettings)
 

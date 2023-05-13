@@ -1,4 +1,5 @@
 import Foundation
+import shared
 import SwiftUI
 
 struct RootView: View {
@@ -40,14 +41,19 @@ struct RootView: View {
                 )
             }
             NavigationView {
-                let viewModel = NewsListViewModelImpl()
+                let viewModel = NewsListViewModelImpl(store: NewsStore())
                 let router = NewsListRouter()
-                VStack {
-                    NewsListView(
-                        viewModel: viewModel,
-                        router: router
-                    )
-                    AppNavigationLink(viewModel: viewModel, router: router)
+                AppOverviewView(
+                    viewModel: viewModel,
+                    router: router
+                ) {
+                    VStack {
+                        NewsListView(
+                            viewModel: viewModel,
+                            router: router
+                        )
+                        AppNavigationLink(viewModel: viewModel, router: router)
+                    }
                 }
             }
             .tint(.white)
