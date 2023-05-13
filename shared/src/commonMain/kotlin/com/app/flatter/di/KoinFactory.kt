@@ -2,7 +2,9 @@ package com.app.flatter.di
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
+import com.app.flatter.mapper.FlatMapper
 import com.app.flatter.network.AuthClient
+import com.app.flatter.network.FlatsClient
 import com.app.flatter.network.NetworkClientsProvider
 import com.app.flatter.network.NewsClient
 import com.app.flatter.network.ProjectsClient
@@ -27,6 +29,8 @@ val commonModule = module {
     single { NetworkClientsProvider.authClient } bind AuthClient::class
     single { NetworkClientsProvider.newsClient } bind NewsClient::class
     single { NetworkClientsProvider.projectsClient } bind ProjectsClient::class
+    single { NetworkClientsProvider.flatsClient } bind FlatsClient::class
+    single { FlatMapper() }
 }
 
 expect val platformModule: Module

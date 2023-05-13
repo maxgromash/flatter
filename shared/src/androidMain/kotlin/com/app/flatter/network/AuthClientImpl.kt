@@ -4,10 +4,11 @@ import com.squareup.wire.GrpcClient
 import models.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
 
 class AuthClientImpl : KoinComponent, AuthClient {
 
-    private val grpcClient: GrpcClient by inject()
+    private val grpcClient: GrpcClient by inject { parametersOf(true)}
 
     private val authClient by lazy { GrpcAuthServiceClient(grpcClient) }
 
