@@ -23,7 +23,7 @@ final class ForgotPasswordViewModelImpl: AuthStoreViewModel, ForgotPasswordViewM
         reduce(action: AuthActionRestorePassword(email: emailInput))
     }
 
-    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+    override func didReceiveEffect(_ effect: AuthSideEffect?) {
         guard let effect else { return }
         switch effect {
             case is AuthSideEffectShowProgress:

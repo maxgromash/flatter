@@ -37,7 +37,7 @@ final class NewsListViewModelImpl: NewsStoreViewModel, NewsListViewModel {
         }
     }
 
-    override func didRecieveEffect(_ effect: NewsSideEffect?) {
+    override func didReceiveEffect(_ effect: NewsSideEffect?) {
         guard let effect else { return }
 
         switch effect {

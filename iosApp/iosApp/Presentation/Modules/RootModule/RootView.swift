@@ -26,11 +26,16 @@ struct RootView: View {
     var body: some View {
         TabView {
             NavigationView {
-                let viewModel = ProjectsListViewModelImpl()
+                let viewModel = ProjectsListViewModelImpl(store: ProjectsStore())
                 let router = ProjectsListRouter()
-                VStack {
-                    ProjectsListView(viewModel: viewModel, router: router)
-                    AppNavigationLink(viewModel: viewModel, router: router)
+                AppOverviewView(
+                    viewModel: viewModel,
+                    router: router
+                ) {
+                    VStack {
+                        ProjectsListView(viewModel: viewModel, router: router)
+                        AppNavigationLink(viewModel: viewModel, router: router)
+                    }
                 }
             }
             .tint(.white)

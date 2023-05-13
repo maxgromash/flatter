@@ -69,7 +69,7 @@ final class AuthorizationViewModelImpl: AuthStoreViewModel, AuthorizationViewMod
         }
     }
 
-    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+    override func didReceiveEffect(_ effect: AuthSideEffect?) {
         guard let effect, navigationRoute == nil else {
             return
         }

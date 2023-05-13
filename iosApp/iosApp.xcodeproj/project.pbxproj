@@ -70,6 +70,8 @@
 		84752B272A0FAB9D0092BB3E /* concurrentMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B262A0FAB9D0092BB3E /* concurrentMap.swift */; };
 		84752B2A2A0FAC380092BB3E /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B292A0FAC380092BB3E /* ImageLoader.swift */; };
 		84752B2C2A0FB3780092BB3E /* NewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B2B2A0FB3780092BB3E /* NewsClient.swift */; };
+		84752B2E2A0FCE550092BB3E /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B2D2A0FCE550092BB3E /* UIColor+hex.swift */; };
+		84752B302A0FD2F50092BB3E /* ProjectsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B2F2A0FD2F50092BB3E /* ProjectsClient.swift */; };
 		84B0F59829C5CAF200DC4E8D /* BackgroundContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0F59729C5CAF200DC4E8D /* BackgroundContainer.swift */; };
 		84B0F59A29C5D52B00DC4E8D /* AuthorizatoinMainActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0F59929C5D52B00DC4E8D /* AuthorizatoinMainActionButton.swift */; };
 		84B0F59D29C5FB8600DC4E8D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0F59C29C5FB8600DC4E8D /* ForgotPasswordView.swift */; };
@@ -165,6 +167,8 @@
 		84752B262A0FAB9D0092BB3E /* concurrentMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = concurrentMap.swift; sourceTree = "<group>"; };
 		84752B292A0FAC380092BB3E /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		84752B2B2A0FB3780092BB3E /* NewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsClient.swift; sourceTree = "<group>"; };
+		84752B2D2A0FCE550092BB3E /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
+		84752B2F2A0FD2F50092BB3E /* ProjectsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsClient.swift; sourceTree = "<group>"; };
 		84B0F59729C5CAF200DC4E8D /* BackgroundContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundContainer.swift; sourceTree = "<group>"; };
 		84B0F59929C5D52B00DC4E8D /* AuthorizatoinMainActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizatoinMainActionButton.swift; sourceTree = "<group>"; };
 		84B0F59C29C5FB8600DC4E8D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
@@ -362,6 +366,7 @@
 				841389E32A0A99750047E2A8 /* AuthClient.swift */,
 				841389E52A0A99850047E2A8 /* BaseClient.swift */,
 				84752B2B2A0FB3780092BB3E /* NewsClient.swift */,
+				84752B2F2A0FD2F50092BB3E /* ProjectsClient.swift */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				843591B329BC9D68008ADA45 /* ImagesProvider.swift */,
 				843591BA29BDFA8F008ADA45 /* View+Extensions.swift */,
 				843591C329BE1123008ADA45 /* ColorsProvider.swift */,
+				84752B2D2A0FCE550092BB3E /* UIColor+hex.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -884,6 +890,7 @@
 				84D375AE29D07BF3000BA17A /* PasswordValidator.swift in Sources */,
 				84B0F5A929C717F100DC4E8D /* NewsListView.swift in Sources */,
 				8451B36129CCDF78006E9BBB /* FlatInfoRouter.swift in Sources */,
+				84752B302A0FD2F50092BB3E /* ProjectsClient.swift in Sources */,
 				843591BB29BDFA8F008ADA45 /* View+Extensions.swift in Sources */,
 				84752B272A0FAB9D0092BB3E /* concurrentMap.swift in Sources */,
 				845C80AB299788310029D58B /* AppView.swift in Sources */,
@@ -897,6 +904,7 @@
 				845C80C629979B020029D58B /* ProfileModulePresentationFactory.swift in Sources */,
 				8451B35F29CCDF67006E9BBB /* FlatInfoViewModel.swift in Sources */,
 				841389E12A0A98820047E2A8 /* GRPCChannelProvider.swift in Sources */,
+				84752B2E2A0FCE550092BB3E /* UIColor+hex.swift in Sources */,
 				84B0F59F29C5FB9700DC4E8D /* ForgotPasswordViewModel.swift in Sources */,
 				841389F12A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift in Sources */,
 				84D3766E29D3776A000BA17A /* PersonalInfoChangesViewModel.swift in Sources */,

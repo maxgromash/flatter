@@ -11,7 +11,7 @@ final class ProfileChangesViewModel: AuthStoreViewModel {
 
     @Published private var phoneNumber: String = ""
 
-    override func didRecieveEffect(_ effect: AuthSideEffect?) {
+    override func didReceiveEffect(_ effect: AuthSideEffect?) {
         guard let effect else { return }
 
         switch effect {

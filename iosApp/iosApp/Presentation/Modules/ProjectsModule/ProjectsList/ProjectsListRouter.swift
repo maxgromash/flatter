@@ -3,6 +3,7 @@ import SwiftUI
 
 enum ProjectsListRoute: RouteType {
     case info(project: ProjectModel)
+    case loading
 }
 
 final class ProjectsListRouter: Routing {
@@ -15,6 +16,8 @@ final class ProjectsListRouter: Routing {
                     ProjectInfoView(viewModel: viewModel, router: router)
                     AppNavigationLink(viewModel: viewModel, router: router)
                 }
+            case let .loading:
+                LoaderView()
         }
     }
 }

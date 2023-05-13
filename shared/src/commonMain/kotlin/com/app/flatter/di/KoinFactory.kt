@@ -5,6 +5,7 @@ import co.touchlab.kermit.StaticConfig
 import com.app.flatter.network.AuthClient
 import com.app.flatter.network.NetworkClientsProvider
 import com.app.flatter.network.NewsClient
+import com.app.flatter.network.ProjectsClient
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
@@ -25,6 +26,7 @@ fun initKoin() = initKoin {
 val commonModule = module {
     single { NetworkClientsProvider.authClient } bind AuthClient::class
     single { NetworkClientsProvider.newsClient } bind NewsClient::class
+    single { NetworkClientsProvider.projectsClient } bind ProjectsClient::class
 }
 
 expect val platformModule: Module
