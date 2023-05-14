@@ -85,40 +85,17 @@ final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
 
     private let imageLoader = ImageLoader.shared
 
-    private let projectId: Int32
-
-    init(projectId: Int32, store: FlatsStore) {
-        self.projectId = projectId
+    override init(store: FlatsStore) {
         super.init(store: store)
-        reduce(action: FlatsStateActionGetFlats(projectID: projectId))
+        reduce(action: FlatsStateActionGetFlats())
     }
-
-//    init() {
-//        let flats = FlatsProvider.shared.flats
-//        filter = .init(
-//            price: .init(
-//                minPrice: Float(flats.min(by: { flat1, flat2 in
-//                    flat1.price < flat2.price
-//                })?.price ?? 0),
-//                maxPrice: Float(flats.max(by: { flat1, flat2 in
-//                    flat1.price < flat2.price
-//                })?.price ?? 0)
-//            )
-//        )
-//
-//        self.flats = flats
-//
-//        flatsProvider.addListener { [weak self] flats in
-//            self?.updateFlats()
-//        }
-//    }
 
     func onUserDidSelectFlat(flat: FlatModel) {
         navigationRoute = .flatInfo(flat: flat)
     }
 
     func userDidChangeFavourite(flat: FlatModel) {
-//        flatsProvider.updateFlatIsFavourite(flat: flat)
+
     }
 
     override func didReceiveEffect(_ effect: FlatsStateSideEffect?) {
