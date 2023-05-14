@@ -36,12 +36,10 @@ class FlatsStore(private val projectID: Int) : BaseStore<FlatsState, FlatsAction
             client.loadFlats(GetFlatsRequest(projectID))
         }.onSuccess {
             val mappedFlats = it.flats.map(mapper)
-            if (tokenStore.token == null) {
-                val favouriteFlatsIds = appDatabaseRepository.getFavouriteFlats()
-                favouriteFlatsIds.forEach { favouriteId ->
-                    val flat = mappedFlats.first { flat -> flat.id == favouriteId }
-                    flat.isFavourite = true
-                }
+            val favouriteFlatsIds = appDatabaseRepository.getFavouriteFlats()
+            favouriteFlatsIds.forEach { favouriteId ->
+                val flat = mappedFlats.first { flat -> flat.id == favouriteId }
+                flat.isFavourite = true
             }
             updateState { FlatsState.FlatsList(mappedFlats) }
         }.onFailure {

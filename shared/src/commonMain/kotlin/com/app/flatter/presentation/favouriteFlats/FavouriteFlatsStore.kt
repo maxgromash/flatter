@@ -33,42 +33,36 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
     }
 
     private suspend fun processAddFavouriteFlat(action: FavouriteFlatsAction.AddFavouriteFlat) {
-        if (tokenStore.token != null) {
-            runCatching {
-                //TODO client...
-            }.onSuccess {
-                sendEffect { FavouriteFlatsSideEffect.ShowMessage("Добавлено в избранное!") }
-            }.onFailure {
-                sendEffect { FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
-            }
-        } else {
+        runCatching {
             appDatabaseRepository.addFavouriteFlat(action.id)
+            //TODO client...
+        }.onSuccess {
             sendEffect { FavouriteFlatsSideEffect.ShowMessage("Добавлено в избранное!") }
+        }.onFailure {
+            sendEffect { FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
         }
     }
 
     private suspend fun processRemoveFavouriteFlat(action: FavouriteFlatsAction.RemoveFavouriteFlat) {
-        if (tokenStore.token != null) {
-            runCatching {
-                //TODO client...
-            }.onSuccess {
-
-            }.onFailure {
-                sendEffect { FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
-            }
-        } else {
+        runCatching {
             appDatabaseRepository.removeFavouriteFlat(action.id)
-            sendEffect { FavouriteFlatsSideEffect.ShowMessage("Удалено из избранного") }
+            //TODO client...
+        }.onSuccess {
+
+        }.onFailure {
+            sendEffect { FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
         }
     }
 
     private suspend fun processGetFavouriteFlats() {
         runCatching {
+            val cachedFavourites = appDatabaseRepository.getFavouriteFlats()
             // Если база не пустая - синкаем с сервом при запросе избранных
-            if (appDatabaseRepository.getFavouriteFlats().isNotEmpty()) {
+            if (cachedFavourites.isNotEmpty()) {
                 //TODO client.setFavouriteFlats()
                 appDatabaseRepository.deleteAllFavouriteFlats()
             }
+
             //TODO client.getFavouriteFlats(action) . получаем избранные с серва
         }.onSuccess {
             //TODO stateFlow.emit(FavouriteFlatsState.FavouriteFlatsList())

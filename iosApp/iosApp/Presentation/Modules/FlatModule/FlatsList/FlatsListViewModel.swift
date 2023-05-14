@@ -70,8 +70,8 @@ final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
     @Published var flats: [FlatModel] = []
 
     @Published var navigationRoute: FlatsListRoute? = nil {
-        didSet {
-            if navigationRoute == nil {
+        willSet {
+            if newValue == nil {
                 reduce(action: FlatsActionGetFlats())
             }
         }
@@ -252,8 +252,8 @@ final class FlistListViewModelFavouritesOnly: FavouritesStoreViewModel, FlatsLis
     @Published var flats: [FlatModel] = FlatsProvider.shared.flats
 
     @Published var navigationRoute: FlatsListRoute? = nil {
-        didSet {
-            if navigationRoute == nil {
+        willSet {
+            if newValue == nil {
                 reduce(action: FavouriteFlatsActionGetFavouriteFlats())
             }
         }
