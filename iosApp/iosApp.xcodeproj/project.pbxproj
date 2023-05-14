@@ -29,6 +29,8 @@
 		841389EC2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389EB2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift */; };
 		841389EE2A0AAB870047E2A8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389ED2A0AAB870047E2A8 /* BaseViewModel.swift */; };
 		841389F12A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841389F02A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift */; };
+		8429B7D42A10F1D9003C5B13 /* project.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429B7D22A10F1D9003C5B13 /* project.pb.swift */; };
+		8429B7D52A10F1D9003C5B13 /* project.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429B7D32A10F1D9003C5B13 /* project.grpc.swift */; };
 		84335E9B29CA318D001537BD /* ProjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84335E9A29CA318D001537BD /* ProjectsListView.swift */; };
 		84335E9D29CA319A001537BD /* ProjectsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84335E9C29CA319A001537BD /* ProjectsListViewModel.swift */; };
 		84335E9F29CA31A4001537BD /* ProjectsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84335E9E29CA31A4001537BD /* ProjectsListRouter.swift */; };
@@ -69,7 +71,6 @@
 		84752B252A0FAB820092BB3E /* asyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B242A0FAB820092BB3E /* asyncMap.swift */; };
 		84752B272A0FAB9D0092BB3E /* concurrentMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B262A0FAB9D0092BB3E /* concurrentMap.swift */; };
 		84752B2A2A0FAC380092BB3E /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B292A0FAC380092BB3E /* ImageLoader.swift */; };
-		84752B2C2A0FB3780092BB3E /* NewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B2B2A0FB3780092BB3E /* NewsClient.swift */; };
 		84752B2E2A0FCE550092BB3E /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B2D2A0FCE550092BB3E /* UIColor+hex.swift */; };
 		84752B302A0FD2F50092BB3E /* ProjectsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84752B2F2A0FD2F50092BB3E /* ProjectsClient.swift */; };
 		84B0F59829C5CAF200DC4E8D /* BackgroundContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B0F59729C5CAF200DC4E8D /* BackgroundContainer.swift */; };
@@ -127,6 +128,8 @@
 		841389EB2A0A9C210047E2A8 /* SwiftProtobuf.Message+Wire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftProtobuf.Message+Wire.swift"; sourceTree = "<group>"; };
 		841389ED2A0AAB870047E2A8 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		841389F02A0AADF20047E2A8 /* BaseViewModel+Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseViewModel+Typealiases.swift"; sourceTree = "<group>"; };
+		8429B7D22A10F1D9003C5B13 /* project.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = project.pb.swift; sourceTree = "<group>"; };
+		8429B7D32A10F1D9003C5B13 /* project.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = project.grpc.swift; sourceTree = "<group>"; };
 		84335E9A29CA318D001537BD /* ProjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListView.swift; sourceTree = "<group>"; };
 		84335E9C29CA319A001537BD /* ProjectsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListViewModel.swift; sourceTree = "<group>"; };
 		84335E9E29CA31A4001537BD /* ProjectsListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListRouter.swift; sourceTree = "<group>"; };
@@ -166,7 +169,6 @@
 		84752B242A0FAB820092BB3E /* asyncMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asyncMap.swift; sourceTree = "<group>"; };
 		84752B262A0FAB9D0092BB3E /* concurrentMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = concurrentMap.swift; sourceTree = "<group>"; };
 		84752B292A0FAC380092BB3E /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		84752B2B2A0FB3780092BB3E /* NewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsClient.swift; sourceTree = "<group>"; };
 		84752B2D2A0FCE550092BB3E /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		84752B2F2A0FD2F50092BB3E /* ProjectsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsClient.swift; sourceTree = "<group>"; };
 		84B0F59729C5CAF200DC4E8D /* BackgroundContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundContainer.swift; sourceTree = "<group>"; };
@@ -335,6 +337,8 @@
 		841389DD2A0A97590047E2A8 /* generated */ = {
 			isa = PBXGroup;
 			children = (
+				8429B7D32A10F1D9003C5B13 /* project.grpc.swift */,
+				8429B7D22A10F1D9003C5B13 /* project.pb.swift */,
 				841389E72A0A9A920047E2A8 /* auth.grpc.swift */,
 				841389E82A0A9A920047E2A8 /* auth.pb.swift */,
 			);
@@ -365,7 +369,6 @@
 			children = (
 				841389E32A0A99750047E2A8 /* AuthClient.swift */,
 				841389E52A0A99850047E2A8 /* BaseClient.swift */,
-				84752B2B2A0FB3780092BB3E /* NewsClient.swift */,
 				84752B2F2A0FD2F50092BB3E /* ProjectsClient.swift */,
 			);
 			path = Clients;
@@ -834,7 +837,6 @@
 				84D3767C29D38018000BA17A /* PasswordChangesView.swift in Sources */,
 				8440D12429D4CA930099A18B /* DocumentModel.swift in Sources */,
 				843591B429BC9D68008ADA45 /* ImagesProvider.swift in Sources */,
-				84752B2C2A0FB3780092BB3E /* NewsClient.swift in Sources */,
 				844C2B1529EC709200AD9DCA /* LiveStreamViewController.swift in Sources */,
 				84B0F5AC29C7195200DC4E8D /* EmptyViewRouterMock.swift in Sources */,
 				84D3767729D37DDA000BA17A /* PhoneNumberValidator.swift in Sources */,
@@ -866,6 +868,7 @@
 				84D3767E29D380E6000BA17A /* ProfileChangesView.swift in Sources */,
 				841389EE2A0AAB870047E2A8 /* BaseViewModel.swift in Sources */,
 				841389EA2A0A9A920047E2A8 /* auth.pb.swift in Sources */,
+				8429B7D42A10F1D9003C5B13 /* project.pb.swift in Sources */,
 				84D3767A29D37F40000BA17A /* PasswordChangesViewModel.swift in Sources */,
 				8440D12029D4C42C0099A18B /* DocumentsListViewModel.swift in Sources */,
 				845C80C0299792470029D58B /* RegistrationViewModel.swift in Sources */,
@@ -886,6 +889,7 @@
 				84335E9B29CA318D001537BD /* ProjectsListView.swift in Sources */,
 				845C80B4299789490029D58B /* AuthorizationRouter.swift in Sources */,
 				8440D12629D4CDEA0099A18B /* PDFKitRepresentedView.swift in Sources */,
+				8429B7D52A10F1D9003C5B13 /* project.grpc.swift in Sources */,
 				8403FA1E29CB837D00A5D63A /* FlatsListView.swift in Sources */,
 				84D375AE29D07BF3000BA17A /* PasswordValidator.swift in Sources */,
 				84B0F5A929C717F100DC4E8D /* NewsListView.swift in Sources */,

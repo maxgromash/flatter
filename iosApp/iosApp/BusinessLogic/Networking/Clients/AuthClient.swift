@@ -3,7 +3,7 @@ import shared
 
 final class AuthClientImpl: BaseClient {
     private lazy var client = Models_AuthServiceNIOClient(
-        channel: channel,
+        channel: GRPCChannelProvider.shared.authChannel,
         defaultCallOptions: callOptions
     )
 }

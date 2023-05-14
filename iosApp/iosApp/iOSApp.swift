@@ -4,9 +4,10 @@ import shared
 @main
 struct iOSApp: App {
     init() {
+        let projectsClient = ProjectsClientImpl()
         NetworkClientsProvider.shared.authClient = AuthClientImpl()
-        NetworkClientsProvider.shared.newsClient = NewsClientImpl()
-        NetworkClientsProvider.shared.projectsClient = ProjectsClientImpl()
+        NetworkClientsProvider.shared.newsClient = projectsClient
+        NetworkClientsProvider.shared.projectsClient = projectsClient
         KoinFactoryKt.doInitKoin()
     }
 

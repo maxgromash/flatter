@@ -3,7 +3,7 @@ import SwiftUI
 struct NewsInfoView: View {
     let title: String
     let description: String
-    let date: Date
+    let date: String
     let image: UIImage?
 
     private let dateFormater: DateFormatter = {
@@ -79,7 +79,7 @@ struct NewsInfoView: View {
                 .resizable()
                 .frame(width: 20, height: 20)
                 .foregroundColor(.white)
-            Text(dateFormater.string(from: date))
+            Text(date)
                 .foregroundColor(.white)
                 .font(.subheadline)
         }
@@ -91,7 +91,7 @@ struct NewsInfoView_Previews: PreviewProvider {
         NewsInfoView(
             title: "Example",
             description: .loremIpsum,
-            date: .now,
+            date: "2011",
             image: nil
         )
     }

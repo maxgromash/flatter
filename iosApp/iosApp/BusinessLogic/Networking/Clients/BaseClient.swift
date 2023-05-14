@@ -4,10 +4,6 @@ import GRPC
 import NIOHPACK
 
 class BaseClient {
-    var channel: GRPCChannel {
-        GRPCChannelProvider.shared.channel
-    }
-
     private lazy var logger: Logger = makeLogger()
 
     var callOptions: CallOptions {

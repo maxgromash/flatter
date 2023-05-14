@@ -14,7 +14,7 @@ struct ProjectModel {
         let time: Int
     }
 
-    let id: String
+    let id: Int32
     let title: String
     let description: String
     let image: UIImage
@@ -39,7 +39,7 @@ extension Array where Element == ProjectModel {
     static var mock: [ProjectModel] {
         [
             ProjectModel(
-                id: "1",
+                id: 1,
                 title: "Первый Дубровский",
                 description: .loremIpsum,
                 image: ImagesProvider.firstDubrovskiy,
@@ -59,7 +59,7 @@ extension Array where Element == ProjectModel {
                 ]
             ),
             ProjectModel(
-                id: "2",
+                id: 2,
                 title: "Символ",
                 description: .loremIpsum,
                 image: ImagesProvider.symbolProject,

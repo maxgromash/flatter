@@ -55,7 +55,7 @@ struct ProjectsListCard_Previews: PreviewProvider {
         VStack {
             ProjectsListCard(
                 project: .init(
-                    id: "1",
+                    id: 1,
                     title: "Демонстрационный",
                     description: .loremIpsum,
                     image: ImagesProvider.firstDubrovskiy,

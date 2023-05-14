@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import shared
 
 protocol NewsListViewModel: ViewModel where Route == NewsListRoute {
@@ -64,16 +65,16 @@ final class NewsListViewModelImpl: NewsStoreViewModel, NewsListViewModel {
     }
 
     private func mapNews(news: shared.NewsModel) async -> NewsModel? {
-        guard
-            let imageUrl = URL(string: news.imageURL),
-            let image = try? await imageLoader.loadImage(url: imageUrl)
-        else { return nil }
+        var image: UIImage? = nil
+        if let imageUrl = URL(string: news.imageURL) {
+            image = try? await imageLoader.loadImage(url: imageUrl)
+        }
         return NewsModel(
             id: news.id,
             title: news.title,
             description: news.description_,
-            image: image,
-            publishDate: Date(timeIntervalSince1970: TimeInterval(news.publicationDate.epochSeconds))
+            image: image ?? ImagesProvider.newsImagePlaceholder,
+            publishDate: news.publicationDate
         )
     }
 }

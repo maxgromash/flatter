@@ -1,7 +1,7 @@
 package com.app.flatter.businessModels
 
 data class ProjectModel(
-    val id: String,
+    val id: Int,
     val title: String,
     val description: String,
     val imageURL: String,
@@ -22,6 +22,6 @@ data class ProjectModel(
     data class NearestTransport(
         val name: String,
         val color: String,
-        val time: Int
+        val time: String
     )
 }
