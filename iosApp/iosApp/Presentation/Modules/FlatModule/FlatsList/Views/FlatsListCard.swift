@@ -89,11 +89,13 @@ struct FlatsListCard_Previews: PreviewProvider {
         VStack {
             FlatsListCard(
                 flat: FlatModel(
+                    id: 1,
                     price: 3_878_677,
                     rooms: 1,
                     number: 1,
                     area: 21.8,
                     floor: 13,
+                    trimming: "Чистовая",
                     finishing: "4 кв. 2024",
                     images: [
                         ImagesProvider.flatLayout(id: 1),

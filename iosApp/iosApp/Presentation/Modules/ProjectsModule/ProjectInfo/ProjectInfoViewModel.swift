@@ -17,7 +17,7 @@ final class ProjectInfoViewModelImpl: ProjectInfoViewModel {
     }
 
     func onUserDidTapSelectFlatButton() {
-        navigationRoute = .flatsList
+        navigationRoute = .flatsList(projectId: project.id)
     }
 
     func onUserDidTapLiveStreamButton() {

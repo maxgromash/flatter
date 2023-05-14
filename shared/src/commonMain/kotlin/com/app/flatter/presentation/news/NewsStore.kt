@@ -1,17 +1,11 @@
 package com.app.flatter.presentation.news
 
-import com.app.flatter.businessModels.NewsModel
 import com.app.flatter.mapper.NewsMapper
 import com.app.flatter.network.NewsClient
 import com.app.flatter.presentation.BaseStore
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toLocalDate
-import models.GetNewsResponse
-import models.News
 
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

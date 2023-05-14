@@ -1,17 +1,12 @@
 package com.app.flatter.presentation.projects
 
-import com.app.flatter.businessModels.ProjectModel
 import com.app.flatter.mapper.ProjectsMapper
 import com.app.flatter.network.ProjectsClient
 import com.app.flatter.presentation.BaseStore
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import models.Address
-import models.GetProjectsResponse
-import models.NearestTransports
-import models.Project
+
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
