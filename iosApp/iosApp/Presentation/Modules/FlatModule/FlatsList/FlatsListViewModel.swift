@@ -126,8 +126,8 @@ final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
     private func updateFlats() {
         guard let filter else { return }
         var flats = actualFlats.filter {
-            $0.area >= filter.area.minArea && $0.area <= filter.area.maxArea
-            && $0.floor >= Int(filter.floor.minFloor) && $0.floor <= Int(filter.floor.maxFloor)
+            $0.area >= filter.area.minAreaValue && $0.area <= filter.area.maxAreaValue
+            && $0.floor >= Int(filter.floor.minFloorValue) && $0.floor <= Int(filter.floor.maxFloorValue)
             && Float($0.price) >= filter.price.minPriceValue && Float($0.price) <= filter.price.maxPriceValue
         }
 
