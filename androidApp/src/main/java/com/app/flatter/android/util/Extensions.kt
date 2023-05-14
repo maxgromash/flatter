@@ -7,7 +7,9 @@ import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 fun Int.toPxF(): Float =
     TypedValue.applyDimension(
@@ -20,14 +22,13 @@ fun Int.toPx(): Int =
     toPxF().toInt()
 
 fun Int.formatBySpace(): String {
-    var x = this
-    var res = ""
-    do {
-        res = "${x % 1000}${if (res == "") res else " $res"}"
-        x /= 1000
-    } while (x > 0);
+    val dec = DecimalFormat("###,###,###,###,###", DecimalFormatSymbols(Locale.ENGLISH))
+    return dec.format(this).replace(",", " ")
+}
 
-    return res
+fun Double.formatBySpace(): String {
+    val dec = DecimalFormat("###,###,###,###,###", DecimalFormatSymbols(Locale.ENGLISH))
+    return dec.format(this).replace(",", " ")
 }
 
 fun Fragment.hideKeyboard() {

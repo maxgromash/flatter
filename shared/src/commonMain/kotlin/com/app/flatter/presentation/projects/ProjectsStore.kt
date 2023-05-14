@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class ProjectsStore: BaseStore<ProjectsState, ProjectsAction, ProjectsSideEffect>(), KoinComponent {
+class ProjectsStore : BaseStore<ProjectsState, ProjectsAction, ProjectsSideEffect>(), KoinComponent {
     override val stateFlow = MutableStateFlow<ProjectsState>(ProjectsState.None)
     override val sideEffectsFlow = MutableSharedFlow<ProjectsSideEffect>()
 
@@ -29,13 +29,11 @@ class ProjectsStore: BaseStore<ProjectsState, ProjectsAction, ProjectsSideEffect
         sendEffect { ProjectsSideEffect.ShowProgress }
         runCatching {
             client.loadProjects()
+        }.onSuccess { response ->
+            val mapped = mapper.invoke(response.projects)
+            updateState { ProjectsState.ProjectsList(mapped) }
+        }.onFailure {
+            sendEffect { ProjectsSideEffect.ShowMessage("Не удалось загрузить список проектов") }
         }
-            .onSuccess { response ->
-                val mapped = mapper.invoke(response.projects)
-                updateState { ProjectsState.ProjectsList(mapped) }
-            }
-            .onFailure {
-                sendEffect { ProjectsSideEffect.ShowMessage("Не удалось загрузить список проектов") }
-            }
     }
 }

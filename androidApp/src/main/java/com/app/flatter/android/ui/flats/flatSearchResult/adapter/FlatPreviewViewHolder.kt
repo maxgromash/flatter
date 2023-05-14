@@ -3,25 +3,34 @@ package com.app.flatter.android.ui.flats.flatSearchResult.adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.flatter.android.R
 import com.app.flatter.android.databinding.ItemSearchResultBinding
-import com.app.flatter.android.data.FlatPreviewVO
+import com.app.flatter.android.util.formatBySpace
+import com.app.flatter.businessModels.FlatModel
+import com.bumptech.glide.Glide
 
 class FlatPreviewViewHolder(
     private val binding: ItemSearchResultBinding,
-    private val onItemClick: (FlatPreviewVO) -> Unit,
+    private val onItemClick: (FlatModel) -> Unit,
     private val onStarClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(vo: FlatPreviewVO) {
+    fun bind(vo: FlatModel) {
         binding.rootCL.setOnClickListener { onItemClick.invoke(vo) }
 
-        binding.priceMTV.text = vo.priceString
-        binding.flatLayoutACIV.setImageResource(vo.layout.first())
-        binding.squareTitleMTV.text = vo.squareString
-        binding.floorMTV.text = vo.floorString
-        if (vo.isStarred)
-            binding.starACIV.setImageResource(R.drawable.ic_baseline_star_24)
-        else
-            binding.starACIV.setImageResource(R.drawable.ic_baseline_star_border_24)
+        Glide.with(binding.root.context)
+            .load(vo.images.first())
+            .centerCrop()
+            .into(binding.flatLayoutACIV)
+
+        binding.priceMTV.text = "${vo.price.formatBySpace()} ₽"
+        binding.squareTitleMTV.text = "${vo.area} м2"
+        binding.floorMTV.text = "${vo.floor} этаж"
+        binding.starACIV.setImageResource(
+            if (vo.isFavourite)
+                R.drawable.ic_baseline_star_24
+            else
+                R.drawable.ic_baseline_star_border_24
+        )
+
         binding.starACIV.setOnClickListener {
             onStarClick.invoke(vo.id)
         }

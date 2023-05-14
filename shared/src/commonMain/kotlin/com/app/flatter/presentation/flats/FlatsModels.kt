@@ -11,7 +11,7 @@ sealed interface FlatsState {
 }
 
 sealed interface FlatsStateAction {
-    data class GetFlats(val projectID: Int) : FlatsStateAction
+    object GetFlats : FlatsStateAction
 }
 
 sealed interface FlatsStateSideEffect {

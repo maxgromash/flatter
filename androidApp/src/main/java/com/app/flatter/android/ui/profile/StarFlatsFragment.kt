@@ -12,23 +12,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.flatter.android.R
-import com.app.flatter.android.databinding.FragmentFlatsSearchResultBinding
 import com.app.flatter.android.databinding.FragmentStarFlatsBinding
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewAdapter
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewDecoration
-import com.app.flatter.android.viewModel.MainViewModel
+import com.app.flatter.android.viewModel.FlatsViewModel
 
 class StarFlatsFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: FlatsViewModel
     private lateinit var binding: FragmentStarFlatsBinding
     private val starredAdapter = FlatPreviewAdapter(
         onItemClick = {
             val bundle = bundleOf("id" to it.id)
-            findNavController().navigate(
-                R.id.action_starFlatsFragment_to_flatDetailsFragment,
-                bundle
-            )
+            findNavController().navigate(R.id.action_starFlatsFragment_to_flatDetailsFragment, bundle)
         },
         onStarClick = { viewModel.setStar(it) }
     )
@@ -37,7 +33,7 @@ class StarFlatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[FlatsViewModel::class.java]
         binding = FragmentStarFlatsBinding.inflate(inflater)
         return binding.root
     }

@@ -10,5 +10,5 @@ import org.koin.dsl.module
 
 actual val platformModule: Module = module {
     single { HttpClient().grpcOkhttpClient } bind OkHttpClient::class
-    single { (param: Boolean) -> if (param) MyGrpcClient().grpcAuthClient else MyGrpcClient().grpcProjectsClient } bind GrpcClient::class
+    factory { (param: Boolean) -> if (param) MyGrpcClient().grpcAuthClient else MyGrpcClient().grpcProjectsClient } bind GrpcClient::class
 }

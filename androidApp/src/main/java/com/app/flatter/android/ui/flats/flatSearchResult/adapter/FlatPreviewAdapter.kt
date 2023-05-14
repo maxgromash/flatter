@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.flatter.android.data.FlatPreviewVO
 import com.app.flatter.android.databinding.ItemSearchResultBinding
+import com.app.flatter.businessModels.FlatModel
 
 class FlatPreviewAdapter(
-    private val onItemClick: (FlatPreviewVO) -> Unit,
+    private val onItemClick: (FlatModel) -> Unit,
     private val onStarClick: (Int) -> Unit
 ) : RecyclerView.Adapter<FlatPreviewViewHolder>() {
 
-    private var list: List<FlatPreviewVO> = listOf()
+    private var list: List<FlatModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlatPreviewViewHolder {
         val view = ItemSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,7 +24,7 @@ class FlatPreviewAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(newList: List<FlatPreviewVO>) {
+    fun setItems(newList: List<FlatModel>) {
         list = newList
         notifyDataSetChanged()
     }

@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.flatter.android.databinding.ItemNewsBinding
-import com.app.flatter.android.data.NewsVO
+import com.app.flatter.businessModels.NewsModel
 
 class NewsAdapter(
-    private val onItemClick: (NewsVO) -> Unit
+    private val onItemClick: (NewsModel) -> Unit
 ) : RecyclerView.Adapter<NewsViewHolder>() {
 
-    private var list: List<NewsVO> = listOf()
+    private var list: List<NewsModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,7 +23,7 @@ class NewsAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(newList: List<NewsVO>) {
+    fun setItems(newList: List<NewsModel>) {
         list = newList
         notifyDataSetChanged()
     }

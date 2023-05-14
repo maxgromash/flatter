@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.flatter.android.databinding.ItemBuildingBinding
-import com.app.flatter.android.data.ProjectVO
+import com.app.flatter.businessModels.ProjectModel
 
 class BuildingsAdapter(
-    private val onItemClick: (ProjectVO) -> Unit
+    private val onItemClick: (ProjectModel) -> Unit
 ) : RecyclerView.Adapter<BuildingsViewHolder>() {
 
-    private var list: List<ProjectVO> = listOf()
+    private var list: List<ProjectModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildingsViewHolder {
         val view = ItemBuildingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,7 +23,7 @@ class BuildingsAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(newList: List<ProjectVO>) {
+    fun setItems(newList: List<ProjectModel>) {
         list = newList
         notifyDataSetChanged()
     }

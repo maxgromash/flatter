@@ -7,7 +7,10 @@ import androidx.navigation.ui.NavigationUI
 import com.app.flatter.android.R
 import com.app.flatter.android.databinding.ActivityMainBinding
 import com.app.flatter.network.AuthClientImpl
+import com.app.flatter.network.FlatsClientImpl
 import com.app.flatter.network.NetworkClientsProvider
+import com.app.flatter.network.NewsClientImpl
+import com.app.flatter.network.ProjectsClientImpl
 
 internal class MainActivity : AppCompatActivity() {
 
@@ -21,7 +24,8 @@ internal class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavigationBNV, navController)
         NetworkClientsProvider.authClient = AuthClientImpl()
-        //NetworkClientsProvider.newsClient = NewsClientImpl()
-        //NetworkClientsProvider.projectsClient = ProjectsClientImpl()
+        NetworkClientsProvider.newsClient = NewsClientImpl()
+        NetworkClientsProvider.projectsClient = ProjectsClientImpl()
+        NetworkClientsProvider.flatsClient = FlatsClientImpl()
     }
 }

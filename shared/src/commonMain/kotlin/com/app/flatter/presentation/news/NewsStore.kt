@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class NewsStore: BaseStore<NewsState, NewsAction, NewsSideEffect>(), KoinComponent {
+class NewsStore : BaseStore<NewsState, NewsAction, NewsSideEffect>(), KoinComponent {
     override val stateFlow = MutableStateFlow<NewsState>(NewsState.None)
     override val sideEffectsFlow = MutableSharedFlow<NewsSideEffect>()
 
@@ -29,13 +29,11 @@ class NewsStore: BaseStore<NewsState, NewsAction, NewsSideEffect>(), KoinCompone
         sendEffect { NewsSideEffect.ShowProgress }
         runCatching {
             client.loadNews()
+        }.onSuccess { response ->
+            val mapped = mapper.invoke(response.news)
+            updateState { NewsState.NewsList(mapped) }
+        }.onFailure {
+            sendEffect { NewsSideEffect.ShowMessage(message = "Не удалось загрузить новости") }
         }
-            .onSuccess { response ->
-                val mapped = mapper.invoke(response.news)
-                updateState { NewsState.NewsList(mapped) }
-            }
-            .onFailure {
-                sendEffect { NewsSideEffect.ShowMessage(message = "Не удалось загрузить новости") }
-            }
     }
 }

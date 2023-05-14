@@ -11,7 +11,7 @@ import models.GetFlatsRequest
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class FlatsStore : BaseStore<FlatsState, FlatsStateAction, FlatsStateSideEffect>(), KoinComponent {
+class FlatsStore(private val projectID: Int) : BaseStore<FlatsState, FlatsStateAction, FlatsStateSideEffect>(), KoinComponent {
     override val stateFlow = MutableStateFlow<FlatsState>(FlatsState.None)
     override val sideEffectsFlow = MutableSharedFlow<FlatsStateSideEffect>()
 
@@ -21,15 +21,15 @@ class FlatsStore : BaseStore<FlatsState, FlatsStateAction, FlatsStateSideEffect>
     override suspend fun reduce(action: FlatsStateAction, initialState: FlatsState) {
         coroutineScope {
             when (action) {
-                is FlatsStateAction.GetFlats -> processGetFlats(action)
+                is FlatsStateAction.GetFlats -> processGetFlats()
             }
         }
     }
 
-    private suspend fun processGetFlats(action: FlatsStateAction.GetFlats) {
+    private suspend fun processGetFlats() {
         sendEffect { FlatsStateSideEffect.ShowProgress }
         runCatching {
-            client.loadFlats(GetFlatsRequest(action.projectID))
+            client.loadFlats(GetFlatsRequest(projectID))
         }.onSuccess {
             val mappedFlats = it.flats.map(mapper)
             updateState { FlatsState.FlatsList(mappedFlats) }

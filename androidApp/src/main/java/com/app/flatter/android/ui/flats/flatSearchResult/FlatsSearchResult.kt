@@ -17,31 +17,27 @@ import com.app.flatter.android.data.RangeFilterVO
 import com.app.flatter.android.databinding.FragmentFlatsSearchResultBinding
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewAdapter
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewDecoration
-import com.app.flatter.android.viewModel.MainViewModel
+import com.app.flatter.android.viewModel.FlatsViewModel
+import com.app.flatter.android.viewModel.FlatsViewModelFactory
 
 class FlatsSearchResult : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: FlatsViewModel
     private lateinit var binding: FragmentFlatsSearchResultBinding
     private lateinit var defaultBg: Drawable
     private lateinit var selectedBg: Drawable
     private val adapterSearch = FlatPreviewAdapter(
         onItemClick = {
             val bundle = bundleOf("id" to it.id)
-            findNavController().navigate(
-                R.id.action_flatsSearchResult_to_flatDetailsFragment,
-                bundle
-            )
+            findNavController().navigate(R.id.action_flatsSearchResult_to_flatDetailsFragment, bundle)
         },
         onStarClick = { viewModel.setStar(it) }
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentFlatsSearchResultBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        val id = requireArguments().getInt("id")
+        viewModel = ViewModelProvider(requireActivity(), FlatsViewModelFactory(id))[FlatsViewModel::class.java]
         defaultBg = ContextCompat.getDrawable(requireContext(), R.drawable.bg_rounded_20_white)!!
         selectedBg = ContextCompat.getDrawable(requireContext(), R.drawable.bg_rounded_20_primary)!!
         return binding.root
