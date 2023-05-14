@@ -54,6 +54,7 @@ struct FlatsListView<
             .padding(.horizontal, 15)
         }
         .navigationTitle(title)
+        .alert(viewModel: viewModel)
     }
 
     @ViewBuilder private var flatsList: some View {
@@ -74,7 +75,7 @@ struct FlatsListView<
                             viewModel.onUserDidSelectFlat(flat: flat)
                         },
                         onFavouritesTap: {
-                            viewModel.userDidChangeFavourite(flat: flat)
+                            viewModel.userDidChangeFavourite(flat: flat, isFavourite: $0)
                         }
                     )
                     .frame(height: 100)
@@ -356,6 +357,8 @@ struct FlatsListView_Previews: PreviewProvider {
 
         func onUserDidSelectFlat(flat: FlatModel) {}
         
-        func userDidChangeFavourite(flat: FlatModel) {}
+        func userDidChangeFavourite(flat: FlatModel, isFavourite: Bool) {}
+
+        func viewDidAppear() {}
     }
 }

@@ -32,7 +32,8 @@ message Coordinates {
 
 message NearestTransports {
   string name = 1;
-  int32 time = 2;
+  string color = 2;
+  int32 time = 3;
 }
 
 message Flat {

@@ -7,4 +7,6 @@ typealias NewsStoreViewModel = BaseViewModel<NewsState, NewsAction, NewsSideEffe
 
 typealias ProjectsViewModel = BaseViewModel<ProjectsState, ProjectsAction, ProjectsSideEffect, ProjectsStore>
 
-typealias FlatsViewModel = BaseViewModel<FlatsState, FlatsStateAction, FlatsStateSideEffect, FlatsStore>
+typealias FlatsViewModel = BaseViewModel<FlatsState, FlatsAction, FlatsSideEffect, FlatsStore>
+
+typealias FavouritesStoreViewModel = BaseViewModel<FavouriteFlatsState, FavouriteFlatsAction, FavouriteFlatsSideEffect, FavouriteFlatsStore>

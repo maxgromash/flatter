@@ -35,7 +35,7 @@ class ProjectsMapper: BaseMapper<List<Project>, List<ProjectModel>> {
     private fun NearestTransports.toProjectTransport(): ProjectModel.NearestTransport {
         return ProjectModel.NearestTransport(
             name = this.name,
-            color = "#088000",
+            color = this.color,
             time = this.time
         )
     }

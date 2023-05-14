@@ -21,14 +21,19 @@ final class ProfileRouter: Routing {
                 let viewModel = FlistListViewModelFavouritesOnly()
                 let router = FlatsListRouter()
 
-                VStack {
-                    FlatsListView(
-                        viewModel: viewModel,
-                        router: router,
-                        title: "Избранное",
-                        showFilters: false
-                    )
-                    AppNavigationLink(viewModel: viewModel, router: router)
+                AppOverviewView(
+                    viewModel: viewModel,
+                    router: router
+                ) {
+                    VStack {
+                        FlatsListView(
+                            viewModel: viewModel,
+                            router: router,
+                            title: "Избранное",
+                            showFilters: false
+                        )
+                        AppNavigationLink(viewModel: viewModel, router: router)
+                    }
                 }
             case .profileChanges:
                 factory.personalInfoChanges()

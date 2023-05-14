@@ -12,8 +12,13 @@ final class FlatsListRouter: Routing {
             case .flatInfo(let flat):
                 let viewModel = FlatInfoViewModelImpl(flat: flat)
                 let router = FlatInfoRouter()
-                BackgroundContainer {
-                    FlatInfoView(viewModel: viewModel, router: router)
+                AppOverviewView(
+                    viewModel: viewModel,
+                    router: router
+                ) {
+                    BackgroundContainer {
+                        FlatInfoView(viewModel: viewModel, router: router)
+                    }
                 }
             case .loading:
                 LoaderView()

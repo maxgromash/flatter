@@ -45,7 +45,7 @@ class FlatsStore(private val projectID: Int) : BaseStore<FlatsState, FlatsAction
             }
             updateState { FlatsState.FlatsList(mappedFlats) }
         }.onFailure {
-            sideEffectsFlow.emit(FlatsSideEffect.ShowMessage("Проверьте соединение с сетью!"))
+            sendEffect {  FlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
         }
     }
 }

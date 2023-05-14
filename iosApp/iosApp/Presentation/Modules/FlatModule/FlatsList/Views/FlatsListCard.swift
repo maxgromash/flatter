@@ -1,10 +1,23 @@
 import SwiftUI
 
 struct FlatsListCard: View {
-    var flat: FlatModel
+    let flat: FlatModel
 
     let onContentTap: () -> Void
-    let onFavouritesTap: () -> Void
+    let onFavouritesTap: (Bool) -> Void
+
+    @State var isFavourite: Bool
+
+    init(
+        flat: FlatModel,
+        onContentTap: @escaping () -> Void,
+        onFavouritesTap: @escaping (Bool) -> Void
+    ) {
+        self.flat = flat
+        self.onContentTap = onContentTap
+        self.onFavouritesTap = onFavouritesTap
+        self.isFavourite = flat.isFavourite
+    }
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -59,7 +72,10 @@ struct FlatsListCard: View {
 
     @ViewBuilder private var favouriteButton: some View {
         Button(
-            action: { onFavouritesTap() },
+            action: {
+                isFavourite.toggle()
+                onFavouritesTap(isFavourite)
+            },
             label: {
                 favouriteIcon.foregroundColor(ColorsProvider.primary)
             }
@@ -67,7 +83,7 @@ struct FlatsListCard: View {
     }
 
     @ViewBuilder private var favouriteIcon: some View {
-        flat.isFavourite ? ImagesProvider.favouritesFilledIcon : ImagesProvider.favouritesIcon
+        isFavourite ? ImagesProvider.favouritesFilledIcon : ImagesProvider.favouritesIcon
     }
 }
 
@@ -104,7 +120,7 @@ struct FlatsListCard_Previews: PreviewProvider {
                     isFavourite: false
                 ),
                 onContentTap: {},
-                onFavouritesTap: {}
+                onFavouritesTap: { _ in }
             )
             .frame(height: 100)
         }

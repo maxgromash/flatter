@@ -95,3 +95,7 @@ private struct TabItemView: View {
         }
     }
 }
+
+extension FavouriteFlatsStore {
+    static let shared = FavouriteFlatsStore()
+}

@@ -7,7 +7,7 @@ protocol FlatsListViewModel: ViewModel where Route == FlatsListRoute {
     var filter: Filters? { get set }
 
     func onUserDidSelectFlat(flat: FlatModel)
-    func userDidChangeFavourite(flat: FlatModel)
+    func userDidChangeFavourite(flat: FlatModel, isFavourite: Bool)
 }
 
 struct Filters {
@@ -69,7 +69,13 @@ struct Filters {
 final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
     @Published var flats: [FlatModel] = []
 
-    @Published var navigationRoute: FlatsListRoute? = nil
+    @Published var navigationRoute: FlatsListRoute? = nil {
+        didSet {
+            if navigationRoute == nil {
+                reduce(action: FlatsActionGetFlats())
+            }
+        }
+    }
     @Published var overviewRoute: FlatsListRoute? = nil
     @Published var alertText: String? = nil
 
@@ -79,6 +85,8 @@ final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
         }
     }
 
+    private let favouritesStore: FavouriteFlatsStore = .shared
+
     private var actualFlats: [FlatModel] = []
 
     private let flatsProvider = FlatsProvider.shared
@@ -87,24 +95,33 @@ final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
 
     override init(store: FlatsStore) {
         super.init(store: store)
-        reduce(action: FlatsStateActionGetFlats())
+        reduce(action: FlatsActionGetFlats())
     }
 
     func onUserDidSelectFlat(flat: FlatModel) {
         navigationRoute = .flatInfo(flat: flat)
     }
 
-    func userDidChangeFavourite(flat: FlatModel) {
-
+    func userDidChangeFavourite(flat: FlatModel, isFavourite: Bool) {
+        if isFavourite {
+            favouritesStore.reduce(
+                action: FavouriteFlatsActionAddFavouriteFlat(id: flat.id)
+            )
+        }
+        else {
+            favouritesStore.reduce(
+                action: FavouriteFlatsActionRemoveFavouriteFlat(id: flat.id)
+            )
+        }
     }
 
-    override func didReceiveEffect(_ effect: FlatsStateSideEffect?) {
+    override func didReceiveEffect(_ effect: FlatsSideEffect?) {
         guard let effect else { return }
         switch effect {
-            case is FlatsStateSideEffectShowProgress:
+            case is FlatsSideEffectShowProgress:
                 overviewRoute = .loading
-            case is FlatsStateSideEffectShowMessage:
-                guard let message = effect as? FlatsStateSideEffectShowMessage else { return }
+            case is FlatsSideEffectShowMessage:
+                guard let message = effect as? FlatsSideEffectShowMessage else { return }
                 alertText = message.message
             default: return
         }
@@ -229,31 +246,95 @@ final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
     }
 }
 
-final class FlistListViewModelFavouritesOnly: FlatsListViewModel {
+final class FlistListViewModelFavouritesOnly: FavouritesStoreViewModel, FlatsListViewModel {
     var filter: Filters? = nil
 
     @Published var flats: [FlatModel] = FlatsProvider.shared.flats
 
-    @Published var navigationRoute: FlatsListRoute? = nil
+    @Published var navigationRoute: FlatsListRoute? = nil {
+        didSet {
+            if navigationRoute == nil {
+                reduce(action: FavouriteFlatsActionGetFavouriteFlats())
+            }
+        }
+    }
+    @Published var overviewRoute: FlatsListRoute? = nil
+    @Published var alertText: String? = nil
+
+    private let imageLoader = ImageLoader.shared
 
     init() {
-        flatsProvider.addListener { [weak self] flats in
-            self?.filterFlats()
-        }
-        filterFlats()
+        super.init(store: .shared)
+        reduce(action: FavouriteFlatsActionGetFavouriteFlats())
     }
-
-    private let flatsProvider = FlatsProvider.shared
 
     func onUserDidSelectFlat(flat: FlatModel) {
         navigationRoute = .flatInfo(flat: flat)
     }
 
-    func userDidChangeFavourite(flat: FlatModel) {
-        flatsProvider.updateFlatIsFavourite(flat: flat)
+    func userDidChangeFavourite(flat: FlatModel, isFavourite: Bool) {
+        if isFavourite {
+            reduce(
+                action: FavouriteFlatsActionAddFavouriteFlat(id: flat.id)
+            )
+        }
+        else {
+            reduce(
+                action: FavouriteFlatsActionRemoveFavouriteFlat(id: flat.id)
+            )
+        }
     }
 
-    private func filterFlats() {
-        flats = flatsProvider.flats.filter({ $0.isFavourite })
+    override func didChangeState(_ state: FavouriteFlatsState?) {
+        guard let state else { return }
+        if let list = state as? FavouriteFlatsStateFavouriteFlatsList {
+            updateFlats(list)
+        }
+        else {
+            flats = []
+            overviewRoute = nil
+        }
+    }
+
+    override func didReceiveEffect(_ effect: FavouriteFlatsSideEffect?) {
+        guard let effect else { return }
+
+        if let message = effect as? FavouriteFlatsSideEffectShowMessage {
+            alertText = message.message
+        }
+        else if effect is FavouriteFlatsSideEffectShowProgress {
+            overviewRoute = .loading
+        }
+    }
+
+    private func updateFlats(_ state: FavouriteFlatsStateFavouriteFlatsList) {
+        Task {
+            let mapped = try? await state.list.concurrentMap(map(_:))
+            Task { @MainActor in
+                self.flats = mapped ?? []
+                overviewRoute = nil
+            }
+        }
+    }
+
+    private func map(_ data: shared.FlatModel) async -> FlatModel {
+        let imageURLs = data.images.compactMap(URL.init(string:))
+        let loadedImages = try? await imageURLs
+            .concurrentMap(imageLoader.loadImage(url:))
+            .compactMap({ $0 })
+        var images = loadedImages ?? []
+        images = images.isEmpty ? [ImagesProvider.newsImagePlaceholder] : images
+        return FlatModel(
+            id: data.id,
+            price: data.price,
+            rooms: Int(data.rooms),
+            number: Int(data.number),
+            area: Float(data.area),
+            floor: Int(data.floor),
+            trimming: data.trimming,
+            finishing: data.finishing,
+            images: images,
+            isFavourite: data.isFavourite
+        )
     }
 }

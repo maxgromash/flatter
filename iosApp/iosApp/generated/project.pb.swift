@@ -122,6 +122,8 @@ struct Models_NearestTransports {
 
   var name: String = String()
 
+  var color: String = String()
+
   var time: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -471,7 +473,8 @@ extension Models_NearestTransports: SwiftProtobuf.Message, SwiftProtobuf._Messag
   static let protoMessageName: String = _protobuf_package + ".NearestTransports"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
-    2: .same(proto: "time"),
+    2: .same(proto: "color"),
+    3: .same(proto: "time"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -481,7 +484,8 @@ extension Models_NearestTransports: SwiftProtobuf.Message, SwiftProtobuf._Messag
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.time) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.color) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.time) }()
       default: break
       }
     }
@@ -491,14 +495,18 @@ extension Models_NearestTransports: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
     }
+    if !self.color.isEmpty {
+      try visitor.visitSingularStringField(value: self.color, fieldNumber: 2)
+    }
     if self.time != 0 {
-      try visitor.visitSingularInt32Field(value: self.time, fieldNumber: 2)
+      try visitor.visitSingularInt32Field(value: self.time, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Models_NearestTransports, rhs: Models_NearestTransports) -> Bool {
     if lhs.name != rhs.name {return false}
+    if lhs.color != rhs.color {return false}
     if lhs.time != rhs.time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

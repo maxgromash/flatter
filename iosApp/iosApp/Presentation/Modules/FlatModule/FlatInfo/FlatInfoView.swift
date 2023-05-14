@@ -48,6 +48,7 @@ struct FlatInfoView<
         .safeAreaInset(edge: .bottom) {
             EmptyView().frame(height: 20)
         }
+        .alert(viewModel: viewModel)
     }
 
     @ViewBuilder private var imagesSlider: some View {

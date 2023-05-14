@@ -37,13 +37,13 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
             runCatching {
                 //TODO client...
             }.onSuccess {
-                sideEffectsFlow.emit(FavouriteFlatsSideEffect.ShowMessage("Добавлено в избранное!"))
+                sendEffect { FavouriteFlatsSideEffect.ShowMessage("Добавлено в избранное!") }
             }.onFailure {
-                sideEffectsFlow.emit(FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!"))
+                sendEffect { FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
             }
         } else {
             appDatabaseRepository.addFavouriteFlat(action.id)
-            sideEffectsFlow.emit(FavouriteFlatsSideEffect.ShowMessage("Добавлено в избранное!"))
+            sendEffect { FavouriteFlatsSideEffect.ShowMessage("Добавлено в избранное!") }
         }
     }
 
@@ -54,11 +54,11 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
             }.onSuccess {
 
             }.onFailure {
-                sideEffectsFlow.emit(FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!"))
+                sendEffect { FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
             }
         } else {
             appDatabaseRepository.removeFavouriteFlat(action.id)
-            sideEffectsFlow.emit(FavouriteFlatsSideEffect.ShowMessage("Удалено из избранного"))
+            sendEffect { FavouriteFlatsSideEffect.ShowMessage("Удалено из избранного") }
         }
     }
 
@@ -73,8 +73,8 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
         }.onSuccess {
             //TODO stateFlow.emit(FavouriteFlatsState.FavouriteFlatsList())
         }.onFailure {
-            stateFlow.emit(FavouriteFlatsState.None)
-            sideEffectsFlow.emit(FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!"))
+            updateState { FavouriteFlatsState.None }
+            sendEffect { FavouriteFlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
         }
     }
 }
