@@ -32,7 +32,7 @@ message Coordinates {
 
 message NearestTransports {
   string name = 1;
-  string time = 2;
+  int32 time = 2;
 }
 
 message Flat {

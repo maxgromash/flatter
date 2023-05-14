@@ -98,7 +98,7 @@ final class ProjectsListViewModelImpl: ProjectsViewModel, ProjectsListViewModel 
             return ProjectModel.NearestTransport(
                 name: dto.name,
                 color: color.color,
-                time: Int(dto.time)!
+                time: Int(dto.time)
             )
         })
 
