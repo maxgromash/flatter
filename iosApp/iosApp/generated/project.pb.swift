@@ -122,7 +122,7 @@ struct Models_NearestTransports {
 
   var name: String = String()
 
-  var time: String = String()
+  var time: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -481,7 +481,7 @@ extension Models_NearestTransports: SwiftProtobuf.Message, SwiftProtobuf._Messag
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.time) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.time) }()
       default: break
       }
     }
@@ -491,8 +491,8 @@ extension Models_NearestTransports: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
     }
-    if !self.time.isEmpty {
-      try visitor.visitSingularStringField(value: self.time, fieldNumber: 2)
+    if self.time != 0 {
+      try visitor.visitSingularInt32Field(value: self.time, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }

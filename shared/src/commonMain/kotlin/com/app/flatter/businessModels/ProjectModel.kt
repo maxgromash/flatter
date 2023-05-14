@@ -22,6 +22,6 @@ data class ProjectModel(
     data class NearestTransport(
         val name: String,
         val color: String,
-        val time: String
+        val time: Int
     )
 }

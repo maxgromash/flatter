@@ -20,7 +20,7 @@ final class GRPCChannelProvider {
             .insecure(group: eventGroup)
             .withBackgroundActivityLogger(logger)
             .withConnectionIdleTimeout(.seconds(10))
-            .connect(host: "81.163.30.24", port: 9000)
+            .connect(host: "81.163.30.24", port: 9010)
     }
 
     private func makeProjectsProjectsChannel() -> GRPCChannel {
@@ -34,6 +34,6 @@ final class GRPCChannelProvider {
             .insecure(group: eventGroup)
             .withBackgroundActivityLogger(logger)
             .withConnectionIdleTimeout(.seconds(10))
-            .connect(host: "81.163.30.24", port: 9001)
+            .connect(host: "81.163.30.24", port: 9011)
     }
 }
