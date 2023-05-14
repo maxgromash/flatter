@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 enum AuthorizationRoute: RouteType {
-    case profile
+    case profile(user: UserModel)
     case registration
     case forgotPassword
 
@@ -18,8 +18,8 @@ struct AuthorizationRouter: Routing {
             presentationFactory.makeRegistrationView()
         case .forgotPassword:
             presentationFactory.makeForgotPasswordView()
-        case .profile:
-            presentationFactory.profileModule()
+        case let .profile(user):
+            presentationFactory.profileModule(user: user)
         case .loading:
             LoaderView()
         }

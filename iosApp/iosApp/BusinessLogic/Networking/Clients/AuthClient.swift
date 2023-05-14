@@ -83,6 +83,19 @@ extension AuthClientImpl: AuthClient {
             completionHandler(nil, error)
         }
     }
+
+    func userInfo(data: GetUserInfoRequest, completionHandler: @escaping (GetUserInfoResponse?, Error?) -> Void) {
+        let request = Models_GetUserInfoRequest(data)
+        let call = client.getUserInfo(request)
+
+        do {
+            let message = try call.response.wait()
+            let (wireMessage, _) = message.toWireMessage(adapter: GetUserInfoResponse.Companion.shared.ADAPTER)
+            completionHandler(wireMessage, nil)
+        } catch {
+            completionHandler(nil, error)
+        }
+    }
 }
 
 private extension Models_SignInRequest {
@@ -153,6 +166,14 @@ private extension Models_ChangePhoneResponse {
     init(_ data: ChangePhoneResponse) {
         var this = Models_ChangePhoneResponse()
         this.status = data.status
+        self = this
+    }
+}
+
+private extension Models_GetUserInfoRequest {
+    init(_ data: GetUserInfoRequest) {
+        var this = Models_GetUserInfoRequest()
+        this.token = data.token
         self = this
     }
 }

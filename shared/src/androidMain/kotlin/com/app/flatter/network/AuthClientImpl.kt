@@ -31,4 +31,8 @@ class AuthClientImpl : KoinComponent, AuthClient {
     override suspend fun changePhone(data: ChangePhoneRequest): ChangePhoneResponse {
         return authClient.ChangePhone().execute(data)
     }
+
+    override suspend fun userInfo(data: GetUserInfoRequest): GetUserInfoResponse {
+        return authClient.GetUserInfo().execute(data)
+    }
 }

@@ -45,8 +45,9 @@ final class ProfileModulePresentationFactory {
         }
     }
 
-    @ViewBuilder func profileModule() -> some View {
+    @ViewBuilder func profileModule(user: UserModel) -> some View {
         let viewModel = ProfileViewModelImpl(
+            user: user,
             store: authStore
         )
         let router = ProfileRouter(factory: self)

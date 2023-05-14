@@ -1,5 +1,7 @@
 package com.app.flatter.presentation.auth
 
+import com.app.flatter.businessModels.UserModel
+import com.app.flatter.mapper.UserMapper
 import com.app.flatter.presentation.BaseStore
 import com.app.flatter.security.EncryptedSettingsHolder
 import com.app.flatter.security.SharedSettingsHelper
@@ -19,6 +21,8 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
     private val client: AuthClient by inject()
     private val tokenStore = SharedSettingsHelper(EncryptedSettingsHolder().encryptedSettings)
 
+    private val userMapper: UserMapper by inject()
+
     override suspend fun reduce(action: AuthAction, initialState: AuthState) {
         coroutineScope {
             when (action) {
@@ -34,8 +38,21 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
     }
 
     private suspend fun processCheckTokenAction() {
-        updateState {
-            if (tokenStore.token != null) AuthState.Success else AuthState.None
+        tokenStore.token?.let { token ->
+            sendEffect { AuthSideEffect.ShowProgress }
+            runCatching { processUserInfoSync(token) }
+                .onSuccess { user ->
+                    updateState { AuthState.Authorized(model = user) }
+                }
+                .onFailure {
+                    sendEffect {
+                        AuthSideEffect.ShowMessage(
+                            "Не удалось получить информацию о пользователе! Проверьте введенные данные и попробуйте снова"
+                        )
+                    }
+                }
+        } ?: run {
+            updateState { AuthState.None }
         }
     }
 
@@ -49,7 +66,8 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
             sendEffect { AuthSideEffect.ShowProgress }
             val result = client.signIn(SignInRequest(email = action.email, password = action.password))
             tokenStore.token = result.token
-            updateState { AuthState.Success }
+            val user = processUserInfoSync(token = result.token)
+            updateState { AuthState.Authorized(model = user) }
         } catch (ex: Throwable) {
             sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте введённые данные и подключение к сети.") }
         }
@@ -82,6 +100,10 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
                 )
             }
                 .onSuccess {
+                    when (val currentState = stateFlow.value) {
+                        is AuthState.Authorized -> updateStateWithNewPhone(currentState = currentState, newPhone = action.phone)
+                        is AuthState.None -> processLogOutAction()
+                    }
                     sendEffect { AuthSideEffect.ShowMessage("Номер телефона успешно обновлен") }
                 }
                 .onFailure {
@@ -123,5 +145,19 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
         } catch (ex: Throwable) {
             sendEffect { AuthSideEffect.ShowMessage("Ошибка! Проверьте введённые данные и подключение к сети.") }
         }
+    }
+
+    private suspend fun processUserInfoSync(token: String): UserModel {
+        val response = client.userInfo(GetUserInfoRequest(token = token))
+        return userMapper.invoke(response)
+    }
+
+    private suspend fun updateStateWithNewPhone(currentState: AuthState.Authorized, newPhone: String) {
+        val user = UserModel(
+            name = currentState.model.name,
+            phoneNumber = newPhone,
+            email = currentState.model.email
+        )
+        updateState { AuthState.Authorized(model = user) }
     }
 }

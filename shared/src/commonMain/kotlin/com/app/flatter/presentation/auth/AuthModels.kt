@@ -1,8 +1,12 @@
 package com.app.flatter.presentation.auth
 
+import com.app.flatter.businessModels.UserModel
+
 sealed interface AuthState {
     object None : AuthState
-    object Success : AuthState
+    data class Authorized(
+        val model: UserModel
+    ) : AuthState
 }
 
 sealed interface AuthAction {

@@ -12,4 +12,6 @@ interface AuthClient {
     suspend fun changePassword(data: ChangePasswordRequest): ChangePasswordResponse
 
     suspend fun changePhone(data: ChangePhoneRequest): ChangePhoneResponse
+
+    suspend fun userInfo(data: GetUserInfoRequest): GetUserInfoResponse
 }
