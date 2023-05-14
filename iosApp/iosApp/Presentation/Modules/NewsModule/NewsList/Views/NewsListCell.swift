@@ -23,7 +23,7 @@ struct NewsListCell: View {
                 .cornerRadius(15)
                 .frame(width: 120)
                 VStack(alignment: .leading) {
-                    Text(dateFormater.string(from: news.publishDate))
+                    Text(news.publishDate)
                         .font(.caption)
                         .padding(.bottom, 5)
                     Text(news.title)

@@ -63,16 +63,16 @@ final class ProjectsListViewModelImpl: ProjectsViewModel, ProjectsListViewModel 
     }
 
     private func mapProjectModel(_ model: shared.ProjectModel) async -> ProjectModel? {
-        guard
-            let imageURL = URL(string: model.imageURL),
-            let image = try? await imageLoader.loadImage(url: imageURL)
-        else { return nil }
+        var image: UIImage? = nil
+        if let imageURL = URL(string: model.imageURL) {
+            image = try? await imageLoader.loadImage(url: imageURL)
+        }
 
         return ProjectModel(
             id: model.id,
             title: model.title,
             description: model.description_,
-            image: image,
+            image: image ?? ImagesProvider.newsImagePlaceholder,
             address: mapAddress(model.address),
             minFlatPrice: Float(model.minFlatPrice),
             nearestTransports: mapTransports(model.nearestTransport)
@@ -98,7 +98,7 @@ final class ProjectsListViewModelImpl: ProjectsViewModel, ProjectsListViewModel 
             return ProjectModel.NearestTransport(
                 name: dto.name,
                 color: color.color,
-                time: Int(dto.time)
+                time: Int(dto.time)!
             )
         })
 

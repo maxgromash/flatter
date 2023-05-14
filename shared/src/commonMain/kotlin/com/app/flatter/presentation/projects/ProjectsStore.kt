@@ -7,6 +7,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import models.Address
+import models.GetProjectsResponse
+import models.NearestTransports
+import models.Project
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -26,33 +30,48 @@ class ProjectsStore: BaseStore<ProjectsState, ProjectsAction, ProjectsSideEffect
 
     private suspend fun processProjectsSync() {
         sendEffect { ProjectsSideEffect.ShowProgress }
-        delay(1000)
-        updateState {
-            ProjectsState.ProjectsList(
-                list = listOf(
-                    ProjectModel(
-                        id = "1",
-                        title = "Первый Дубровский",
-                        description = "Примерное описание",
-                        imageURL = "https://cdn.pronovostroy.ru/object/2022-06-02/6298c5be2adf03097b03b995/images/6298cd42d5af6.jpg",
-                        address = ProjectModel.Address(
-                            address = "Москва, ул. 1-й Дубровский проезд, 78/14с12",
-                            coordinates = ProjectModel.Address.Coordinates(
-                                latitude = 55.724282,
-                                longitude = 37.684901
-                            )
-                        ),
-                        minFlatPrice = 11.8,
-                        nearestTransport = listOf(
-                            ProjectModel.NearestTransport(
-                                name = "Волгоградский проспект",
-                                color = "#800080",
-                                time = 2
-                            )
-                        )
-                    )
-                )
-            )
+        runCatching {
+            client.loadProjects()
         }
+            .onSuccess { response ->
+                updateState { ProjectsState.ProjectsList(response.toProjectsList()) }
+            }
+            .onFailure {
+                sendEffect { ProjectsSideEffect.ShowMessage("Не удалось загрузить список проектов") }
+            }
+    }
+
+    private fun GetProjectsResponse.toProjectsList(): List<ProjectModel> {
+        return this.projects.map { it.toProjectModel() }
+    }
+
+    private fun Project.toProjectModel(): ProjectModel {
+        return ProjectModel(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            imageURL = this.images.first(),
+            address = this.address!!.toProjectAddress(),
+            minFlatPrice = this.minFlatPrice,
+            nearestTransport = this.nearestTransports.map { it.toProjectTransport() }
+        )
+    }
+
+    private fun Address.toProjectAddress(): ProjectModel.Address {
+        return ProjectModel.Address(
+            address = this.address,
+            coordinates = ProjectModel.Address.Coordinates(
+                longitude = this.coordinates!!.longitude,
+                latitude = this.coordinates!!.latitude
+            )
+        )
+    }
+
+    private fun NearestTransports.toProjectTransport(): ProjectModel.NearestTransport {
+        return ProjectModel.NearestTransport(
+            name = this.name,
+            color = "#088000",
+            time = this.time
+        )
     }
 }

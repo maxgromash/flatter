@@ -8,6 +8,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.Instant
+import kotlinx.datetime.toLocalDate
+import models.GetNewsResponse
+import models.News
 
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -28,19 +31,28 @@ class NewsStore: BaseStore<NewsState, NewsAction, NewsSideEffect>(), KoinCompone
 
     private suspend fun processNewsSync() {
         sendEffect { NewsSideEffect.ShowProgress }
-        delay(1000)
-        updateState {
-            NewsState.NewsList(
-                list = listOf(
-                    NewsModel(
-                        id = "1",
-                        title = "Пример",
-                        description = "Пример описания",
-                        publicationDate = Instant.parse("2010-06-01T22:19:44.475Z"),
-                        imageURL = "https://domavlad.ru/wp-content/uploads/2023/01/osnovnye-plyusy-karkasnogo-kottedzha-i-osobennosti-ego-stroitelstva-1.jpg"
-                    )
-                )
-            )
+        runCatching {
+            client.loadNews()
         }
+            .onSuccess { response ->
+                updateState { NewsState.NewsList(response.toNewsList()) }
+            }
+            .onFailure {
+                sendEffect { NewsSideEffect.ShowMessage(message = "Не удалось загрузить новости") }
+            }
+    }
+
+    private fun GetNewsResponse.toNewsList(): List<NewsModel> {
+        return this.news.map { it.toModel() }
+    }
+
+    private fun News.toModel(): NewsModel {
+        return NewsModel(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            publicationDate = this.date,
+            imageURL = this.images.first()
+        )
     }
 }

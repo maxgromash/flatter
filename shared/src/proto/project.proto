@@ -56,8 +56,6 @@ message News {
   string date = 5;
 }
 
-//message GetProjectsRequest {}
-
 message GetProjectsResponse {
   repeated Project projects = 1;
 }
@@ -69,8 +67,6 @@ message GetFlatsRequest {
 message GetFlatsResponse {
   repeated Flat flats = 1;
 }
-
-//message GetNewsRequest {}
 
 message GetNewsResponse {
   repeated News news = 1;

@@ -3,9 +3,9 @@ package com.app.flatter.businessModels
 import kotlinx.datetime.Instant
 
 data class NewsModel(
-    val id: String,
+    val id: Int,
     val title: String,
     val description: String,
-    val publicationDate: Instant,
+    val publicationDate: String,
     val imageURL: String
 )
