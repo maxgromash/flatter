@@ -1,6 +1,7 @@
 package com.app.flatter.presentation.news
 
 import com.app.flatter.businessModels.NewsModel
+import com.app.flatter.mapper.NewsMapper
 import com.app.flatter.network.NewsClient
 import com.app.flatter.presentation.BaseStore
 import kotlinx.coroutines.coroutineScope
@@ -20,6 +21,7 @@ class NewsStore: BaseStore<NewsState, NewsAction, NewsSideEffect>(), KoinCompone
     override val sideEffectsFlow = MutableSharedFlow<NewsSideEffect>()
 
     private val client: NewsClient by inject()
+    private val mapper: NewsMapper by inject()
 
     override suspend fun reduce(action: NewsAction, initialState: NewsState) {
         coroutineScope {
@@ -35,24 +37,11 @@ class NewsStore: BaseStore<NewsState, NewsAction, NewsSideEffect>(), KoinCompone
             client.loadNews()
         }
             .onSuccess { response ->
-                updateState { NewsState.NewsList(response.toNewsList()) }
+                val mapped = mapper.invoke(response.news)
+                updateState { NewsState.NewsList(mapped) }
             }
             .onFailure {
                 sendEffect { NewsSideEffect.ShowMessage(message = "Не удалось загрузить новости") }
             }
-    }
-
-    private fun GetNewsResponse.toNewsList(): List<NewsModel> {
-        return this.news.map { it.toModel() }
-    }
-
-    private fun News.toModel(): NewsModel {
-        return NewsModel(
-            id = this.id,
-            title = this.title,
-            description = this.description,
-            publicationDate = this.date,
-            imageURL = this.images.first()
-        )
     }
 }
