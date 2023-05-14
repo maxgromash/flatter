@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
+import shared
 
 enum ProjectInfoRoute: RouteType {
-    case flatsList
+    case flatsList(projectId: Int32)
     case projectLiveStream
     case projectOnMap
 }
@@ -10,17 +11,25 @@ enum ProjectInfoRoute: RouteType {
 final class ProjectInfoRouter: Routing {
     @ViewBuilder func view(for route: ProjectInfoRoute) -> some View {
         switch route {
-            case .flatsList:
-                let viewModel = FlatsListViewModelImpl()
+            case let .flatsList(projectId):
+                let viewModel = FlatsListViewModelImpl(
+                    projectId: projectId,
+                    store: FlatsStore()
+                )
                 let router = FlatsListRouter()
-                VStack {
-                    FlatsListView(
-                        viewModel: viewModel,
-                        router: router,
-                        title: "Выбор квартиры",
-                        showFilters: true
-                    )
-                    AppNavigationLink(viewModel: viewModel, router: router)
+                AppOverviewView(
+                    viewModel: viewModel,
+                    router: router
+                ) {
+                    VStack {
+                        FlatsListView(
+                            viewModel: viewModel,
+                            router: router,
+                            title: "Выбор квартиры",
+                            showFilters: true
+                        )
+                        AppNavigationLink(viewModel: viewModel, router: router)
+                    }
                 }
             case .projectLiveStream:
                 let viewModel = ProjectLiveStreamViewModel()

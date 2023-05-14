@@ -30,10 +30,18 @@ struct FlatsListView<
         BackgroundContainer {
                 ScrollView {
                     VStack(spacing: 15) {
-                        if showFilters {
+                        if let filter = viewModel.filter, showFilters {
                             filters
                             if let activeFilter {
-                                filterView(filter: activeFilter)
+                                filterView(
+                                    filter: activeFilter,
+                                    filters: .init(
+                                        get: { filter },
+                                        set: {
+                                            viewModel.filter = $0
+                                        }
+                                    )
+                                )
                             }
                         }
                         flatsList
@@ -126,15 +134,18 @@ struct FlatsListView<
         }
     }
 
-    @ViewBuilder private func filterView(filter: Filter) -> some View {
+    @ViewBuilder private func filterView(
+        filter: Filter,
+        filters: Binding<Filters>
+    ) -> some View {
         VStack {
             switch filter {
                 case .price:
-                    priceFilter
+                    priceFilter(filters.price)
                 case .floor:
-                    floorFilter
+                    floorFilter(filters.floor)
                 case .area:
-                    areaFilter
+                    areaFilter(filters.area)
                 case .rooms:
                     roomsFilter
             }
@@ -145,58 +156,64 @@ struct FlatsListView<
         .cornerRadius(10)
     }
 
-    @ViewBuilder private var priceFilter: some View {
+    @ViewBuilder private func priceFilter(
+        _ filter: Binding<Filters.PriceFilter>
+    ) -> some View {
         VStack {
             priceSliderView(
                 text: "Минимальная стоимость",
-                value: $viewModel.filter.price.minPriceValue,
+                value: filter.minPriceValue,
                 caption: "₽",
                 step: 100_000,
-                range: viewModel.filter.price.minPrice...viewModel.filter.price.maxPrice
+                range: filter.wrappedValue.minPrice...filter.wrappedValue.maxPrice
             )
             Divider()
             priceSliderView(
                 text: "Максимальная стоимость",
-                value: $viewModel.filter.price.maxPriceValue,
+                value: filter.maxPriceValue,
                 caption: "₽",
                 step: 100_000,
-                range: viewModel.filter.price.minPrice...viewModel.filter.price.maxPrice
+                range: filter.wrappedValue.minPrice...filter.wrappedValue.maxPrice
             )
         }
     }
 
-    @ViewBuilder private var areaFilter: some View {
+    @ViewBuilder private func areaFilter(
+        _ filter: Binding<Filters.AreaFilter>
+    ) -> some View {
         VStack {
             sliderView(
                 text: "Минимальная площадь",
-                value: $viewModel.filter.area.minArea,
+                value: filter.minAreaValue,
                 caption: "м2",
-                range: Filters.AreaFilter.min...Filters.AreaFilter.max
+                range: filter.wrappedValue.minArea...filter.wrappedValue.maxArea
             )
             Divider()
             sliderView(
                 text: "Максимальная площадь",
-                value: $viewModel.filter.area.maxArea,
+                value: filter.maxAreaValue,
                 caption: "м2",
-                range: Filters.AreaFilter.min...Filters.AreaFilter.max
+                range: filter.wrappedValue.minArea...filter.wrappedValue.maxArea
             )
         }
     }
 
-    @ViewBuilder private var floorFilter: some View {
+    @ViewBuilder private func floorFilter(
+        _ filter: Binding<Filters.FloorFilter>
+    ) -> some View {
         VStack {
             sliderView(
                 text: "Минимальный этаж",
-                value: $viewModel.filter.floor.minFloor,
+                value: filter.minFloorValue,
                 caption: "этаж",
-                range: Filters.FloorFilter.min...Filters.FloorFilter.max
+                range: filter.wrappedValue.minFloor...filter.wrappedValue.maxFloor
             )
             Divider()
             sliderView(
                 text: "Максимальный этаж",
-                value: $viewModel.filter.floor.maxFloor,
+                value: filter.maxFloorValue,
                 caption: "этаж",
-                range: Filters.FloorFilter.min...Filters.FloorFilter.max
+                range: filter.wrappedValue.minFloor...filter.wrappedValue.maxFloor
             )
         }
     }
@@ -225,15 +242,16 @@ struct FlatsListView<
         return Text(text)
             .padding(10)
             .background(
-                viewModel.filter.rooms.contains(count) ? ColorsProvider.primaryContainer : .white
+                viewModel.filter?.rooms.contains(count) ?? false ? ColorsProvider.primaryContainer : .white
             )
             .cornerRadius(10)
             .onTapGesture {
-                if viewModel.filter.rooms.contains(count) {
-                    viewModel.filter.rooms.remove(count)
+                guard let filter = viewModel.filter?.rooms else { return }
+                if filter.contains(count) {
+                    viewModel.filter?.rooms.remove(count)
                 }
                 else {
-                    viewModel.filter.rooms.insert(count)
+                    viewModel.filter?.rooms.insert(count)
                 }
             }
     }
@@ -314,15 +332,17 @@ struct FlatsListView_Previews: PreviewProvider {
     }
 
     private final class ViewModelMock: FlatsListViewModel {
-        var filter = Filters(price: .init(minPrice: 0, maxPrice: 0))
+        var filter: Filters? = nil
 
         var flats: [FlatModel] = [
             FlatModel(
+                id: 1,
                 price: 3_878_677,
                 rooms: 1,
                 number: 1,
                 area: 21.8,
                 floor: 13,
+                trimming: "Чистовая",
                 finishing: "4 кв. 2024",
                 images: [
                     ImagesProvider.flatLayout(id: 1),

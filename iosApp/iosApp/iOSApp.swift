@@ -8,6 +8,7 @@ struct iOSApp: App {
         NetworkClientsProvider.shared.authClient = AuthClientImpl()
         NetworkClientsProvider.shared.newsClient = projectsClient
         NetworkClientsProvider.shared.projectsClient = projectsClient
+        NetworkClientsProvider.shared.flatsClient = projectsClient
         KoinFactoryKt.doInitKoin()
     }
 

@@ -33,23 +33,21 @@ struct FlatInfoView<
     }
 
     var body: some View {
-//        BackgroundContainer {
-            ScrollView {
-                VStack(spacing: 10) {
-                    imagesSlider
-                        .frame(height: 200)
-                        .padding(.bottom, 20)
-                    flatDescriptionBlock
-                    creditCalculationBlock
-                    callToManagerButton
-                }
-                .padding(.horizontal, 15)
+        ScrollView {
+            VStack(spacing: 10) {
+                imagesSlider
+                    .frame(height: 200)
+                    .padding(.bottom, 20)
+                flatDescriptionBlock
+                creditCalculationBlock
+                callToManagerButton
             }
-            .navigationTitle("Квартира")
-            .safeAreaInset(edge: .bottom) {
-                EmptyView().frame(height: 20)
-            }
-//        }
+            .padding(.horizontal, 15)
+        }
+        .navigationTitle("Квартира")
+        .safeAreaInset(edge: .bottom) {
+            EmptyView().frame(height: 20)
+        }
     }
 
     @ViewBuilder private var imagesSlider: some View {

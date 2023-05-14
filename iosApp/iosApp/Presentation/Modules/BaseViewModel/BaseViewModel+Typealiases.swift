@@ -6,3 +6,5 @@ typealias AuthStoreViewModel = BaseViewModel<AuthState, AuthAction, AuthSideEffe
 typealias NewsStoreViewModel = BaseViewModel<NewsState, NewsAction, NewsSideEffect, NewsStore>
 
 typealias ProjectsViewModel = BaseViewModel<ProjectsState, ProjectsAction, ProjectsSideEffect, ProjectsStore>
+
+typealias FlatsViewModel = BaseViewModel<FlatsState, FlatsStateAction, FlatsStateSideEffect, FlatsStore>
