@@ -3,6 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.squareup.wire")
     id("com.android.library")
+    id("com.squareup.sqldelight")
     kotlin("plugin.serialization") version "1.8.0"
 }
 
@@ -15,6 +16,7 @@ sealed class Versions {
         const val multiplatformSettings = "0.7.4"
         const val kermit = "1.2.2"
         const val wire = "4.5.5"
+        const val sql_delight_version = "1.5.5"
     }
 }
 
@@ -58,6 +60,11 @@ kotlin {
                 implementation("com.squareup.wire:wire-grpc-client:${Versions.wire}")
                 implementation("com.squareup.wire:wire-runtime:${Versions.wire}")
 
+                //Database
+                implementation("com.squareup.sqldelight:runtime:${Versions.sql_delight_version}")
+                implementation("com.squareup.sqldelight:coroutines-extensions:${Versions.sql_delight_version}")
+
+
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
             }
@@ -67,6 +74,8 @@ kotlin {
             dependencies {
                 // Coroutines
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
+                implementation("com.squareup.sqldelight:android-driver:${Versions.sql_delight_version}")
+
             }
         }
         val androidTest by getting
@@ -79,7 +88,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-
+                implementation("com.squareup.sqldelight:native-driver:${Versions.sql_delight_version}")
             }
         }
         val iosX64Test by getting
@@ -115,5 +124,12 @@ wire {
     kotlin {
         rpcRole = "client"
         rpcCallStyle = "suspending"
+    }
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "tables"
+        sourceFolders = listOf("sqldelight")
     }
 }

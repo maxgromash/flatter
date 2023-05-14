@@ -10,12 +10,12 @@ sealed interface FlatsState {
     object None : FlatsState
 }
 
-sealed interface FlatsStateAction {
-    object GetFlats : FlatsStateAction
+sealed interface FlatsAction {
+    object GetFlats : FlatsAction
 }
 
-sealed interface FlatsStateSideEffect {
-    object ShowProgress : FlatsStateSideEffect
+sealed interface FlatsSideEffect {
+    object ShowProgress : FlatsSideEffect
 
-    data class ShowMessage(val message: String) : FlatsStateSideEffect
+    data class ShowMessage(val message: String) : FlatsSideEffect
 }

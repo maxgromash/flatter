@@ -1,0 +1,15 @@
+CREATE TABLE FavouriteFlatsTable(
+    id INTEGER NOT NULL PRIMARY KEY
+);
+
+getAllFavouriteFlats:
+SELECT * FROM FavouriteFlatsTable;
+
+deleteFavouriteFlat:
+DELETE FROM FavouriteFlatsTable WHERE id == :id;
+
+insertFavouriteFlat:
+INSERT OR REPLACE INTO FavouriteFlatsTable(id) VALUES (?);
+
+deleteAllFavouriteFlats:
+DELETE FROM FavouriteFlatsTable;

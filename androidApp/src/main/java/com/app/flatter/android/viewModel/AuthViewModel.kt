@@ -56,7 +56,7 @@ class AuthViewModel : ViewModel() {
         lifeCycleScope.launchWhenStarted {
             store.observeState().collectLatest { state ->
                 when (state) {
-                    is com.app.flatter.presentation.auth.AuthState.Success -> {
+                    is com.app.flatter.presentation.auth.AuthState.Authorized -> {
                         progressViewModel.value = false
                         signInStateViewModel.value = AuthState.Success
                     }

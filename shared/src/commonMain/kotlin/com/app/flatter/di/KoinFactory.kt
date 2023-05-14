@@ -2,11 +2,14 @@ package com.app.flatter.di
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
+import com.app.flatter.database.AppDatabaseRepository
+import com.app.flatter.database.AppDatabaseRepositoryImpl
 import com.app.flatter.mapper.FlatMapper
 import com.app.flatter.mapper.NewsMapper
 import com.app.flatter.mapper.ProjectsMapper
 import com.app.flatter.mapper.UserMapper
 import com.app.flatter.network.AuthClient
+import com.app.flatter.network.FavouriteFlatsClient
 import com.app.flatter.network.FlatsClient
 import com.app.flatter.network.NetworkClientsProvider
 import com.app.flatter.network.NewsClient
@@ -29,10 +32,12 @@ fun initKoin() = initKoin {
 }
 
 val commonModule = module {
+    single { AppDatabaseRepositoryImpl() } bind AppDatabaseRepository::class
     single { NetworkClientsProvider.authClient } bind AuthClient::class
     single { NetworkClientsProvider.newsClient } bind NewsClient::class
     single { NetworkClientsProvider.projectsClient } bind ProjectsClient::class
     single { NetworkClientsProvider.flatsClient } bind FlatsClient::class
+    single { NetworkClientsProvider.favouriteFlatsClient } bind FavouriteFlatsClient::class
     single { FlatMapper() }
     single { ProjectsMapper() }
     single { NewsMapper() }

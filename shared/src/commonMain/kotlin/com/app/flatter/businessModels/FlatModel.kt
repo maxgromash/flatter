@@ -10,5 +10,5 @@ data class FlatModel(
     val trimming: String,
     val finishing: String,
     val images: List<String>,
-    val isFavourite: Boolean
+    var isFavourite: Boolean
 )

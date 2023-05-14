@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.flatter.android.R
@@ -19,6 +23,7 @@ import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewAdap
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewDecoration
 import com.app.flatter.android.viewModel.FlatsViewModel
 import com.app.flatter.android.viewModel.FlatsViewModelFactory
+import kotlinx.coroutines.launch
 
 class FlatsSearchResult : Fragment() {
 
@@ -101,6 +106,30 @@ class FlatsSearchResult : Fragment() {
         viewModel.flatsLiveData().observe(viewLifecycleOwner) {
             adapterSearch.setItems(it)
         }
+
+        observeState()
+    }
+
+    private fun observeState() {
+
+        viewModel.showMessageViewModel().observe(viewLifecycleOwner) { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.progressViewModel().observe(viewLifecycleOwner) { isProgressVisible ->
+            binding.loadingCPI.isVisible = isProgressVisible
+            binding.searchResultRV.isVisible = isProgressVisible.not()
+        }
+
+        viewModel.flatsLiveData().observe(viewLifecycleOwner) { flats ->
+            adapterSearch.setItems(flats)
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.launchWhenStartedCollectFlow(lifecycleScope)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -113,8 +142,8 @@ class FlatsSearchResult : Fragment() {
             "Минимальная площадь",
             "Максимальная площадь",
             "м2",
-            10,
-            150,
+            15,
+            200,
             RangeFilterVO.FilterType.SQUARE
         ),
         RangeFilterVO(
@@ -129,8 +158,8 @@ class FlatsSearchResult : Fragment() {
             "Минимальная стоимость",
             "Максимальная стоимость",
             "₽",
-            13_878_677,
-            29_442_263,
+            8_000_000,
+            30_000_000,
             RangeFilterVO.FilterType.PRICE
         )
     )
