@@ -13,8 +13,7 @@ final class ProjectInfoRouter: Routing {
         switch route {
             case let .flatsList(projectId):
                 let viewModel = FlatsListViewModelImpl(
-                    projectId: projectId,
-                    store: FlatsStore()
+                    store: FlatsStore(projectID: projectId)
                 )
                 let router = FlatsListRouter()
                 AppOverviewView(
