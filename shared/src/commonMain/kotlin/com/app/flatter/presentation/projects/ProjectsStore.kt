@@ -1,6 +1,7 @@
 package com.app.flatter.presentation.projects
 
 import com.app.flatter.businessModels.ProjectModel
+import com.app.flatter.mapper.ProjectsMapper
 import com.app.flatter.network.ProjectsClient
 import com.app.flatter.presentation.BaseStore
 import kotlinx.coroutines.coroutineScope
@@ -19,6 +20,7 @@ class ProjectsStore: BaseStore<ProjectsState, ProjectsAction, ProjectsSideEffect
     override val sideEffectsFlow = MutableSharedFlow<ProjectsSideEffect>()
 
     private val client: ProjectsClient by inject()
+    private val mapper: ProjectsMapper by inject()
 
     override suspend fun reduce(action: ProjectsAction, initialState: ProjectsState) {
         coroutineScope {
@@ -34,44 +36,11 @@ class ProjectsStore: BaseStore<ProjectsState, ProjectsAction, ProjectsSideEffect
             client.loadProjects()
         }
             .onSuccess { response ->
-                updateState { ProjectsState.ProjectsList(response.toProjectsList()) }
+                val mapped = mapper.invoke(response.projects)
+                updateState { ProjectsState.ProjectsList(mapped) }
             }
             .onFailure {
                 sendEffect { ProjectsSideEffect.ShowMessage("Не удалось загрузить список проектов") }
             }
-    }
-
-    private fun GetProjectsResponse.toProjectsList(): List<ProjectModel> {
-        return this.projects.map { it.toProjectModel() }
-    }
-
-    private fun Project.toProjectModel(): ProjectModel {
-        return ProjectModel(
-            id = this.id,
-            title = this.title,
-            description = this.description,
-            imageURL = this.images.first(),
-            address = this.address!!.toProjectAddress(),
-            minFlatPrice = this.minFlatPrice,
-            nearestTransport = this.nearestTransports.map { it.toProjectTransport() }
-        )
-    }
-
-    private fun Address.toProjectAddress(): ProjectModel.Address {
-        return ProjectModel.Address(
-            address = this.address,
-            coordinates = ProjectModel.Address.Coordinates(
-                longitude = this.coordinates!!.longitude,
-                latitude = this.coordinates!!.latitude
-            )
-        )
-    }
-
-    private fun NearestTransports.toProjectTransport(): ProjectModel.NearestTransport {
-        return ProjectModel.NearestTransport(
-            name = this.name,
-            color = "#088000",
-            time = this.time
-        )
     }
 }
