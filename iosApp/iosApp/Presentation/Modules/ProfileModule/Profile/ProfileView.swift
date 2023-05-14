@@ -23,11 +23,14 @@ struct ProfileView<
     @ViewBuilder private var headerBlock: some View {
         VStack(alignment: .leading) {
             HStack { Spacer() }
-            Text("Здравствуйте, Егор!")
+            Text("Здравствуйте, \(viewModel.user.name)!")
                 .font(.largeTitle)
                 .foregroundColor(.white)
             Spacer()
-            Text("+7 (963) 441-59-33")
+            Text(viewModel.user.email)
+                .foregroundColor(.white)
+                .font(.title2)
+            Text(viewModel.user.phoneNumber)
                 .foregroundColor(.white)
                 .font(.title2)
         }
@@ -109,6 +112,8 @@ struct ProfileView_Previews: PreviewProvider {
     }
 
     private final class ViewModelMock: ProfileViewModel {
+        var user: UserModel = .mock
+        
         var navigationRoute: ProfileRoute? = nil
 
         func userDidTapLogOutButton() {}

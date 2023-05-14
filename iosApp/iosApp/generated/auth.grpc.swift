@@ -55,6 +55,11 @@ internal protocol Models_AuthServiceClientProtocol: GRPCClient {
     _ request: Models_ChangePhoneRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Models_ChangePhoneRequest, Models_ChangePhoneResponse>
+
+  func getUserInfo(
+    _ request: Models_GetUserInfoRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Models_GetUserInfoRequest, Models_GetUserInfoResponse>
 }
 
 extension Models_AuthServiceClientProtocol {
@@ -151,6 +156,24 @@ extension Models_AuthServiceClientProtocol {
       interceptors: self.interceptors?.makeChangePhoneInterceptors() ?? []
     )
   }
+
+  /// Unary call to GetUserInfo
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetUserInfo.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getUserInfo(
+    _ request: Models_GetUserInfoRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Models_GetUserInfoRequest, Models_GetUserInfoResponse> {
+    return self.makeUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.getUserInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetUserInfoInterceptors() ?? []
+    )
+  }
 }
 
 #if compiler(>=5.6)
@@ -242,6 +265,11 @@ internal protocol Models_AuthServiceAsyncClientProtocol: GRPCClient {
     _ request: Models_ChangePhoneRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Models_ChangePhoneRequest, Models_ChangePhoneResponse>
+
+  func makeGetUserInfoCall(
+    _ request: Models_GetUserInfoRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Models_GetUserInfoRequest, Models_GetUserInfoResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -313,6 +341,18 @@ extension Models_AuthServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeChangePhoneInterceptors() ?? []
     )
   }
+
+  internal func makeGetUserInfoCall(
+    _ request: Models_GetUserInfoRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Models_GetUserInfoRequest, Models_GetUserInfoResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.getUserInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetUserInfoInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -376,6 +416,18 @@ extension Models_AuthServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeChangePhoneInterceptors() ?? []
     )
   }
+
+  internal func getUserInfo(
+    _ request: Models_GetUserInfoRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Models_GetUserInfoResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.getUserInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetUserInfoInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -413,6 +465,9 @@ internal protocol Models_AuthServiceClientInterceptorFactoryProtocol: GRPCSendab
 
   /// - Returns: Interceptors to use when invoking 'changePhone'.
   func makeChangePhoneInterceptors() -> [ClientInterceptor<Models_ChangePhoneRequest, Models_ChangePhoneResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getUserInfo'.
+  func makeGetUserInfoInterceptors() -> [ClientInterceptor<Models_GetUserInfoRequest, Models_GetUserInfoResponse>]
 }
 
 internal enum Models_AuthServiceClientMetadata {
@@ -425,6 +480,7 @@ internal enum Models_AuthServiceClientMetadata {
       Models_AuthServiceClientMetadata.Methods.restorePassword,
       Models_AuthServiceClientMetadata.Methods.changePassword,
       Models_AuthServiceClientMetadata.Methods.changePhone,
+      Models_AuthServiceClientMetadata.Methods.getUserInfo,
     ]
   )
 
@@ -456,6 +512,12 @@ internal enum Models_AuthServiceClientMetadata {
     internal static let changePhone = GRPCMethodDescriptor(
       name: "ChangePhone",
       path: "/models.AuthService/ChangePhone",
+      type: GRPCCallType.unary
+    )
+
+    internal static let getUserInfo = GRPCMethodDescriptor(
+      name: "GetUserInfo",
+      path: "/models.AuthService/GetUserInfo",
       type: GRPCCallType.unary
     )
   }
