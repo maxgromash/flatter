@@ -11,11 +11,11 @@ internal class MyGrpcClient : KoinComponent {
 
     val grpcAuthClient = GrpcClient.Builder()
         .client(grpcOkhttpClient)
-        .baseUrl("http://81.163.30.24:9000")
+        .baseUrl("http://81.163.30.24:9010")
         .build()
 
     val grpcProjectsClient = GrpcClient.Builder()
         .client(grpcOkhttpClient)
-        .baseUrl("http://81.163.30.24:9001")
+        .baseUrl("http://81.163.30.24:9011")
         .build()
 }

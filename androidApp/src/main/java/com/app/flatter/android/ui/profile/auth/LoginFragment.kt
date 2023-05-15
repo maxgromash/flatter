@@ -1,4 +1,4 @@
-package com.app.flatter.android.ui.profile
+package com.app.flatter.android.ui.profile.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater

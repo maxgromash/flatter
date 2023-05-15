@@ -5,38 +5,38 @@ import models.Address
 import models.NearestTransports
 import models.Project
 
-class ProjectsMapper: BaseMapper<List<Project>, List<ProjectModel>> {
+class ProjectsMapper : BaseMapper<List<Project>, List<ProjectModel>> {
     override fun invoke(state: List<Project>): List<ProjectModel> {
         return state.map { it.toProjectModel() }
     }
 
     private fun Project.toProjectModel(): ProjectModel {
         return ProjectModel(
-            id = this.id,
-            title = this.title,
-            description = this.description,
-            imageURL = this.images.first(),
+            id = id,
+            title = title,
+            description = description,
+            imageURL = images.first(),
             address = this.address!!.toProjectAddress(),
-            minFlatPrice = this.minFlatPrice,
-            nearestTransport = this.nearestTransports.map { it.toProjectTransport() }
+            minFlatPrice = minFlatPrice,
+            nearestTransport = nearestTransports.map(::mapProjectTransport)
         )
     }
 
     private fun Address.toProjectAddress(): ProjectModel.Address {
         return ProjectModel.Address(
-            address = this.address,
+            address = address,
             coordinates = ProjectModel.Address.Coordinates(
-                longitude = this.coordinates!!.longitude,
-                latitude = this.coordinates!!.latitude
+                longitude = coordinates!!.longitude,
+                latitude = coordinates.latitude
             )
         )
     }
 
-    private fun NearestTransports.toProjectTransport(): ProjectModel.NearestTransport {
-        return ProjectModel.NearestTransport(
-            name = this.name,
-            color = this.color,
-            time = this.time
+    private fun mapProjectTransport(dto: NearestTransports) = with(dto) {
+        ProjectModel.NearestTransport(
+            name = name,
+            color = color,
+            time = time
         )
     }
 }

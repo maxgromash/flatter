@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.app.flatter.android.ui.profile.LoginFragment"
+        android:name="com.app.flatter.android.ui.profile.auth.LoginFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_login">
         <action
@@ -38,13 +38,13 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.app.flatter.android.ui.profile.RegistrationFragment"
+        android:name="com.app.flatter.android.ui.profile.auth.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
 
     <fragment
         android:id="@+id/resetPasswordFragment"
-        android:name="com.app.flatter.android.ui.profile.ResetPasswordFragment"
+        android:name="com.app.flatter.android.ui.profile.auth.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" />
 
@@ -81,7 +81,7 @@
 
     <fragment
         android:id="@+id/starFlatsFragment"
-        android:name="com.app.flatter.android.ui.profile.StarFlatsFragment"
+        android:name="com.app.flatter.android.ui.profile.lk.StarFlatsFragment"
         android:label="fragment_star_flats"
         tools:layout="@layout/fragment_star_flats">
         <action
@@ -101,7 +101,7 @@
 
     <fragment
         android:id="@+id/changePersonalDataFragment"
-        android:name="com.app.flatter.android.ui.profile.ChangePersonalDataFragment"
+        android:name="com.app.flatter.android.ui.profile.lk.ChangePersonalDataFragment"
         android:label="fragment_change_personal_data"
         tools:layout="@layout/fragment_change_personal_data" />
 

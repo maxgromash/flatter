@@ -23,7 +23,6 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
     private val progressViewModel = SingleLiveEvent<Boolean>()
     private val showMessageViewModel = SingleLiveEvent<String>()
     private val flatsLiveData = MutableLiveData<List<FlatModel>>()
-    private val starredFlatsLiveData = MutableLiveData<List<FlatModel>>()
 
     init {
         observeState()
@@ -31,7 +30,6 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
 
     fun progressViewModel(): LiveData<Boolean> = progressViewModel
     fun showMessageViewModel(): LiveData<String> = showMessageViewModel
-    fun starredFlatsLiveData(): LiveData<List<FlatModel>> = starredFlatsLiveData
     fun flatsLiveData(): LiveData<List<FlatModel>> = flatsLiveData
 
     init {
@@ -42,7 +40,7 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
         return flatsLiveData.value?.find { it.id == id }
     }
 
-    fun setStar(id: Int) {
+    fun setStar(id: Int, isStar: Boolean) {
         favouritesStore.reduce(FavouriteFlatsAction.AddFavouriteFlat(id))
 
 

@@ -20,7 +20,6 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
     private val appDatabaseRepository: AppDatabaseRepository by inject()
     private val client: FavouriteFlatsClient by inject()
     private val mapper: FlatMapper by inject()
-    private val tokenStore = SharedSettingsHelper(EncryptedSettingsHolder().encryptedSettings)
 
     override suspend fun reduce(action: FavouriteFlatsAction, initialState: FavouriteFlatsState) {
         coroutineScope {

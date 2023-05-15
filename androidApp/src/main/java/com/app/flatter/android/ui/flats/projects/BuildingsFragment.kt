@@ -38,7 +38,7 @@ internal class BuildingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity(), )[ProjectsViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[ProjectsViewModel::class.java]
 
         with(binding.list) {
             binding.list.adapter = buildingAdapter
