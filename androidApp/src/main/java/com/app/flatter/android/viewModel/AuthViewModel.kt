@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.flatter.android.util.SingleLiveEvent
+import com.app.flatter.businessModels.UserModel
 import com.app.flatter.presentation.auth.AuthAction
 import com.app.flatter.presentation.auth.AuthSideEffect
 import com.app.flatter.presentation.auth.AuthStore
@@ -18,6 +19,7 @@ class AuthViewModel : ViewModel() {
     private val signInStateViewModel = MutableLiveData<AuthState>()
     private val progressViewModel = SingleLiveEvent<Boolean>()
     private val showMessageViewModel = SingleLiveEvent<String>()
+    lateinit var user: UserModel
 
     init {
         observeState()
@@ -58,6 +60,7 @@ class AuthViewModel : ViewModel() {
                 when (state) {
                     is com.app.flatter.presentation.auth.AuthState.Authorized -> {
                         progressViewModel.value = false
+                        user = state.model
                         signInStateViewModel.value = AuthState.Success
                     }
 

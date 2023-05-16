@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 class FlatPreviewViewHolder(
     private val binding: ItemSearchResultBinding,
     private val onItemClick: (FlatModel) -> Unit,
-    private val onStarClick: (Int) -> Unit
+    private val onStarClick: (Int, Boolean) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(vo: FlatModel) {
@@ -24,15 +24,9 @@ class FlatPreviewViewHolder(
         binding.priceMTV.text = "${vo.price.formatBySpace()} ₽"
         binding.squareTitleMTV.text = "${vo.area} м2"
         binding.floorMTV.text = "${vo.floor} этаж"
-        binding.starACIV.setImageResource(
-            if (vo.isFavourite)
-                R.drawable.ic_baseline_star_24
-            else
-                R.drawable.ic_baseline_star_border_24
-        )
-
+        binding.starACIV.setImageResource(if (vo.isFavourite) R.drawable.ic_baseline_star_24 else R.drawable.ic_baseline_star_border_24)
         binding.starACIV.setOnClickListener {
-            onStarClick.invoke(vo.id)
+            onStarClick.invoke(vo.id, vo.isFavourite.not())
         }
     }
 }

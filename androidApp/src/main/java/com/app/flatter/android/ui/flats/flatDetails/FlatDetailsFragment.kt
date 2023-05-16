@@ -56,46 +56,33 @@ class FlatDetailsFragment : Fragment() {
         }
 
 
-        item?.let {
-            binding.mortgage.bind(item.price.toInt())
-            adapterDetails.setItems(it.images)
-            binding.roomMTV.text = it.number.toString()
-            binding.floorMTV.text = it.floor.toString()
-            binding.squareMTV.text = it.area.toString()
-            binding.price.text = "${it.price.formatBySpace()} Р"
-            binding.rooms.text = it.rooms.toString()
-            binding.finishing.text = it.trimming
-            binding.surrender.text = it.finishing
+        item?.run {
+            binding.mortgage.bind(price.toInt())
+            adapterDetails.setItems(images)
+            binding.roomMTV.text = number.toString()
+            binding.floorMTV.text = floor.toString()
+            binding.squareMTV.text = area.toString()
+            binding.price.text = "${price.formatBySpace()} Р"
+            binding.rooms.text = rooms.toString()
+            binding.finishing.text = trimming
+            binding.surrender.text = finishing
 
             binding.starAPIV.setOnClickListener {
-                viewModel.setStar(item.id)
+                viewModel.setStar(id, isFavourite.not())
             }
 
-            if (item.isFavourite)
-                binding.starAPIV.setImageResource(R.drawable.ic_baseline_star_24)
-            else
-                binding.starAPIV.setImageResource(R.drawable.ic_baseline_star_border_24)
+            binding.starAPIV.setImageResource(if (isFavourite) R.drawable.ic_baseline_star_24 else R.drawable.ic_baseline_star_border_24)
+
         }
+
+        val callPerm = android.Manifest.permission.CALL_PHONE
 
         binding.bookFlat.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    android.Manifest.permission.CALL_PHONE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(android.Manifest.permission.CALL_PHONE),
-                    123
-                )
+            if (ContextCompat.checkSelfPermission(requireContext(), callPerm) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(), arrayOf(callPerm), 123)
             } else {
-                val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "89227045875"))
-                startActivity(intent)
+                startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "89227045875")))
             }
         }
-    }
-
-    private fun setStarState() {
-
     }
 }

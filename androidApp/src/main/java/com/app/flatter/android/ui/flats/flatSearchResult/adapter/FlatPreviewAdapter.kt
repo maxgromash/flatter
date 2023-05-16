@@ -9,7 +9,7 @@ import com.app.flatter.businessModels.FlatModel
 
 class FlatPreviewAdapter(
     private val onItemClick: (FlatModel) -> Unit,
-    private val onStarClick: (Int) -> Unit
+    private val onStarClick: (Int, Boolean) -> Unit
 ) : RecyclerView.Adapter<FlatPreviewViewHolder>() {
 
     private var list: List<FlatModel> = listOf()

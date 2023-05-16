@@ -36,7 +36,7 @@ class FlatsSearchResult : Fragment() {
             val bundle = bundleOf("id" to it.id)
             findNavController().navigate(R.id.action_flatsSearchResult_to_flatDetailsFragment, bundle)
         },
-        onStarClick = { viewModel.setStar(it) }
+        onStarClick = { id, isStar -> viewModel.setStar(id, isStar) }
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

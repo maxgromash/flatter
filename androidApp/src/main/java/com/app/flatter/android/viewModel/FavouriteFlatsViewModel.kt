@@ -6,46 +6,48 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.flatter.android.util.SingleLiveEvent
-import com.app.flatter.businessModels.ProjectModel
-import com.app.flatter.presentation.projects.ProjectsAction
-import com.app.flatter.presentation.projects.ProjectsSideEffect
-import com.app.flatter.presentation.projects.ProjectsState
-import com.app.flatter.presentation.projects.ProjectsStore
+import com.app.flatter.businessModels.FlatModel
+import com.app.flatter.presentation.favouriteFlats.FavouriteFlatsAction
+import com.app.flatter.presentation.favouriteFlats.FavouriteFlatsSideEffect
+import com.app.flatter.presentation.favouriteFlats.FavouriteFlatsState
+import com.app.flatter.presentation.favouriteFlats.FavouriteFlatsStore
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class ProjectsViewModel : ViewModel() {
+class FavouriteFlatsViewModel : ViewModel() {
 
-    private val store = ProjectsStore()
-
-    private val projectsLiveData = MutableLiveData<List<ProjectModel>>()
+    private var store = FavouriteFlatsStore()
     private val progressViewModel = SingleLiveEvent<Boolean>()
     private val showMessageViewModel = SingleLiveEvent<String>()
-
-    fun projectsLiveData(): LiveData<List<ProjectModel>> = projectsLiveData
-    fun progressViewModel(): LiveData<Boolean> = progressViewModel
-    fun showMessageViewModel(): LiveData<String> = showMessageViewModel
-
-    fun getProjectById(id: Int): ProjectModel {
-        return projectsLiveData.value!!.first { it.id == id }
-    }
+    private val starredFlatsLiveData = MutableLiveData<List<FlatModel>>()
 
     init {
         observeState()
-        getProjects()
     }
 
-    private fun getProjects() {
-        store.reduce(ProjectsAction.SyncProjects)
+    fun progressViewModel(): LiveData<Boolean> = progressViewModel
+    fun showMessageViewModel(): LiveData<String> = showMessageViewModel
+    fun starredFlatsLiveData(): LiveData<List<FlatModel>> = starredFlatsLiveData
+
+    init {
+        store.reduce(FavouriteFlatsAction.GetFavouriteFlats)
+    }
+
+    fun setStar(id: Int, isStar: Boolean) {
+        if (isStar)
+            store.reduce(FavouriteFlatsAction.AddFavouriteFlat(id))
+        else
+            store.reduce(FavouriteFlatsAction.RemoveFavouriteFlat(id))
+        store.reduce(FavouriteFlatsAction.GetFavouriteFlats)
     }
 
     fun launchWhenStartedCollectFlow(lifeCycleScope: LifecycleCoroutineScope) {
         lifeCycleScope.launchWhenStarted {
             store.observeState().collectLatest { state ->
                 when (state) {
-                    is ProjectsState.ProjectsList -> {
+                    is FavouriteFlatsState.FavouriteFlatsList -> {
                         progressViewModel.value = false
-                        projectsLiveData.value = state.list
+                        starredFlatsLiveData.value = state.list
                     }
 
                     else -> {}
@@ -58,12 +60,12 @@ class ProjectsViewModel : ViewModel() {
         viewModelScope.launch {
             store.observeSideEffects().collect { effect ->
                 when (effect) {
-                    is ProjectsSideEffect.ShowMessage -> {
+                    is FavouriteFlatsSideEffect.ShowMessage -> {
                         progressViewModel.value = false
                         showMessageViewModel.value = effect.message
                     }
 
-                    is ProjectsSideEffect.ShowProgress -> {
+                    is FavouriteFlatsSideEffect.ShowProgress -> {
                         progressViewModel.value = true
                     }
                 }
