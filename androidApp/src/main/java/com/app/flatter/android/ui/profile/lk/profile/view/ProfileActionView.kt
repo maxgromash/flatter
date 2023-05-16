@@ -1,4 +1,4 @@
-package com.app.flatter.android.ui.profile.lk.view
+package com.app.flatter.android.ui.profile.lk.profile.view
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -30,24 +30,23 @@ class NewsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        viewModel = ViewModelProvider(requireActivity())[NewsViewModel::class.java]
         binding = FragmentNewsBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
+        observeState()
+    }
 
-        viewModel = ViewModelProvider(requireActivity())[NewsViewModel::class.java]
-
+    private fun setupUI() {
         with(binding.newsListRV) {
             adapter = adapterNews
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(NewsDecoration())
         }
-
-        binding.toolBarTB.title = "Новости"
-
-        observeState()
     }
 
     private fun observeState() {

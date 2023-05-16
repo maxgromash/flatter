@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.app.flatter.android.ui.profile.lk.ProfileFragment"
+        android:name="com.app.flatter.android.ui.profile.lk.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -77,11 +77,18 @@
             app:exitAnim="@anim/wait_anim"
             app:popEnterAnim="@anim/wait_anim"
             app:popExitAnim="@anim/slide_right" />
+        <action
+            android:id="@+id/action_profileFragment_to_filesFragment"
+            app:destination="@id/filesFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right" />
     </fragment>
 
     <fragment
         android:id="@+id/starFlatsFragment"
-        android:name="com.app.flatter.android.ui.profile.lk.StarFlatsFragment"
+        android:name="com.app.flatter.android.ui.profile.lk.FavouriteFlatsFragment"
         android:label="fragment_star_flats"
         tools:layout="@layout/fragment_star_flats">
         <action
@@ -104,5 +111,11 @@
         android:name="com.app.flatter.android.ui.profile.lk.ChangePersonalDataFragment"
         android:label="fragment_change_personal_data"
         tools:layout="@layout/fragment_change_personal_data" />
+
+    <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.app.flatter.android.ui.profile.lk.files.FilesFragment"
+        android:label="fragment_files"
+        tools:layout="@layout/fragment_files" />
 
 </navigation>

@@ -5,8 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@drawable/main_bg"
-    tools:context=".ui.profile.lk.StarFlatsFragment">
+    tools:context=".ui.profile.lk.FavouriteFlatsFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bgAPIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foreground="#96222f3e"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarTB"
@@ -55,7 +66,7 @@
         android:text="Список квартир пуст"
         android:textColor="@color/md_theme_light_background"
         android:textStyle="bold"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +80,9 @@
         android:indeterminate="true"
         android:visibility="invisible"
         app:indicatorColor="?attr/colorOnPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/noStars"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noStars" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

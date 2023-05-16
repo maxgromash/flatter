@@ -2,11 +2,14 @@ package com.app.flatter.android.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.app.flatter.android.R
 import com.app.flatter.android.databinding.ActivityMainBinding
+import com.app.flatter.android.viewModel.AuthViewModel
 import com.app.flatter.network.AuthClientImpl
+import com.app.flatter.network.FavouriteFlatsClientImpl
 import com.app.flatter.network.FlatsClientImpl
 import com.app.flatter.network.NetworkClientsProvider
 import com.app.flatter.network.NewsClientImpl
@@ -27,5 +30,11 @@ internal class MainActivity : AppCompatActivity() {
         NetworkClientsProvider.newsClient = NewsClientImpl()
         NetworkClientsProvider.projectsClient = ProjectsClientImpl()
         NetworkClientsProvider.flatsClient = FlatsClientImpl()
+        NetworkClientsProvider.favouriteFlatsClient = FavouriteFlatsClientImpl()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val x = ViewModelProvider(this)[AuthViewModel::class.java]
     }
 }

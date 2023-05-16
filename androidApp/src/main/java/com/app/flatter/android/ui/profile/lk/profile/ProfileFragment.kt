@@ -1,4 +1,4 @@
-package com.app.flatter.android.ui.profile.lk
+package com.app.flatter.android.ui.profile.lk.profile
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -20,7 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.flatter.android.R
 import com.app.flatter.android.data.ProfileActionVO
 import com.app.flatter.android.databinding.FragmentProfileBinding
-import com.app.flatter.android.ui.profile.lk.view.ProfileActionView
+import com.app.flatter.android.ui.profile.lk.profile.view.ProfileActionView
 import com.app.flatter.android.util.toPx
 import com.app.flatter.android.viewModel.AuthViewModel
 import com.google.android.material.textview.MaterialTextView
@@ -104,11 +104,13 @@ class ProfileFragment : Fragment() {
         ProfileActionVO(R.drawable.ic_baseline_star_border_24, "Избранное", true) {
             findNavController().navigate(R.id.action_profileFragment_to_starFlatsFragment)
         },
-        /*TODO Сделать доки ProfileActionVO(
+        ProfileActionVO(
             R.drawable.ic_baseline_insert_drive_file_24,
             "Мои документы",
             true
-        ),*/
+        ) {
+            findNavController().navigate(R.id.action_profileFragment_to_filesFragment)
+        },
         ProfileActionVO(R.drawable.ic_baseline_mode_edit_outline_24, "Изменить данные", true) {
             findNavController().navigate(R.id.action_profileFragment_to_changePersonalDataFragment)
         },

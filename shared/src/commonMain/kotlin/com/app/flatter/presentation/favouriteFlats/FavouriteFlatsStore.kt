@@ -4,7 +4,6 @@ import com.app.flatter.database.AppDatabaseRepository
 import com.app.flatter.mapper.FlatMapper
 import com.app.flatter.network.FavouriteFlatsClient
 import com.app.flatter.presentation.BaseStore
-import com.app.flatter.security.EncryptedSettingsHolder
 import com.app.flatter.security.SharedSettingsHelper
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -38,12 +37,7 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
     private suspend fun processAddFavouriteFlat(action: FavouriteFlatsAction.AddFavouriteFlat) {
         runCatching {
             tokenStore.token?.let { token ->
-                client.addFavourites(
-                    data = AddFavouritesRequest(
-                        token = token,
-                        ids = listOf(action.id)
-                    )
-                )
+                client.addFavourites(AddFavouritesRequest(token, listOf(action.id)))
             } ?: run {
                 appDatabaseRepository.addFavouriteFlat(action.id)
             }
@@ -58,14 +52,7 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
     private suspend fun processRemoveFavouriteFlat(action: FavouriteFlatsAction.RemoveFavouriteFlat) {
         runCatching {
             appDatabaseRepository.removeFavouriteFlat(action.id)
-            tokenStore.token?.let { token ->
-                client.removeFavourites(
-                    RemoveFavouritesRequest(
-                        token = token,
-                        id = action.id
-                    )
-                )
-            }
+            tokenStore.token?.let { token -> client.removeFavourites(RemoveFavouritesRequest(token, action.id)) }
         }.onSuccess {
             val stateFlats = stateFlow.value as? FavouriteFlatsState.FavouriteFlatsList
             stateFlats?.let {
@@ -79,28 +66,19 @@ class FavouriteFlatsStore : BaseStore<FavouriteFlatsState, FavouriteFlatsAction,
 
     private suspend fun processGetFavouriteFlats() {
         runCatching {
-            val cachedFavourites = appDatabaseRepository.getFavouriteFlats()
-            // Если база не пустая - синкаем с сервом при запросе избранных
             tokenStore.token?.let { token ->
+                // Если база не пустая - синкаем с сервом при запросе избранных
+                val cachedFavourites = appDatabaseRepository.getFavouriteFlats()
                 if (cachedFavourites.isNotEmpty()) {
-                    client.addFavourites(
-                        AddFavouritesRequest(
-                            token = token,
-                            ids = cachedFavourites
-                        )
-                    )
+                    client.addFavourites(AddFavouritesRequest(token = token, ids = cachedFavourites))
                     appDatabaseRepository.deleteAllFavouriteFlats()
                 }
-                client.getFavourites(
-                    GetFavouritesRequest(
-                        token = token
-                    )
-                )
+                client.getFavourites(GetFavouritesRequest(token))
             }
         }.onSuccess { response ->
             response?.let {
-                val flats = it.flats.map(mapper)
-                updateState { FavouriteFlatsState.FavouriteFlatsList(flats) }
+                val mappedFlats = it.flats.map(mapper)
+                updateState { FavouriteFlatsState.FavouriteFlatsList(mappedFlats) }
             } ?: run {
                 updateState { FavouriteFlatsState.None }
             }

@@ -21,15 +21,12 @@ class FavouriteFlatsViewModel : ViewModel() {
     private val showMessageViewModel = SingleLiveEvent<String>()
     private val starredFlatsLiveData = MutableLiveData<List<FlatModel>>()
 
-    init {
-        observeState()
-    }
-
     fun progressViewModel(): LiveData<Boolean> = progressViewModel
     fun showMessageViewModel(): LiveData<String> = showMessageViewModel
     fun starredFlatsLiveData(): LiveData<List<FlatModel>> = starredFlatsLiveData
 
     init {
+        observeState()
         store.reduce(FavouriteFlatsAction.GetFavouriteFlats)
     }
 
