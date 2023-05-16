@@ -14,6 +14,8 @@ import com.app.flatter.network.FlatsClient
 import com.app.flatter.network.NetworkClientsProvider
 import com.app.flatter.network.NewsClient
 import com.app.flatter.network.ProjectsClient
+import com.app.flatter.security.EncryptedSettingsHolder
+import com.app.flatter.security.SharedSettingsHelper
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
@@ -42,6 +44,7 @@ val commonModule = module {
     single { ProjectsMapper() }
     single { NewsMapper() }
     single { UserMapper() }
+    single { SharedSettingsHelper(EncryptedSettingsHolder().encryptedSettings) }
 }
 
 expect val platformModule: Module

@@ -19,7 +19,7 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
     override val sideEffectsFlow: MutableSharedFlow<AuthSideEffect> = MutableSharedFlow()
 
     private val client: AuthClient by inject()
-    private val tokenStore = SharedSettingsHelper(EncryptedSettingsHolder().encryptedSettings)
+    private val tokenStore: SharedSettingsHelper by inject()
 
     private val userMapper: UserMapper by inject()
 
