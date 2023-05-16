@@ -73,13 +73,37 @@ message GetNewsResponse {
   repeated News news = 1;
 }
 
-message GetFavouritesRequest {}
+message GetFavouritesRequest {
+  string token = 1;
+}
 
-message GetFavouritesResponse {}
+message GetFavouritesResponse {
+  repeated Flat flats = 1;
+}
+
+message AddFavouritesRequest {
+  string token = 1;
+  repeated int32 ids = 2;
+}
+
+message AddFavouritesResponse {
+  string status = 1;
+}
+
+message RemoveFavouritesRequest {
+  string token = 1;
+  int32 id = 2;
+}
+
+message RemoveFavouritesResponse {
+  string status = 1;
+}
 
 service ProjectService {
   rpc GetProjects (google.protobuf.Empty) returns (GetProjectsResponse) {}
   rpc GetFlats (GetFlatsRequest) returns (GetFlatsResponse) {}
   rpc GetNews (google.protobuf.Empty) returns (GetNewsResponse) {}
   rpc GetFavourites (GetFavouritesRequest) returns (GetFavouritesResponse) {}
+  rpc AddFavourites (AddFavouritesRequest) returns (AddFavouritesResponse) {}
+  rpc RemoveFavourites (RemoveFavouritesRequest) returns (RemoveFavouritesResponse) {}
 }

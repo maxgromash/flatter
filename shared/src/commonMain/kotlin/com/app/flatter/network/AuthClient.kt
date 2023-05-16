@@ -14,4 +14,8 @@ interface AuthClient {
     suspend fun changePhone(data: ChangePhoneRequest): ChangePhoneResponse
 
     suspend fun userInfo(data: GetUserInfoRequest): GetUserInfoResponse
+
+    suspend fun refreshToken(data: RefreshTokenRequest): RefreshTokenResponse
+
+    suspend fun logout(data: LogoutRequest): LogoutResponse
 }

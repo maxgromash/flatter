@@ -9,6 +9,7 @@ struct iOSApp: App {
         NetworkClientsProvider.shared.newsClient = projectsClient
         NetworkClientsProvider.shared.projectsClient = projectsClient
         NetworkClientsProvider.shared.flatsClient = projectsClient
+        NetworkClientsProvider.shared.favouriteFlatsClient = projectsClient
         KoinFactoryKt.doInitKoin()
     }
 

@@ -45,6 +45,7 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
                     updateState { AuthState.Authorized(model = user) }
                 }
                 .onFailure {
+                    tokenStore.token = null
                     sendEffect {
                         AuthSideEffect.ShowMessage(
                             "Не удалось получить информацию о пользователе! Проверьте введенные данные и попробуйте снова"
@@ -57,8 +58,12 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
     }
 
     private suspend fun processLogOutAction() {
+        val token = tokenStore.token
         tokenStore.token = null
         updateState { AuthState.None }
+        token?.let { token ->
+            client.logout(data = LogoutRequest(token = token))
+        }
     }
 
     private suspend fun processSignInAction(action: AuthAction.SignIn) {
@@ -147,9 +152,24 @@ class AuthStore : BaseStore<AuthState, AuthAction, AuthSideEffect>(), KoinCompon
         }
     }
 
-    private suspend fun processUserInfoSync(token: String): UserModel {
-        val response = client.userInfo(GetUserInfoRequest(token = token))
-        return userMapper.invoke(response)
+    private suspend fun processUserInfoSync(token: String, needRetry: Boolean = true): UserModel {
+        return try {
+            val response = client.userInfo(GetUserInfoRequest(token = token))
+            userMapper.invoke(response)
+        } catch (ex: Throwable) {
+            if (needRetry) {
+                val newToken = refreshToken(token = token)
+                processUserInfoSync(token = newToken, needRetry = false)
+            } else {
+                throw  ex
+            }
+        }
+    }
+
+    private suspend fun refreshToken(token: String): String {
+        val userToken = client.refreshToken(data = RefreshTokenRequest(token = token)).token
+        tokenStore.token = userToken
+        return userToken
     }
 
     private suspend fun updateStateWithNewPhone(currentState: AuthState.Authorized, newPhone: String) {

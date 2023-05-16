@@ -50,6 +50,16 @@ internal protocol Models_ProjectServiceClientProtocol: GRPCClient {
     _ request: Models_GetFavouritesRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Models_GetFavouritesRequest, Models_GetFavouritesResponse>
+
+  func addFavourites(
+    _ request: Models_AddFavouritesRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Models_AddFavouritesRequest, Models_AddFavouritesResponse>
+
+  func removeFavourites(
+    _ request: Models_RemoveFavouritesRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Models_RemoveFavouritesRequest, Models_RemoveFavouritesResponse>
 }
 
 extension Models_ProjectServiceClientProtocol {
@@ -126,6 +136,42 @@ extension Models_ProjectServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetFavouritesInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to AddFavourites
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to AddFavourites.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func addFavourites(
+    _ request: Models_AddFavouritesRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Models_AddFavouritesRequest, Models_AddFavouritesResponse> {
+    return self.makeUnaryCall(
+      path: Models_ProjectServiceClientMetadata.Methods.addFavourites.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAddFavouritesInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to RemoveFavourites
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to RemoveFavourites.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func removeFavourites(
+    _ request: Models_RemoveFavouritesRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Models_RemoveFavouritesRequest, Models_RemoveFavouritesResponse> {
+    return self.makeUnaryCall(
+      path: Models_ProjectServiceClientMetadata.Methods.removeFavourites.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRemoveFavouritesInterceptors() ?? []
     )
   }
 }
@@ -214,6 +260,16 @@ internal protocol Models_ProjectServiceAsyncClientProtocol: GRPCClient {
     _ request: Models_GetFavouritesRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Models_GetFavouritesRequest, Models_GetFavouritesResponse>
+
+  func makeAddFavouritesCall(
+    _ request: Models_AddFavouritesRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Models_AddFavouritesRequest, Models_AddFavouritesResponse>
+
+  func makeRemoveFavouritesCall(
+    _ request: Models_RemoveFavouritesRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Models_RemoveFavouritesRequest, Models_RemoveFavouritesResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -273,6 +329,30 @@ extension Models_ProjectServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeGetFavouritesInterceptors() ?? []
     )
   }
+
+  internal func makeAddFavouritesCall(
+    _ request: Models_AddFavouritesRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Models_AddFavouritesRequest, Models_AddFavouritesResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Models_ProjectServiceClientMetadata.Methods.addFavourites.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAddFavouritesInterceptors() ?? []
+    )
+  }
+
+  internal func makeRemoveFavouritesCall(
+    _ request: Models_RemoveFavouritesRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Models_RemoveFavouritesRequest, Models_RemoveFavouritesResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Models_ProjectServiceClientMetadata.Methods.removeFavourites.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRemoveFavouritesInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -324,6 +404,30 @@ extension Models_ProjectServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeGetFavouritesInterceptors() ?? []
     )
   }
+
+  internal func addFavourites(
+    _ request: Models_AddFavouritesRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Models_AddFavouritesResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Models_ProjectServiceClientMetadata.Methods.addFavourites.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAddFavouritesInterceptors() ?? []
+    )
+  }
+
+  internal func removeFavourites(
+    _ request: Models_RemoveFavouritesRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Models_RemoveFavouritesResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Models_ProjectServiceClientMetadata.Methods.removeFavourites.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRemoveFavouritesInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -358,6 +462,12 @@ internal protocol Models_ProjectServiceClientInterceptorFactoryProtocol: GRPCSen
 
   /// - Returns: Interceptors to use when invoking 'getFavourites'.
   func makeGetFavouritesInterceptors() -> [ClientInterceptor<Models_GetFavouritesRequest, Models_GetFavouritesResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'addFavourites'.
+  func makeAddFavouritesInterceptors() -> [ClientInterceptor<Models_AddFavouritesRequest, Models_AddFavouritesResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'removeFavourites'.
+  func makeRemoveFavouritesInterceptors() -> [ClientInterceptor<Models_RemoveFavouritesRequest, Models_RemoveFavouritesResponse>]
 }
 
 internal enum Models_ProjectServiceClientMetadata {
@@ -369,6 +479,8 @@ internal enum Models_ProjectServiceClientMetadata {
       Models_ProjectServiceClientMetadata.Methods.getFlats,
       Models_ProjectServiceClientMetadata.Methods.getNews,
       Models_ProjectServiceClientMetadata.Methods.getFavourites,
+      Models_ProjectServiceClientMetadata.Methods.addFavourites,
+      Models_ProjectServiceClientMetadata.Methods.removeFavourites,
     ]
   )
 
@@ -394,6 +506,18 @@ internal enum Models_ProjectServiceClientMetadata {
     internal static let getFavourites = GRPCMethodDescriptor(
       name: "GetFavourites",
       path: "/models.ProjectService/GetFavourites",
+      type: GRPCCallType.unary
+    )
+
+    internal static let addFavourites = GRPCMethodDescriptor(
+      name: "AddFavourites",
+      path: "/models.ProjectService/AddFavourites",
+      type: GRPCCallType.unary
+    )
+
+    internal static let removeFavourites = GRPCMethodDescriptor(
+      name: "RemoveFavourites",
+      path: "/models.ProjectService/RemoveFavourites",
       type: GRPCCallType.unary
     )
   }

@@ -40,6 +40,32 @@ extension AuthClientImpl: AuthClient {
         }
     }
 
+    func logout(data: LogoutRequest, completionHandler: @escaping (LogoutResponse?, Error?) -> Void) {
+        let request = Models_LogoutRequest(data)
+        let call = client.logout(request)
+
+        do {
+            let message = try call.response.wait()
+            let (wireMessage, _) = message.toWireMessage(adapter: LogoutResponse.Companion.shared.ADAPTER)
+            completionHandler(wireMessage, nil)
+        } catch {
+            completionHandler(nil, error)
+        }
+    }
+
+    func refreshToken(data: RefreshTokenRequest, completionHandler: @escaping (RefreshTokenResponse?, Error?) -> Void) {
+        let request = Models_RefreshTokenRequest(data)
+        let call = client.refreshToken(request)
+
+        do {
+            let message = try call.response.wait()
+            let (wireMessage, _) = message.toWireMessage(adapter: RefreshTokenResponse.Companion.shared.ADAPTER)
+            completionHandler(wireMessage, nil)
+        } catch {
+            completionHandler(nil, error)
+        }
+    }
+
     func restorePassword(
         data: RestorePasswordRequest,
         completionHandler: @escaping (RestorePasswordResponse?, Error?) -> Void
@@ -173,6 +199,22 @@ private extension Models_ChangePhoneResponse {
 private extension Models_GetUserInfoRequest {
     init(_ data: GetUserInfoRequest) {
         var this = Models_GetUserInfoRequest()
+        this.token = data.token
+        self = this
+    }
+}
+
+private extension Models_LogoutRequest {
+    init(_ data: LogoutRequest) {
+        var this = Models_LogoutRequest()
+        this.token = data.token
+        self = this
+    }
+}
+
+private extension Models_RefreshTokenRequest {
+    init(_ data: RefreshTokenRequest) {
+        var this = Models_RefreshTokenRequest()
         this.token = data.token
         self = this
     }

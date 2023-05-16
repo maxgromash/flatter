@@ -41,6 +41,16 @@ internal protocol Models_AuthServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Models_SignInRequest, Models_SignInResponse>
 
+  func logout(
+    _ request: Models_LogoutRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Models_LogoutRequest, Models_LogoutResponse>
+
+  func refreshToken(
+    _ request: Models_RefreshTokenRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Models_RefreshTokenRequest, Models_RefreshTokenResponse>
+
   func restorePassword(
     _ request: Models_RestorePasswordRequest,
     callOptions: CallOptions?
@@ -100,6 +110,42 @@ extension Models_AuthServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSignInInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to Logout
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Logout.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func logout(
+    _ request: Models_LogoutRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Models_LogoutRequest, Models_LogoutResponse> {
+    return self.makeUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.logout.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeLogoutInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to RefreshToken
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to RefreshToken.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func refreshToken(
+    _ request: Models_RefreshTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Models_RefreshTokenRequest, Models_RefreshTokenResponse> {
+    return self.makeUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.refreshToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRefreshTokenInterceptors() ?? []
     )
   }
 
@@ -251,6 +297,16 @@ internal protocol Models_AuthServiceAsyncClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Models_SignInRequest, Models_SignInResponse>
 
+  func makeLogoutCall(
+    _ request: Models_LogoutRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Models_LogoutRequest, Models_LogoutResponse>
+
+  func makeRefreshTokenCall(
+    _ request: Models_RefreshTokenRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Models_RefreshTokenRequest, Models_RefreshTokenResponse>
+
   func makeRestorePasswordCall(
     _ request: Models_RestorePasswordRequest,
     callOptions: CallOptions?
@@ -303,6 +359,30 @@ extension Models_AuthServiceAsyncClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSignInInterceptors() ?? []
+    )
+  }
+
+  internal func makeLogoutCall(
+    _ request: Models_LogoutRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Models_LogoutRequest, Models_LogoutResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.logout.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeLogoutInterceptors() ?? []
+    )
+  }
+
+  internal func makeRefreshTokenCall(
+    _ request: Models_RefreshTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Models_RefreshTokenRequest, Models_RefreshTokenResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.refreshToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRefreshTokenInterceptors() ?? []
     )
   }
 
@@ -378,6 +458,30 @@ extension Models_AuthServiceAsyncClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSignInInterceptors() ?? []
+    )
+  }
+
+  internal func logout(
+    _ request: Models_LogoutRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Models_LogoutResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.logout.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeLogoutInterceptors() ?? []
+    )
+  }
+
+  internal func refreshToken(
+    _ request: Models_RefreshTokenRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Models_RefreshTokenResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Models_AuthServiceClientMetadata.Methods.refreshToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRefreshTokenInterceptors() ?? []
     )
   }
 
@@ -457,6 +561,12 @@ internal protocol Models_AuthServiceClientInterceptorFactoryProtocol: GRPCSendab
   /// - Returns: Interceptors to use when invoking 'signIn'.
   func makeSignInInterceptors() -> [ClientInterceptor<Models_SignInRequest, Models_SignInResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'logout'.
+  func makeLogoutInterceptors() -> [ClientInterceptor<Models_LogoutRequest, Models_LogoutResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'refreshToken'.
+  func makeRefreshTokenInterceptors() -> [ClientInterceptor<Models_RefreshTokenRequest, Models_RefreshTokenResponse>]
+
   /// - Returns: Interceptors to use when invoking 'restorePassword'.
   func makeRestorePasswordInterceptors() -> [ClientInterceptor<Models_RestorePasswordRequest, Models_RestorePasswordResponse>]
 
@@ -477,6 +587,8 @@ internal enum Models_AuthServiceClientMetadata {
     methods: [
       Models_AuthServiceClientMetadata.Methods.signUp,
       Models_AuthServiceClientMetadata.Methods.signIn,
+      Models_AuthServiceClientMetadata.Methods.logout,
+      Models_AuthServiceClientMetadata.Methods.refreshToken,
       Models_AuthServiceClientMetadata.Methods.restorePassword,
       Models_AuthServiceClientMetadata.Methods.changePassword,
       Models_AuthServiceClientMetadata.Methods.changePhone,
@@ -494,6 +606,18 @@ internal enum Models_AuthServiceClientMetadata {
     internal static let signIn = GRPCMethodDescriptor(
       name: "SignIn",
       path: "/models.AuthService/SignIn",
+      type: GRPCCallType.unary
+    )
+
+    internal static let logout = GRPCMethodDescriptor(
+      name: "Logout",
+      path: "/models.AuthService/Logout",
+      type: GRPCCallType.unary
+    )
+
+    internal static let refreshToken = GRPCMethodDescriptor(
+      name: "RefreshToken",
+      path: "/models.AuthService/RefreshToken",
       type: GRPCCallType.unary
     )
 
