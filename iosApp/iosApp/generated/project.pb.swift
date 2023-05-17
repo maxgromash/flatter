@@ -67,13 +67,37 @@ struct Models_Project {
 
   var nearestTransports: [Models_NearestTransports] = []
 
-  var streamID: Int32 = 0
+  var resolutions: Models_Resolutions {
+    get {return _resolutions ?? Models_Resolutions()}
+    set {_resolutions = newValue}
+  }
+  /// Returns true if `resolutions` has been explicitly set.
+  var hasResolutions: Bool {return self._resolutions != nil}
+  /// Clears the value of `resolutions`. Subsequent reads from it will return its default value.
+  mutating func clearResolutions() {self._resolutions = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _address: Models_Address? = nil
+  fileprivate var _resolutions: Models_Resolutions? = nil
+}
+
+struct Models_Resolutions {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var high: String = String()
+
+  var standard: String = String()
+
+  var low: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
 }
 
 struct Models_Address {
@@ -308,6 +332,7 @@ struct Models_RemoveFavouritesResponse {
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Models_User: @unchecked Sendable {}
 extension Models_Project: @unchecked Sendable {}
+extension Models_Resolutions: @unchecked Sendable {}
 extension Models_Address: @unchecked Sendable {}
 extension Models_Coordinates: @unchecked Sendable {}
 extension Models_NearestTransports: @unchecked Sendable {}
@@ -375,7 +400,7 @@ extension Models_Project: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     5: .same(proto: "address"),
     6: .same(proto: "minFlatPrice"),
     7: .same(proto: "nearestTransports"),
-    8: .same(proto: "streamID"),
+    8: .same(proto: "resolutions"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -391,7 +416,7 @@ extension Models_Project: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       case 5: try { try decoder.decodeSingularMessageField(value: &self._address) }()
       case 6: try { try decoder.decodeSingularDoubleField(value: &self.minFlatPrice) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.nearestTransports) }()
-      case 8: try { try decoder.decodeSingularInt32Field(value: &self.streamID) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._resolutions) }()
       default: break
       }
     }
@@ -423,9 +448,9 @@ extension Models_Project: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if !self.nearestTransports.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.nearestTransports, fieldNumber: 7)
     }
-    if self.streamID != 0 {
-      try visitor.visitSingularInt32Field(value: self.streamID, fieldNumber: 8)
-    }
+    try { if let v = self._resolutions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -437,7 +462,51 @@ extension Models_Project: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if lhs._address != rhs._address {return false}
     if lhs.minFlatPrice != rhs.minFlatPrice {return false}
     if lhs.nearestTransports != rhs.nearestTransports {return false}
-    if lhs.streamID != rhs.streamID {return false}
+    if lhs._resolutions != rhs._resolutions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Models_Resolutions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Resolutions"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "high"),
+    2: .same(proto: "standard"),
+    3: .same(proto: "low"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.high) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.standard) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.low) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.high.isEmpty {
+      try visitor.visitSingularStringField(value: self.high, fieldNumber: 1)
+    }
+    if !self.standard.isEmpty {
+      try visitor.visitSingularStringField(value: self.standard, fieldNumber: 2)
+    }
+    if !self.low.isEmpty {
+      try visitor.visitSingularStringField(value: self.low, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Models_Resolutions, rhs: Models_Resolutions) -> Bool {
+    if lhs.high != rhs.high {return false}
+    if lhs.standard != rhs.standard {return false}
+    if lhs.low != rhs.low {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

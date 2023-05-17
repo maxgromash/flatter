@@ -6,10 +6,10 @@ import SwiftUI
 
 struct LiveStreamView: UIViewControllerRepresentable {
     let url: URL
-    let streamName: String
+    let streams: ProjectModel.Stream
 
     func makeUIViewController(context: Context) -> LiveStreamViewController {
-        LiveStreamViewController(url: url, streamName: streamName)
+        LiveStreamViewController(url: url, streams: streams)
     }
 
     func updateUIViewController(_ uiViewController: LiveStreamViewController, context: Context) {}
@@ -20,7 +20,9 @@ final class LiveStreamViewController: UIViewController {
     private let stream: RTMPStream
 
     private let url: URL
-    private let streamName: String
+    private let streams: ProjectModel.Stream
+
+    private var currentStream: String
 
     private var retryCount = 0
 
@@ -28,10 +30,11 @@ final class LiveStreamViewController: UIViewController {
 
     private var bitrateRetryCounter = 0
 
-    init(url: URL, streamName: String) {
+    init(url: URL, streams: ProjectModel.Stream) {
         self.stream = .init(connection: connection)
         self.url = url
-        self.streamName = streamName
+        self.streams = streams
+        currentStream = streams.standard
         super.init(nibName: nil, bundle: nil)
 
         setUp()
@@ -79,7 +82,7 @@ final class LiveStreamViewController: UIViewController {
         }
         switch code {
         case RTMPConnection.Code.connectSuccess.rawValue:
-            play()
+            play(streamName: currentStream)
         case RTMPConnection.Code.connectFailed.rawValue:
             restoreConnection()
         default:
@@ -92,7 +95,7 @@ final class LiveStreamViewController: UIViewController {
         restoreConnection()
     }
 
-    private func play() {
+    private func play(streamName: String) {
         stream.play(streamName)
         stream.receiveVideo = true
     }
@@ -109,10 +112,35 @@ final class LiveStreamViewController: UIViewController {
 extension LiveStreamViewController: RTMPStreamDelegate {
     func rtmpStream(_ stream: RTMPStream, publishInsufficientBWOccured connection: RTMPConnection) {
         let newBitrate = max(UInt(Double(currentBitrate) * Constants.bitrateDown), Constants.minBitrate)
-        self.stream.videoSettings[.bitrate] = newBitrate
+        if newBitrate < (Constants.minBitrate + Constants.maxBitrate) / 2  && currentStream != streams.low {
+            if currentStream == streams.high {
+                currentStream = streams.high
+            }
+            else {
+                currentStream = streams.standard
+            }
+            play(streamName: currentStream)
+            self.stream.videoSettings[.bitrate] = Constants.maxBitrate
+        }
+        else {
+            self.stream.videoSettings[.bitrate] = (Constants.minBitrate + Constants.maxBitrate) / 2
+        }
     }
 
     func rtmpStream(_ stream: RTMPStream, publishSufficientBWOccured connection: RTMPConnection) {
+        let newBitrate = min(Constants.maxBitrate, UInt(Double(currentBitrate) * Constants.bitrateUp))
+        if newBitrate > (Constants.minBitrate + Constants.maxBitrate) / 2  && currentStream != streams.high {
+            if currentStream == streams.low {
+                currentStream = streams.low
+            }
+            else {
+                currentStream = streams.high
+            }
+            play(streamName: currentStream)
+            self.stream.videoSettings[.bitrate] = (Constants.minBitrate + Constants.maxBitrate) / 2
+            return
+        }
+
         guard currentBitrate <= Constants.maxBitrate else {
             return
         }
@@ -122,7 +150,6 @@ extension LiveStreamViewController: RTMPStreamDelegate {
         }
 
         self.bitrateRetryCounter = 0
-        let newBitrate = min(Constants.maxBitrate, UInt(Double(currentBitrate) * Constants.bitrateUp))
         if newBitrate == currentBitrate { return }
 
         self.stream.videoSettings[.bitrate] = newBitrate

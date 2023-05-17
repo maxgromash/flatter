@@ -14,6 +14,12 @@ struct ProjectModel {
         let time: Int
     }
 
+    struct Stream: Hashable, Equatable {
+        let high: String
+        let standard: String
+        let low: String
+    }
+
     let id: Int32
     let title: String
     let description: String
@@ -21,6 +27,7 @@ struct ProjectModel {
     let address: Address
     let minFlatPrice: Float
     let nearestTransports: [NearestTransport]
+    let stream: Stream
 }
 
 extension ProjectModel: Equatable {
@@ -56,7 +63,8 @@ extension Array where Element == ProjectModel {
                         color: ColorsProvider.metroPurpleLine.color,
                         time: 2
                     )
-                ]
+                ],
+                stream: .init(high: "", standard: "", low: "")
             ),
             ProjectModel(
                 id: 2,
@@ -81,7 +89,8 @@ extension Array where Element == ProjectModel {
                         color: ColorsProvider.metroYellowLine.color,
                         time: 12
                     ),
-                ]
+                ],
+                stream: .init(high: "", standard: "", low: "")
             ),
             
         ]

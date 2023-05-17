@@ -16,7 +16,13 @@ message Project {
   Address address = 5;
   double minFlatPrice = 6;
   repeated NearestTransports nearestTransports = 7;
-  int32 streamID = 8;
+  Resolutions resolutions = 8;
+}
+
+message Resolutions {
+  string high = 1;
+  string standard = 2;
+  string low = 3;
 }
 
 message Address {

@@ -18,7 +18,12 @@ class ProjectsMapper : BaseMapper<List<Project>, List<ProjectModel>> {
             imageURL = images.first(),
             address = this.address!!.toProjectAddress(),
             minFlatPrice = minFlatPrice,
-            nearestTransport = nearestTransports.map(::mapProjectTransport)
+            nearestTransport = nearestTransports.map(::mapProjectTransport),
+            streamResolution = ProjectModel.StreamResolution(
+                high = this.resolutions!!.high,
+                standard = this.resolutions.standard,
+                low = this.resolutions.low
+            )
         )
     }
 

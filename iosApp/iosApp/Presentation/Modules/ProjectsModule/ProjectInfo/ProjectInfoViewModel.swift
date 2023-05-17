@@ -21,6 +21,6 @@ final class ProjectInfoViewModelImpl: ProjectInfoViewModel {
     }
 
     func onUserDidTapLiveStreamButton() {
-        navigationRoute = .projectLiveStream
+        navigationRoute = .projectLiveStream(streams: project.stream)
     }
 }

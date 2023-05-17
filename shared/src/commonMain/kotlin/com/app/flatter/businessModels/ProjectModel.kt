@@ -7,7 +7,8 @@ data class ProjectModel(
     val imageURL: String,
     val address: Address,
     val minFlatPrice: Double,
-    val nearestTransport: List<NearestTransport>
+    val nearestTransport: List<NearestTransport>,
+    val streamResolution: StreamResolution
 ) {
     data class Address(
        val address: String,
@@ -23,5 +24,11 @@ data class ProjectModel(
         val name: String,
         val color: String,
         val time: Int
+    )
+
+    data class StreamResolution(
+        val high: String,
+        val standard: String,
+        val low: String
     )
 }

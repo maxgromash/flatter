@@ -75,7 +75,12 @@ final class ProjectsListViewModelImpl: ProjectsViewModel, ProjectsListViewModel 
             image: image ?? ImagesProvider.newsImagePlaceholder,
             address: mapAddress(model.address),
             minFlatPrice: Float(model.minFlatPrice),
-            nearestTransports: mapTransports(model.nearestTransport)
+            nearestTransports: mapTransports(model.nearestTransport),
+            stream: .init(
+                high: model.streamResolution.high,
+                standard: model.streamResolution.standard,
+                low: model.streamResolution.low
+            )
         )
     }
 

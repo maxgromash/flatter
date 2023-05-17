@@ -4,7 +4,7 @@ import shared
 
 enum ProjectInfoRoute: RouteType {
     case flatsList(projectId: Int32)
-    case projectLiveStream
+    case projectLiveStream(streams: ProjectModel.Stream)
     case projectOnMap
 }
 
@@ -30,9 +30,12 @@ final class ProjectInfoRouter: Routing {
                         AppNavigationLink(viewModel: viewModel, router: router)
                     }
                 }
-            case .projectLiveStream:
+            case let .projectLiveStream(streams):
                 let viewModel = ProjectLiveStreamViewModel()
-                ProjectLiveStreamView(viewModel: viewModel)
+                ProjectLiveStreamView(
+                    streams: streams,
+                    viewModel: viewModel
+                )
             case .projectOnMap:
                 EmptyView()
         }

@@ -64,7 +64,12 @@ struct ProjectsListCard_Previews: PreviewProvider {
                         coordinates: .init(latitude: 1, longitude: 1)
                     ),
                     minFlatPrice: 1,
-                    nearestTransports: []
+                    nearestTransports: [],
+                    stream: .init(
+                        high: "",
+                        standard: "",
+                        low: ""
+                    )
                 )
             )
             .frame(maxWidth: 400)
