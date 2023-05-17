@@ -30,9 +30,10 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/termValue"
         style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="wrap_content"
+        android:layout_width="61dp"
         android:layout_height="wrap_content"
-        android:text="210 месяцев"
+        android:text="22 года"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/termTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/termTitle" />
@@ -43,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="12"
+        android:text="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/termTitle" />
 
@@ -53,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="360"
+        android:text="30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/termValue" />
 
@@ -83,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1500000 ₽"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/contributionTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/contributionTitle" />
@@ -133,6 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3.0 %"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/rateTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rateTitle" />
@@ -183,6 +186,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/md_theme_light_primary"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/totalTitle"
         app:layout_constraintEnd_toEndOf="parent"

@@ -35,4 +35,12 @@ class AuthClientImpl : KoinComponent, AuthClient {
     override suspend fun userInfo(data: GetUserInfoRequest): GetUserInfoResponse {
         return authClient.GetUserInfo().execute(data)
     }
+
+    override suspend fun refreshToken(data: RefreshTokenRequest): RefreshTokenResponse {
+        return authClient.RefreshToken().execute(data)
+    }
+
+    override suspend fun logout(data: LogoutRequest): LogoutResponse {
+        return authClient.Logout().execute(data)
+    }
 }

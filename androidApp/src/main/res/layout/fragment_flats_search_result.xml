@@ -5,8 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@drawable/main_bg"
     tools:context=".ui.flats.flatSearchResult.FlatsSearchResult">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bgAPIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:foreground="#96222f3e"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -63,12 +74,13 @@
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_rounded_20_white"
         android:paddingHorizontal="10dp"
-        android:layout_marginStart="12dp"
         android:paddingVertical="4dp"
         android:text="Комнаты"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/squareFilterTitle"
         app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
 
@@ -77,10 +89,10 @@
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_rounded_20_white"
         android:paddingHorizontal="10dp"
-        android:layout_marginStart="12dp"
         android:paddingVertical="4dp"
         android:text="Этаж"
         app:layout_constraintStart_toEndOf="@id/roomsFilterTitle"
@@ -91,10 +103,10 @@
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_rounded_20_white"
         android:paddingHorizontal="10dp"
-        android:layout_marginStart="12dp"
         android:paddingVertical="4dp"
         android:text="Цена"
         app:layout_constraintStart_toEndOf="@id/floorFilterTitle"
@@ -137,8 +149,8 @@
         android:id="@+id/barrier"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="squareFilter, floorFilter, priceFilter"
-        app:barrierDirection="bottom" />
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="squareFilter, floorFilter, priceFilter" />
 
 
     <androidx.recyclerview.widget.RecyclerView

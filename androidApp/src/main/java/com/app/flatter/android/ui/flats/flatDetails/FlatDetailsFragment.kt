@@ -27,10 +27,7 @@ class FlatDetailsFragment : Fragment() {
     private val snapHelper = LinearSnapHelper()
     private val adapterDetails = FlatDetailsAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProvider(requireActivity())[FlatsViewModel::class.java]
         binding = FragmentFlatDetailsBinding.inflate(inflater)
         return binding.root
@@ -55,7 +52,6 @@ class FlatDetailsFragment : Fragment() {
             binding.indicator.attachToRecyclerView(this)
         }
 
-
         item?.run {
             binding.mortgage.bind(price.toInt())
             adapterDetails.setItems(images)
@@ -69,10 +65,11 @@ class FlatDetailsFragment : Fragment() {
 
             binding.starAPIV.setOnClickListener {
                 viewModel.setStar(id, isFavourite.not())
+                isFavourite = isFavourite.not()
+                binding.starAPIV.setImageResource(if (isFavourite) R.drawable.ic_baseline_star_24 else R.drawable.ic_baseline_star_border_24)
             }
 
             binding.starAPIV.setImageResource(if (isFavourite) R.drawable.ic_baseline_star_24 else R.drawable.ic_baseline_star_border_24)
-
         }
 
         val callPerm = android.Manifest.permission.CALL_PHONE

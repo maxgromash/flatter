@@ -22,7 +22,7 @@ import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewDeco
 import com.app.flatter.android.viewModel.FavouriteFlatsViewModel
 import kotlinx.coroutines.launch
 
-class StarFlatsFragment : Fragment() {
+class FavouriteFlatsFragment : Fragment() {
 
     private lateinit var viewModel: FavouriteFlatsViewModel
     private lateinit var binding: FragmentStarFlatsBinding
@@ -47,15 +47,10 @@ class StarFlatsFragment : Fragment() {
     }
 
     private fun setupUI() {
-        binding.toolBarTB.setSubtitleTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.md_theme_light_onPrimary
-            )
-        )
-        binding.toolBarTB.subtitle = "Назад"
-        binding.toolBarTB.setNavigationOnClickListener {
-            findNavController().popBackStack()
+        binding.toolBarTB.apply {
+            setSubtitleTextColor(ContextCompat.getColor(requireContext(), R.color.md_theme_light_onPrimary))
+            subtitle = "Назад"
+            setNavigationOnClickListener { findNavController().popBackStack() }
         }
 
         binding.listRV.apply {
@@ -72,17 +67,12 @@ class StarFlatsFragment : Fragment() {
             binding.noStars.isVisible = it.isEmpty()
         }
 
-
         viewModel.showMessageViewModel().observe(viewLifecycleOwner) { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
 
         viewModel.progressViewModel().observe(viewLifecycleOwner) { isProgressVisible ->
-            if (isProgressVisible) {
-                binding.loadingCPI.visibility = View.VISIBLE
-            } else {
-                binding.loadingCPI.visibility = View.GONE
-            }
+            binding.loadingCPI.isVisible = isProgressVisible
         }
 
         lifecycleScope.launch {

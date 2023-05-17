@@ -13,10 +13,7 @@ import com.app.flatter.android.databinding.ViewSquareFilterBinding
 import com.app.flatter.android.util.formatBySpace
 import com.app.flatter.android.util.toPx
 
-class RangeFilterView(
-    context: Context,
-    attrs: AttributeSet? = null
-) : ConstraintLayout(context, attrs) {
+class RangeFilterView(context: Context, attrs: AttributeSet? = null) : ConstraintLayout(context, attrs) {
 
     private val binding = ViewSquareFilterBinding.inflate(LayoutInflater.from(context), this)
     private var cachedMinValue = 0
@@ -60,6 +57,7 @@ class RangeFilterView(
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
+                    val x = progress
                     cachedMinValue = progress
                     binding.squire.text = "${cachedMinValue.formatBySpace()} ${item.appendValue}"
                     callBack.invoke(cachedMinValue, cachedMaxValue)

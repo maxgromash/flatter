@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.flatter.android.data.RangeFilterVO
 import com.app.flatter.android.util.SingleLiveEvent
 import com.app.flatter.businessModels.FlatModel
 import com.app.flatter.presentation.favouriteFlats.FavouriteFlatsAction
@@ -18,11 +19,12 @@ import kotlinx.coroutines.launch
 
 class FlatsViewModel(projectID: Int) : ViewModel() {
 
-    private var store = FlatsStore(projectID)
-    private var favouritesStore = FavouriteFlatsStore()
+    private var flatsStore = FlatsStore(projectID)
+    private var favouriteFlatsStore = FavouriteFlatsStore()
     private val progressViewModel = SingleLiveEvent<Boolean>()
     private val showMessageViewModel = SingleLiveEvent<String>()
     private val flatsLiveData = MutableLiveData<List<FlatModel>>()
+    private val originalFlatsList = mutableListOf<FlatModel>()
 
     init {
         observeState()
@@ -33,7 +35,7 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
     fun flatsLiveData(): LiveData<List<FlatModel>> = flatsLiveData
 
     init {
-        store.reduce(FlatsAction.GetFlats)
+        flatsStore.reduce(FlatsAction.GetFlats)
     }
 
     fun getFlatDetailsById(id: Int): FlatModel? {
@@ -41,40 +43,28 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
     }
 
     fun setStar(id: Int, isStar: Boolean) {
-        favouritesStore.reduce(FavouriteFlatsAction.AddFavouriteFlat(id))
-
-
-
-        /*val ind = flatsLiveData.value!!.indexOfFirst { it.id == id }
-        val item = flatsLiveData.value[ind]
-        mutableFlatsList[ind] = mutableFlatsList[ind].copy(isFavourite = item.isFavourite.not())
-        if (item.isFavourite.not()) {
-            mutableStarredList.add(item.copy(isFavourite = true))
-        } else {
-            mutableStarredList.remove(item.copy(isFavourite = true))
-        }
-        flatsLiveData.value = mutableFlatsList.filter()
-        starredFlatsLiveData.value = mutableStarredList*/
+        favouriteFlatsStore.reduce(if (isStar) FavouriteFlatsAction.AddFavouriteFlat(id) else FavouriteFlatsAction.RemoveFavouriteFlat(id))
+        flatsStore.reduce(FlatsAction.GetFlats)
     }
 
     fun setSquareFilter(min: Int, max: Int) {
         squareFilter = min to max
-        flatsLiveData.value = flatsLiveData.value?.filter()
+        flatsLiveData.value = originalFlatsList.filter()
     }
 
     fun setRoomsFilter(set: Set<Int>) {
         roomsFilter = set
-        flatsLiveData.value = flatsLiveData.value?.filter()
+        flatsLiveData.value = originalFlatsList.filter()
     }
 
     fun setFloorFilter(min: Int, max: Int) {
         floorFilter = min to max
-        flatsLiveData.value = flatsLiveData.value?.filter()
+        flatsLiveData.value = originalFlatsList.filter()
     }
 
     fun setPriceFilter(min: Int, max: Int) {
         priceFilter = min to max
-        flatsLiveData.value = flatsLiveData.value?.filter()
+        flatsLiveData.value = originalFlatsList.filter()
     }
 
     private var squareFilter: Pair<Int, Int>? = null
@@ -85,44 +75,29 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
 
     private var priceFilter: Pair<Int, Int>? = null
 
-    private fun List<FlatModel>.filter(): List<FlatModel> {
-        return filter {
-            if (squareFilter != null)
-                it.area >= squareFilter!!.first && it.area <= squareFilter!!.second
-            else
-                true
-        }
-            .filter {
-                if (roomsFilter != null)
-                    roomsFilter!!.contains(it.rooms)
-                else
-                    true
-            }
-            .filter {
-                if (floorFilter != null)
-                    it.floor >= floorFilter!!.first && it.floor <= floorFilter!!.second
-                else true
-            }.filter {
-                if (priceFilter != null) it.price >= priceFilter!!.first && it.price <= priceFilter!!.second
-                else true
-            }
-    }
+    private fun List<FlatModel>.filter() =
+        filter { flat -> squareFilter?.let { filter -> flat.area >= filter.first && flat.area <= filter.second } ?: true }
+            .filter { flat -> roomsFilter?.contains(flat.rooms) ?: true }
+            .filter { flat -> floorFilter?.let { filter -> flat.floor >= filter.first && flat.floor <= filter.second } ?: true }
+            .filter { flat -> priceFilter?.let { filter -> flat.price >= filter.first && flat.price <= filter.second } ?: true }
 
     fun clearFilters() {
         squareFilter = null
         roomsFilter = null
         floorFilter = null
         priceFilter = null
-        //flatsLiveData.value = mutableFlatsList
+        flatsLiveData.value = originalFlatsList
     }
 
     fun launchWhenStartedCollectFlow(lifeCycleScope: LifecycleCoroutineScope) {
         lifeCycleScope.launchWhenStarted {
-            store.observeState().collectLatest { state ->
+            flatsStore.observeState().collectLatest { state ->
                 when (state) {
                     is FlatsState.FlatsList -> {
                         progressViewModel.value = false
-                        flatsLiveData.value = state.list
+                        originalFlatsList.clear()
+                        originalFlatsList.addAll(state.list)
+                        flatsLiveData.value = originalFlatsList
                     }
 
                     else -> {}
@@ -131,9 +106,36 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
         }
     }
 
+    fun getFilters() = listOf(
+        RangeFilterVO(
+            "Минимальная площадь",
+            "Максимальная площадь",
+            "м2",
+            15,
+            200,
+            RangeFilterVO.FilterType.SQUARE
+        ),
+        RangeFilterVO(
+            "Минимальный этаж",
+            "Максимальный этаж",
+            "этаж",
+            1,
+            30,
+            RangeFilterVO.FilterType.FLOOR
+        ),
+        RangeFilterVO(
+            "Минимальная стоимость",
+            "Максимальная стоимость",
+            "₽",
+            8_000_000,
+            30_000_000,
+            RangeFilterVO.FilterType.PRICE
+        )
+    )
+
     private fun observeState() {
         viewModelScope.launch {
-            store.observeSideEffects().collect { effect ->
+            flatsStore.observeSideEffects().collect { effect ->
                 when (effect) {
                     is FlatsSideEffect.ShowMessage -> {
                         progressViewModel.value = false

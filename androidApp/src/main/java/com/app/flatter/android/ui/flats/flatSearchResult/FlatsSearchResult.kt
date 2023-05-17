@@ -1,5 +1,6 @@
 package com.app.flatter.android.ui.flats.flatSearchResult
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,7 +18,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.flatter.android.R
-import com.app.flatter.android.data.RangeFilterVO
 import com.app.flatter.android.databinding.FragmentFlatsSearchResultBinding
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewAdapter
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewDecoration
@@ -40,6 +40,7 @@ class FlatsSearchResult : Fragment() {
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        Intent.ACTION_GET_CONTENT
         binding = FragmentFlatsSearchResultBinding.inflate(inflater)
         val id = requireArguments().getInt("id")
         viewModel = ViewModelProvider(requireActivity(), FlatsViewModelFactory(id))[FlatsViewModel::class.java]
@@ -50,6 +51,17 @@ class FlatsSearchResult : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
+        setupFilters()
+        observeState()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearFilters()
+    }
+
+    private fun setupUI() {
         binding.searchResultRV.apply {
             adapter = adapterSearch
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -60,7 +72,9 @@ class FlatsSearchResult : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+    }
 
+    private fun setupFilters() {
         binding.squareFilterTitle.setOnClickListener {
             val bg = if (binding.squareFilter.isVisible) defaultBg else selectedBg
             it.background = bg
@@ -91,23 +105,19 @@ class FlatsSearchResult : Fragment() {
             binding.floorFilter.isVisible = false
         }
 
-        binding.squareFilter.bind(getFilters()[0]) { min, max ->
+        val filters = viewModel.getFilters()
+
+        binding.squareFilter.bind(filters[0]) { min, max ->
             viewModel.setSquareFilter(min, max)
         }
 
-        binding.floorFilter.bind(getFilters()[1]) { min, max ->
+        binding.floorFilter.bind(filters[1]) { min, max ->
             viewModel.setFloorFilter(min, max)
         }
 
-        binding.priceFilter.bind(getFilters()[2]) { min, max ->
+        binding.priceFilter.bind(filters[2]) { min, max ->
             viewModel.setPriceFilter(min, max)
         }
-
-        viewModel.flatsLiveData().observe(viewLifecycleOwner) {
-            adapterSearch.setItems(it)
-        }
-
-        observeState()
     }
 
     private fun observeState() {
@@ -131,36 +141,4 @@ class FlatsSearchResult : Fragment() {
             }
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.clearFilters()
-    }
-
-    private fun getFilters() = listOf(
-        RangeFilterVO(
-            "Минимальная площадь",
-            "Максимальная площадь",
-            "м2",
-            15,
-            200,
-            RangeFilterVO.FilterType.SQUARE
-        ),
-        RangeFilterVO(
-            "Минимальный этаж",
-            "Максимальный этаж",
-            "этаж",
-            1,
-            30,
-            RangeFilterVO.FilterType.FLOOR
-        ),
-        RangeFilterVO(
-            "Минимальная стоимость",
-            "Максимальная стоимость",
-            "₽",
-            8_000_000,
-            30_000_000,
-            RangeFilterVO.FilterType.PRICE
-        )
-    )
 }

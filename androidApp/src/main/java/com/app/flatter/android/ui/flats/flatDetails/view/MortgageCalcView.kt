@@ -49,9 +49,9 @@ class MortgageCalcView(
     }
 
     private fun setStartValues() {
-        binding.termSeekBar.min = 12
-        binding.termSeekBar.max = 360
-        binding.termSeekBar.progress = 12
+        binding.termSeekBar.min = 1
+        binding.termSeekBar.max = 30
+        binding.termSeekBar.progress = 1
 
         binding.rateSeekBar.min = 30
         binding.rateSeekBar.max = 200
@@ -62,8 +62,8 @@ class MortgageCalcView(
         binding.termSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
-                    numberOfPayments = progress
-                    binding.termValue.text = "$progress месяцев"
+                    numberOfPayments = progress * 12
+                    binding.termValue.text = "$progress ${agePostfix(progress)}"
                     calculate()
                 }
             }
@@ -100,6 +100,19 @@ class MortgageCalcView(
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+    }
+
+    private fun agePostfix(term: Int): String {
+        var old = ""
+        val isExclusion = term % 100 in 11..14
+        val ageLastNumber = term % 10
+
+        old = if (ageLastNumber == 1) "год"
+        else if (ageLastNumber == 0 || ageLastNumber in 5..9) "лет"
+        else "года"
+        if (isExclusion) old = "лет"
+
+        return old
     }
 
     private fun calculate() {
