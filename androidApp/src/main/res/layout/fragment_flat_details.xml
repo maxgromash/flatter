@@ -236,12 +236,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:text="Чистовая"
                 android:textColor="@color/md_theme_light_primary"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/finishingTitle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/finishingTitle"
-                tools:text="Чистовая" />
+                app:layout_constraintTop_toTopOf="@+id/finishingTitle" />
 
 
             <com.google.android.material.textview.MaterialTextView

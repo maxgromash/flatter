@@ -69,6 +69,7 @@ message GetProjectsResponse {
 
 message GetFlatsRequest {
   int32 projectID = 1;
+  optional string token = 2;
 }
 
 message GetFlatsResponse {

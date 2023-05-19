@@ -28,9 +28,10 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"
-        style="@style/TextAppearance.MaterialComponents.Headline4"
+        style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="21sp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="Новый проект в ЗАО Москвы"
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="16dp"
-        android:text="20 марта 2023 г."
+        android:text="17 мая 2023"
         android:textColor="@color/md_theme_light_onPrimary"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"

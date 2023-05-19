@@ -42,7 +42,6 @@ class NewsDetailsFragment : Fragment() {
 
             binding.title.text = news.title
             binding.contentMTV.text = news.description
-            binding.time.text = news.publicationDate
         }
     }
 }

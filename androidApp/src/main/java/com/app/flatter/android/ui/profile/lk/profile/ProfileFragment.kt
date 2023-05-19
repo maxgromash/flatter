@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.app.flatter.android.R
 import com.app.flatter.android.data.ProfileActionVO
@@ -47,7 +48,7 @@ class ProfileFragment : Fragment() {
         viewModel.signInStateViewModel().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is AuthViewModel.AuthState.None -> {
-                    findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+                    findNavControllerSafely(R.id.profileFragment)?.navigate(R.id.action_profileFragment_to_loginFragment)
                 }
 
                 else -> {}
@@ -81,6 +82,14 @@ class ProfileFragment : Fragment() {
 
             bind(item, item.onClickCallback)
         }
+
+    private fun findNavControllerSafely(id: Int): NavController? {
+        return if (findNavController().currentDestination?.id == id) {
+            findNavController()
+        } else {
+            null
+        }
+    }
 
     private fun createLogOutTextView() = MaterialTextView(requireContext()).apply {
         layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {

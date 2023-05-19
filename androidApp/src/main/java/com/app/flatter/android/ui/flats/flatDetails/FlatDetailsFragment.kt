@@ -60,7 +60,7 @@ class FlatDetailsFragment : Fragment() {
             binding.squareMTV.text = area.toString()
             binding.price.text = "${price.formatBySpace()} Р"
             binding.rooms.text = rooms.toString()
-            binding.finishing.text = trimming
+            binding.finishing.text = "Чистовая"
             binding.surrender.text = finishing
 
             binding.starAPIV.setOnClickListener {

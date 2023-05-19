@@ -33,7 +33,7 @@ class FlatsStore(private val projectID: Int) : BaseStore<FlatsState, FlatsAction
     private suspend fun processGetFlats() {
         sendEffect { FlatsSideEffect.ShowProgress }
         runCatching {
-            client.loadFlats(GetFlatsRequest(projectID))
+            client.loadFlats(GetFlatsRequest(projectID, tokenStore.token))
         }.onSuccess {
             val mappedFlats = it.flats.map(mapper)
             val favouriteFlatsIds = appDatabaseRepository.getFavouriteFlats()
@@ -43,7 +43,7 @@ class FlatsStore(private val projectID: Int) : BaseStore<FlatsState, FlatsAction
             }
             updateState { FlatsState.FlatsList(mappedFlats) }
         }.onFailure {
-            sendEffect {  FlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
+            sendEffect { FlatsSideEffect.ShowMessage("Проверьте соединение с сетью!") }
         }
     }
 }

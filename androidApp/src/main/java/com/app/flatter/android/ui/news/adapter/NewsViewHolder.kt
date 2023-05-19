@@ -11,7 +11,7 @@ class NewsViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(vo: NewsModel) {
-        binding.dateMTV.text = vo.publicationDate
+        //binding.dateMTV.text = vo.publicationDate
         binding.titleMTV.text = vo.title
 
         Glide.with(binding.root.context)

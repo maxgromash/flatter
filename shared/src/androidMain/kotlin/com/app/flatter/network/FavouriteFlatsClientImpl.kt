@@ -5,8 +5,6 @@ import models.AddFavouritesRequest
 import models.AddFavouritesResponse
 import models.GetFavouritesRequest
 import models.GetFavouritesResponse
-import models.GetFlatsRequest
-import models.GetFlatsResponse
 import models.GrpcProjectServiceClient
 import models.RemoveFavouritesRequest
 import models.RemoveFavouritesResponse
