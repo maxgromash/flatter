@@ -91,6 +91,9 @@ private extension Models_GetFlatsRequest {
     init(_ data: GetFlatsRequest) {
         var this = Models_GetFlatsRequest()
         this.projectID = data.projectID
+        if let token = data.token {
+            this.token = token
+        }
         self = this
     }
 }

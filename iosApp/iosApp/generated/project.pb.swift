@@ -224,9 +224,20 @@ struct Models_GetFlatsRequest {
 
   var projectID: Int32 = 0
 
+  var token: String {
+    get {return _token ?? String()}
+    set {_token = newValue}
+  }
+  /// Returns true if `token` has been explicitly set.
+  var hasToken: Bool {return self._token != nil}
+  /// Clears the value of `token`. Subsequent reads from it will return its default value.
+  mutating func clearToken() {self._token = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _token: String? = nil
 }
 
 struct Models_GetFlatsResponse {
@@ -820,6 +831,7 @@ extension Models_GetFlatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   static let protoMessageName: String = _protobuf_package + ".GetFlatsRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "projectID"),
+    2: .same(proto: "token"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -829,20 +841,29 @@ extension Models_GetFlatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.projectID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._token) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.projectID != 0 {
       try visitor.visitSingularInt32Field(value: self.projectID, fieldNumber: 1)
     }
+    try { if let v = self._token {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Models_GetFlatsRequest, rhs: Models_GetFlatsRequest) -> Bool {
     if lhs.projectID != rhs.projectID {return false}
+    if lhs._token != rhs._token {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
