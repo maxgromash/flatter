@@ -249,7 +249,7 @@ final class FlatsListViewModelImpl: FlatsViewModel, FlatsListViewModel {
 final class FlistListViewModelFavouritesOnly: FavouritesStoreViewModel, FlatsListViewModel {
     var filter: Filters? = nil
 
-    @Published var flats: [FlatModel] = FlatsProvider.shared.flats
+    @Published var flats: [FlatModel] = []
 
     @Published var navigationRoute: FlatsListRoute? = nil {
         willSet {
@@ -334,7 +334,7 @@ final class FlistListViewModelFavouritesOnly: FavouritesStoreViewModel, FlatsLis
             trimming: data.trimming,
             finishing: data.finishing,
             images: images,
-            isFavourite: data.isFavourite
+            isFavourite: true
         )
     }
 }

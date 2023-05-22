@@ -4,7 +4,7 @@ struct ProfileView<
     VM: ProfileViewModel,
     Router: Routing
 >: AppView where VM.Route == Router.Route {
-    var viewModel: VM
+    @ObservedObject var viewModel: VM
     var router: Router
 
     var body: some View {

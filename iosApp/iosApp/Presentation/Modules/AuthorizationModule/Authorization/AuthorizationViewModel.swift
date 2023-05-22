@@ -56,15 +56,17 @@ final class AuthorizationViewModelImpl: AuthStoreViewModel, AuthorizationViewMod
     }
 
     override func didChangeState(_ state: AuthState?) {
-        guard let state, navigationRoute == nil else { return }
+        guard let state else { return }
 
         switch state {
             case is AuthStateAuthorized:
+                guard navigationRoute == nil else { return }
                 guard let authorized = state as? AuthStateAuthorized else { return }
 
                 overviewRoute = nil
                 navigationRoute = .profile(user: .init(authorized.model))
             case is AuthStateNone:
+                passwordInput = ""
                 overviewRoute = nil
                 navigationRoute = nil
             default: return
