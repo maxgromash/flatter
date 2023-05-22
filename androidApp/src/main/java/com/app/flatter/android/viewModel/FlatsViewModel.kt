@@ -43,8 +43,11 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
     }
 
     fun setStar(id: Int, isStar: Boolean) {
-        favouriteFlatsStore.reduce(if (isStar) FavouriteFlatsAction.AddFavouriteFlat(id) else FavouriteFlatsAction.RemoveFavouriteFlat(id))
-        flatsStore.reduce(FlatsAction.GetFlats)
+        viewModelScope.launch {
+            favouriteFlatsStore.reduce(if (isStar) FavouriteFlatsAction.AddFavouriteFlat(id) else FavouriteFlatsAction.RemoveFavouriteFlat(id))
+            favouriteFlatsStore.reduceJob?.join()
+            flatsStore.reduce(FlatsAction.GetFlats)
+        }
     }
 
     fun setSquareFilter(min: Int, max: Int) {
@@ -52,10 +55,6 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
         flatsLiveData.value = originalFlatsList.filter()
     }
 
-    fun setRoomsFilter(set: Set<Int>) {
-        roomsFilter = set
-        flatsLiveData.value = originalFlatsList.filter()
-    }
 
     fun setFloorFilter(min: Int, max: Int) {
         floorFilter = min to max

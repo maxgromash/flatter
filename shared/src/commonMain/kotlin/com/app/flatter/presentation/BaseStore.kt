@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import com.app.flatter.dispatchers.*
-import com.app.flatter.presentation.auth.AuthSideEffect
+import kotlinx.coroutines.Job
 
 abstract class BaseStore<State, Action, Effect> : KoinComponent {
 
     protected abstract val stateFlow: MutableStateFlow<State>
     protected abstract val sideEffectsFlow: MutableSharedFlow<Effect>
-
     private val scope: CoroutineScope = CoroutineScope(uiDispatcher + SupervisorJob())
+    var reduceJob: Job? = null
 
     protected suspend fun updateState(reduceState: (state: State) -> State) {
         val state = reduceState(stateFlow.value)
@@ -35,7 +35,7 @@ abstract class BaseStore<State, Action, Effect> : KoinComponent {
 
     fun reduce(action: Action) {
         Logger.d("[STORE]: ${this::class.simpleName} reduce action ${action!!::class.qualifiedName}")
-        scope.launch(ioDispatcher) {
+        reduceJob = scope.launch(ioDispatcher) {
             reduce(action, stateFlow.value)
         }
     }
