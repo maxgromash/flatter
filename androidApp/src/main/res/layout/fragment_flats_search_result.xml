@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".ui.flats.flatSearchResult.FlatsSearchResult">
+    tools:context=".ui.flats.flatSearchResult.FlatsSearchResultFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bgAPIV"
@@ -62,26 +62,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_rounded_20_white"
+        android:background="@drawable/bg_rounded_20_selector"
         android:paddingHorizontal="10dp"
         android:paddingVertical="4dp"
         android:text="Площадь"
         app:layout_constraintStart_toStartOf="@+id/filtersTitle"
-        app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/roomsFilterTitle"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_rounded_20_white"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="4dp"
-        android:text="Комнаты"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/squareFilterTitle"
         app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -91,11 +76,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_rounded_20_white"
+        android:background="@drawable/bg_rounded_20_selector"
         android:paddingHorizontal="10dp"
         android:paddingVertical="4dp"
         android:text="Этаж"
-        app:layout_constraintStart_toEndOf="@id/roomsFilterTitle"
+        app:layout_constraintStart_toEndOf="@id/squareFilterTitle"
         app:layout_constraintTop_toBottomOf="@+id/filtersTitle" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -105,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_rounded_20_white"
+        android:background="@drawable/bg_rounded_20_selector"
         android:paddingHorizontal="10dp"
         android:paddingVertical="4dp"
         android:text="Цена"

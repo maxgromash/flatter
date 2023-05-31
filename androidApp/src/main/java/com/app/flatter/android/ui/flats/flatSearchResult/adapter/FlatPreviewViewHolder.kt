@@ -18,7 +18,7 @@ class FlatPreviewViewHolder(
 
         Glide.with(binding.root.context)
             .load(vo.images.first())
-            .centerCrop()
+            .centerInside()
             .into(binding.flatLayoutACIV)
 
         binding.priceMTV.text = "${vo.price.formatBySpace()} ₽"

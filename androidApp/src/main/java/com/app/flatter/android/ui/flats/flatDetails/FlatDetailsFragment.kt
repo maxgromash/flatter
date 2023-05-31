@@ -4,31 +4,35 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.app.flatter.android.R
 import com.app.flatter.android.databinding.FragmentFlatDetailsBinding
+import com.app.flatter.android.main.OneBigKostil
 import com.app.flatter.android.ui.flats.flatDetails.adapter.FlatDetailsAdapter
 import com.app.flatter.android.util.formatBySpace
+import com.app.flatter.android.viewModel.FavouriteFlatsViewModel
 import com.app.flatter.android.viewModel.FlatsViewModel
 
 class FlatDetailsFragment : Fragment() {
 
     private lateinit var viewModel: FlatsViewModel
+    private lateinit var favouriteViewModel: FavouriteFlatsViewModel
     private lateinit var binding: FragmentFlatDetailsBinding
     private val snapHelper = LinearSnapHelper()
     private val adapterDetails = FlatDetailsAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        viewModel = ViewModelProvider(requireActivity())[FlatsViewModel::class.java]
+        OneBigKostil.fragmentCash?.let { if (it.isDetached.not()) viewModel = ViewModelProvider(it)[FlatsViewModel::class.java] }
+        favouriteViewModel = ViewModelProvider(requireActivity())[FavouriteFlatsViewModel::class.java]
         binding = FragmentFlatDetailsBinding.inflate(inflater)
         return binding.root
     }
@@ -36,9 +40,15 @@ class FlatDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val model = ViewModelProvider(requireActivity())[FlatsViewModel::class.java]
         val id = arguments?.getInt("id")
-        val item = model.getFlatDetailsById(id!!)
+        val isStar = arguments?.getBoolean("isStar") ?: false
+        val item = if (isStar)
+            favouriteViewModel.getFlatDetailsById(id!!)
+        else{
+            if (::viewModel.isInitialized.not()) return
+            viewModel.getFlatDetailsById(id!!)
+        }
+
 
         binding.toolbar.subtitle = "Назад"
         binding.toolbar.setNavigationOnClickListener {

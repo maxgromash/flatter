@@ -35,6 +35,10 @@ class FlatsViewModel(projectID: Int) : ViewModel() {
     fun flatsLiveData(): LiveData<List<FlatModel>> = flatsLiveData
 
     init {
+        //flatsStore.reduce(FlatsAction.GetFlats)
+    }
+
+    fun getFlats(){
         flatsStore.reduce(FlatsAction.GetFlats)
     }
 

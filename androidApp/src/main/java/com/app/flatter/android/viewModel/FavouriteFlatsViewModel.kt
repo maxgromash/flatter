@@ -27,6 +27,13 @@ class FavouriteFlatsViewModel : ViewModel() {
 
     init {
         observeState()
+    }
+
+    fun getFlatDetailsById(id: Int): FlatModel? {
+        return starredFlatsLiveData.value?.find { it.id == id }
+    }
+
+    fun getFlats(){
         store.reduce(FavouriteFlatsAction.GetFavouriteFlats)
     }
 

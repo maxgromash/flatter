@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/flatsSearchResult"
-        android:name="com.app.flatter.android.ui.flats.flatSearchResult.FlatsSearchResult"
+        android:name="com.app.flatter.android.ui.flats.flatSearchResult.FlatsSearchResultFragment"
         android:label="fragment_flats_search_result"
         app:argType="integer"
         tools:layout="@layout/fragment_flats_search_result">
@@ -54,7 +54,11 @@
         android:id="@+id/flatDetailsFragment"
         android:name="com.app.flatter.android.ui.flats.flatDetails.FlatDetailsFragment"
         android:label="FlatDetailsFragment"
-        tools:layout="@layout/fragment_flat_details" />
+        tools:layout="@layout/fragment_flat_details">
+        <action
+            android:id="@+id/action_flatDetailsFragment_to_flatsSearchResult"
+            app:popUpTo="@id/flatsSearchResult" />
+    </fragment>
 
 
 </navigation>

@@ -19,18 +19,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.flatter.android.R
 import com.app.flatter.android.databinding.FragmentFlatsSearchResultBinding
+import com.app.flatter.android.main.OneBigKostil
+import com.app.flatter.android.main.OneBigKostil.fragmentCash
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewAdapter
 import com.app.flatter.android.ui.flats.flatSearchResult.adapter.FlatPreviewDecoration
 import com.app.flatter.android.viewModel.FlatsViewModel
 import com.app.flatter.android.viewModel.FlatsViewModelFactory
 import kotlinx.coroutines.launch
 
-class FlatsSearchResult : Fragment() {
+class FlatsSearchResultFragment : Fragment() {
 
     private lateinit var viewModel: FlatsViewModel
     private lateinit var binding: FragmentFlatsSearchResultBinding
-    private lateinit var defaultBg: Drawable
-    private lateinit var selectedBg: Drawable
     private val adapterSearch = FlatPreviewAdapter(
         onItemClick = {
             val bundle = bundleOf("id" to it.id)
@@ -43,9 +43,9 @@ class FlatsSearchResult : Fragment() {
         Intent.ACTION_GET_CONTENT
         binding = FragmentFlatsSearchResultBinding.inflate(inflater)
         val id = requireArguments().getInt("id")
-        viewModel = ViewModelProvider(requireActivity(), FlatsViewModelFactory(id))[FlatsViewModel::class.java]
-        defaultBg = ContextCompat.getDrawable(requireContext(), R.drawable.bg_rounded_20_white)!!
-        selectedBg = ContextCompat.getDrawable(requireContext(), R.drawable.bg_rounded_20_primary)!!
+        OneBigKostil.fragmentCash = this
+        viewModel = ViewModelProvider(this, FlatsViewModelFactory(id))[FlatsViewModel::class.java]
+        viewModel.getFlats()
         return binding.root
     }
 
@@ -76,30 +76,27 @@ class FlatsSearchResult : Fragment() {
 
     private fun setupFilters() {
         binding.squareFilterTitle.setOnClickListener {
-            val bg = if (binding.squareFilter.isVisible) defaultBg else selectedBg
-            it.background = bg
-            binding.floorFilterTitle.background = defaultBg
-            binding.priceFilterTitle.background = defaultBg
-            binding.squareFilter.isVisible = !binding.squareFilter.isVisible
+            it.isSelected  = binding.squareFilter.isVisible.not()
+            binding.floorFilterTitle.isSelected = false
+            binding.priceFilterTitle.isSelected = false
+            binding.squareFilter.isVisible = binding.squareFilter.isVisible.not()
             binding.floorFilter.isVisible = false
             binding.priceFilter.isVisible = false
         }
 
         binding.floorFilterTitle.setOnClickListener {
-            val bg = if (binding.floorFilter.isVisible) defaultBg else selectedBg
-            it.background = bg
-            binding.squareFilterTitle.background = defaultBg
-            binding.priceFilterTitle.background = defaultBg
+            it.isSelected  = binding.floorFilter.isVisible.not()
+            binding.squareFilterTitle.isSelected = false
+            binding.priceFilterTitle.isSelected = false
             binding.floorFilter.isVisible = !binding.floorFilter.isVisible
             binding.squareFilter.isVisible = false
             binding.priceFilter.isVisible = false
         }
 
         binding.priceFilterTitle.setOnClickListener {
-            val bg = if (binding.priceFilter.isVisible) defaultBg else selectedBg
-            it.background = bg
-            binding.squareFilterTitle.background = defaultBg
-            binding.floorFilterTitle.background = defaultBg
+            it.isSelected  = binding.priceFilter.isVisible.not()
+            binding.squareFilterTitle.isSelected = false
+            binding.floorFilterTitle.isSelected = false
             binding.priceFilter.isVisible = !binding.priceFilter.isVisible
             binding.squareFilter.isVisible = false
             binding.floorFilter.isVisible = false
@@ -140,5 +137,10 @@ class FlatsSearchResult : Fragment() {
                 viewModel.launchWhenStartedCollectFlow(lifecycleScope)
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        fragmentCash = null
     }
 }

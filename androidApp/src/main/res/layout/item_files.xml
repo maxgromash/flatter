@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_rounded_20_white"
-    android:paddingVertical="12dp"
-    android:paddingHorizontal="8dp">
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="12dp">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView3"
         android:layout_width="40dp"

@@ -1,6 +1,7 @@
 package com.app.flatter.android.main
 
 import android.app.Application
+import androidx.fragment.app.Fragment
 import com.app.flatter.di.commonModule
 import com.app.flatter.di.initKoin
 import com.app.flatter.di.platformModule
@@ -20,4 +21,10 @@ internal class MainApplication : Application() {
             MapKitFactory.initialize(applicationContext)
         }
     }
+}
+
+object OneBigKostil {
+
+    var fragmentCash: Fragment? = null
+
 }

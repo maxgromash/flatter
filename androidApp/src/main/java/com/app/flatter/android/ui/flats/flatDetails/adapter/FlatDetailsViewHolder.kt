@@ -11,7 +11,7 @@ class FlatDetailsViewHolder(
     fun bind(vo: String) {
         Glide.with(binding.root.context)
             .load(vo)
-            .centerCrop()
+            .centerInside()
             .into(binding.root)
 
     }

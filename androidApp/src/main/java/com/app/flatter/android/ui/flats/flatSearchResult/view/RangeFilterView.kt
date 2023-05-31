@@ -13,11 +13,16 @@ import com.app.flatter.android.databinding.ViewSquareFilterBinding
 import com.app.flatter.android.util.formatBySpace
 import com.app.flatter.android.util.toPx
 
-class RangeFilterView(context: Context, attrs: AttributeSet? = null) : ConstraintLayout(context, attrs) {
+class RangeFilterView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding = ViewSquareFilterBinding.inflate(LayoutInflater.from(context), this)
     private var cachedMinValue = 0
-    private var cachedMaxValue = 0
+    private var cachedMaxValue = Int.MAX_VALUE
+    private var isBinded = false
 
     init {
         background = ContextCompat.getDrawable(context, R.drawable.bg_rounded_20_white)
@@ -25,6 +30,8 @@ class RangeFilterView(context: Context, attrs: AttributeSet? = null) : Constrain
     }
 
     fun bind(item: RangeFilterVO, callBack: (Int, Int) -> Unit) {
+        if (isBinded) return
+        isBinded = true
         binding.title.text = item.titleStart
         binding.title2.text = item.titleEnd
         binding.start.text = item.minValue.formatBySpace()
@@ -32,19 +39,23 @@ class RangeFilterView(context: Context, attrs: AttributeSet? = null) : Constrain
         binding.end.text = item.maxValue.formatBySpace()
         binding.end2.text = item.maxValue.formatBySpace()
 
-        binding.seekBar.max = item.maxValue
-        binding.seekBar2.max = item.maxValue
+        if (item.maxValue != binding.seekBar.max) {
+            binding.seekBar.max = item.maxValue
+            binding.seekBar2.max = item.maxValue
+        }
 
-        binding.seekBar.min = item.minValue
-        binding.seekBar2.min = item.minValue
+        if (item.minValue != binding.seekBar.min) {
+            binding.seekBar.min = item.minValue
+            binding.seekBar2.min = item.minValue
+        }
 
-        if (cachedMinValue == 0) {
+        if (cachedMinValue < item.minValue) {
             cachedMinValue = item.minValue
             binding.seekBar.progress = item.minValue
         } else {
             binding.seekBar.progress = cachedMinValue
         }
-        if (cachedMaxValue == 0) {
+        if (cachedMaxValue > item.maxValue) {
             cachedMaxValue = item.maxValue
             binding.seekBar2.progress = item.maxValue
         } else {

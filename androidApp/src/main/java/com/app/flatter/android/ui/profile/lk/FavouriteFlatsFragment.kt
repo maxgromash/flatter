@@ -28,7 +28,10 @@ class FavouriteFlatsFragment : Fragment() {
     private lateinit var binding: FragmentStarFlatsBinding
     private val starredAdapter = FlatPreviewAdapter(
         onItemClick = {
-            val bundle = bundleOf("id" to it.id)
+            val bundle = bundleOf(
+                "id" to it.id,
+                "isStar" to true
+            )
             findNavController().navigate(R.id.action_starFlatsFragment_to_flatDetailsFragment, bundle)
         },
         onStarClick = { id, isStar -> viewModel.setStar(id, isStar) }
@@ -36,6 +39,7 @@ class FavouriteFlatsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProvider(requireActivity())[FavouriteFlatsViewModel::class.java]
+        viewModel.getFlats()
         binding = FragmentStarFlatsBinding.inflate(inflater)
         return binding.root
     }

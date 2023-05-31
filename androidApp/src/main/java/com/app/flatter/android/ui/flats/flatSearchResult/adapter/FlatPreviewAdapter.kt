@@ -25,8 +25,10 @@ class FlatPreviewAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(newList: List<FlatModel>) {
-        list = newList
-        notifyDataSetChanged()
+        if (list != newList){
+            list = newList
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount() = list.size
